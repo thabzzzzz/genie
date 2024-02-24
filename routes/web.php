@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use ProtoneMedia\Splade\Facades\SEO;
+use ProtoneMedia\Splade\Components\Toast;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,15 @@ Route::middleware('splade')->group(function () {
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+        //my routes
         Route::get('/home',[ClientController::class,'home'])->name('home');
+
+        Route::get('/create',[ClientController::class,'create'])->name('create');
+        Route::post('/storeitem',[ClientController::class,'storeitem'], function(){
+            Toast::title('test');
+        })->name('storeitem');
+
+
 
     });
 
