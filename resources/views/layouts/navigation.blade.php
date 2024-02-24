@@ -14,17 +14,17 @@
 
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="home-link text-3xl">
                             {{ __('home') }}
                         </x-nav-link>
                     </div>
                 </div>
 
                 <!-- Settings Dropdown -->
-                <div class="hidden sm:flex sm:items-center ml-14 mr-14">
-                    <x-dropdown placement="bottom-end">
+                <div class="hidden sm:flex sm:items-center ml-14 mr-14   ">
+                    <x-dropdown placement="bottom-end" >
                         <x-slot name="trigger">
-                            <button class="flex items-center text-sm font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
+                            <button class="flex items-center text-base profile-name ">
                                 <div>{{ Auth::user()->name }}</div>
 
                                 <div class="ml-1">
@@ -34,21 +34,20 @@
                                 </div>
                             </button>
                         </x-slot>
-
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <div class="bg-maintheme shadow rounded-md overflow-hidden">
+                              <x-dropdown-link :href="route('profile.edit')" class="drop-text mt-0 pt-0">
                                 {{ __('Profile') }}
-                            </x-dropdown-link>
-
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}">
+                              </x-dropdown-link>
+              
+                              <form method="POST" action="{{ route('logout') }}" class="mt-1">
                                 @csrf
-
                                 <x-dropdown-link as="a" :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                  {{ __('Log Out') }}
                                 </x-dropdown-link>
-                            </form>
-                        </x-slot>
+                              </form>
+                            </div>
+                          </x-slot>
                     </x-dropdown>
                 </div>
 

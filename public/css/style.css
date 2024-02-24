@@ -1,0 +1,31 @@
+@font-face {
+    font-family: poppins;
+    src: url(../fonts/poppins.ttf);
+  }
+
+  @font-face {
+    font-family: opensans;
+    src: url(../fonts/open-sans.ttf);
+  }
+
+  .home-link{
+    font-family: opensans;
+    font-size: 15px;
+  }
+
+  .profile-name{
+    font-family: poppins;
+  }
+
+  #dropdown-content {
+    background-color: #b44d4d; /* Change to your desired background color */
+}
+
+.drop-text{
+    color: #b44d4d;
+}
+
+.heading1{
+    font-family: opensans;
+    font-size: 45px;
+}
