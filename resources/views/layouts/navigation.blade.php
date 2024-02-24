@@ -6,10 +6,10 @@
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex items-center home-navgroup">
-                        <a href="{{ route('home') }}" class="flex items-center">
+                        <Link href="{{ route('home') }}" class="flex items-center">
                             <img src="{{ asset('gallery/logo.png') }}" alt="Your Custom Logo" class="block h-24 w-auto">
                             <h1 class="mr-4 text-4xl">genie</h1>
-                        </a>
+                        </Link>
                     </div>
                     
                     
@@ -19,6 +19,12 @@
                         <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="home-link text-3xl">
                             {{ __('home') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')" class="home-link text-3xl">
+                            {{ __('browse') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('create')" :active="request()->routeIs('create')" class="home-link text-3xl">
+                            {{ __('create') }}
+                        </x-nav-link>
                     </div>
                 </div>
 
@@ -27,7 +33,7 @@
                     <x-dropdown placement="bottom-end" >
                         <x-slot name="trigger">
                             <button class="flex items-center text-base profile-name ">
-                                <div>{{ Auth::user()->name }}</div>
+                                <div class="home-link text-3xl">{{ Auth::user()->name }}</div>
 
                                 <div class="ml-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

@@ -57,7 +57,13 @@ class ClientController extends Controller
         }
     }
 
+    
+
     // Handle if no image file was found in the request
     return redirect()->back()->with('error', 'No image found to upload.');
+    }
+    
+    public function browse(){
+        return view('browse');
     }
 }
