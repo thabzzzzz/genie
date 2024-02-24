@@ -1,3 +1,8 @@
+:root {
+    --background: #f8f5f4;
+   
+  }
+
 @font-face {
     font-family: poppins;
     src: url(../fonts/poppins.ttf);
@@ -33,4 +38,38 @@
 .icon{
     width: 50px;
     height: 50px;
+}
+
+.home-navgroup{
+    border-right: solid black 1px;
+}
+
+h1{
+    font-family: opensans;
+   
+}
+
+.create-form .my-btn{
+    border-radius: 0px !important;
+    border:  1px solid black !important;
+    transition-duration: 0.4s;
+    background-color: #f8f5f4;
+    text-decoration: none !important;
+    color: black !important;
+  }
+  
+  .my-btn:hover {
+    background-color: black !important;
+    color: white !important;
+  }
+
+  .link-container {
+    display: inline-block;
+    transition: transform 0.1s ease-in-out;
+}
+
+/* Apply styles on hover */
+.link-container:hover #icon-path {
+    stroke: #f8f5f4; /* Change stroke color to #f8f5f4 */
+    fill: black; /* Change fill color to black */
 }

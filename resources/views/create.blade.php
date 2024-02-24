@@ -11,11 +11,11 @@
         <div class="w-full mx-auto sm:px-6 lg:px-12 ">
             <h1 class="content-heading heading1">create an item</h1>
             <br>
-            <p>create</p>
+      
            <br>
 
            <div class="create-form w-56">
-            <h1 class="create-item-text">Create Item</h1>
+            
 
             <x-splade-form action="{{ route('storeitem') }}" method="post" enctype="multipart/form-data">
               @csrf
@@ -30,12 +30,19 @@
           
               <x-splade-file name="image" label="Image" />
           
-              <x-splade-submit class="my-btn upload-btn">Upload</x-splade-submit>
+              <x-splade-submit class="my-btn upload-btn mt-5">Upload</x-splade-submit>
             </x-splade-form>
           
             <br>
           
-            <a href="/client" class="back-text"><i class="bi bi-arrow-left-circle-fill back-icon"></i> Back</a>
+            <Link href="/home" class="back-text link-container">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20" height="20">
+                    <path id="icon-path" strokeLinecap="round" strokeLinejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                
+            </Link>
+            
+            
           
             @if (session()->has('message'))
               <div class="alert alert-success">

@@ -5,11 +5,13 @@
             <div class="flex justify-between h-24">
                 <div class="flex">
                     <!-- Logo -->
-                    <div class="flex items-center">
-                        <a href="{{ route('home') }}">
+                    <div class="flex items-center home-navgroup">
+                        <a href="{{ route('home') }}" class="flex items-center">
                             <img src="{{ asset('gallery/logo.png') }}" alt="Your Custom Logo" class="block h-24 w-auto">
+                            <h1 class="mr-4 text-4xl">genie</h1>
                         </a>
                     </div>
+                    
                     
 
                     <!-- Navigation Links -->

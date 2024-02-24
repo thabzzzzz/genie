@@ -20,10 +20,10 @@ class ClientController extends Controller
     public function storeitem(Request $request){
         
 
-         // Validate the request - ensure it's an image and meets any other criteria
+       
     $request->validate([
         'iname' => 'required|string|max:255',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation rules
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
     ]);
 
     $name = $request->input('iname');
@@ -53,7 +53,7 @@ class ClientController extends Controller
         $item->itemimage =$imageName;
         if ($item->save()) {
             Toast::title('Item added!')->autoDismiss(5)->rightBottom();
-             // Replace with your desired redirect
+             
         }
     }
 
