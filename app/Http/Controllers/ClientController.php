@@ -10,7 +10,9 @@ use ProtoneMedia\Splade\Facades\Toast;
 class ClientController extends Controller
 {
     public function home (){
-        return view('home');
+        $items=Items::where('client', Auth::user()->name )->get();
+        $itemsprice=  number_format(Items::where('client', Auth::user()->name )->sum('price'), 2, ',', ' ');
+        return view('home',['items'=>$items,'itemsprice'=>$itemsprice]);
     }
 
     public function create(){

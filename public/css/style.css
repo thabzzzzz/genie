@@ -73,3 +73,41 @@ h1{
     stroke: #f8f5f4; /* Change stroke color to #f8f5f4 */
     fill: black; /* Change fill color to black */
 }
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+select.form-control {
+  background: var(--background);
+  border: none; /* Removes all borders */
+  box-shadow: none;
+  border-radius: 0; /* Remove border radius for a clean edge */
+  padding: 10px; /* Optional: Add padding for better usability */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+select.form-control:focus {
+  background: var(--background);
+}
+label,.btn{
+    font-family: poppins !important;
+  }
+
+  x-splade-form input {
+    border-width: 1px 0 0 0 !important; /* Force a single bottom border with !important */
+  }
+  
+  /* Additional styling for a clean appearance */
+  x-splade-form input {
+    box-shadow: none;
+    border-radius: 0;
+    background: var(--background);
+  }
+
+  input.block.w-full.border-0.focus\:border-indigo-300.focus\:ring.focus\:ring-indigo-200.focus\:ring-opacity-50.disabled\:opacity-50.disabled\:bg-gray-50.disabled\:cursor-not-allowed.rounded-md {
+    border: none;
+    border: 1px solid black; /* Add a 1px solid black border at the bottom */
+    padding: 5px 0; /* Add some padding to create space between the input and the border */
+    background-color: #f8f5f4;
+}

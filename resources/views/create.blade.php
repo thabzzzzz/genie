@@ -14,13 +14,13 @@
       
            <br>
 
-           <div class="create-form w-56">
+           <div class="create-form w-64">
             
 
             <x-splade-form action="{{ route('storeitem') }}" method="post" enctype="multipart/form-data">
               @csrf
           
-              <x-splade-input name="iname" label="Name" />
+              <x-splade-input name="iname" label="Name"  class=""/>
           
               <x-splade-input name="price" type="number" label="Price" />
           

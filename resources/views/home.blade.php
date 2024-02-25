@@ -1,7 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
     
-    </x-slot>
 
     <div class="py-12 bg-maintheme">
         <div class="w-full mx-auto sm:px-6 lg:px-8 ">
@@ -13,7 +11,24 @@
               </svg></Link>
            
               <br>
-            <strong>Balance: </strong>
+            <strong>Balance: R{{$itemsprice}} </strong>
+            <br>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
+                @foreach($items as $item)
+                <div class="col">
+                    <div class="card border border-black rounded-lg mx-auto product-card" style="width: 21rem;">
+                        <img src="uploads/{{ $item->itemimage }}" class="card-img-top rounded-lg" alt="product image">
+                        <div class="card-body product-card-body">
+                            <h5 class="card-title">{{ $item->iname }}</h5>
+                            <div class="description-text"><i class="card-text">{{ $item->description }}</i></div>
+                            <span><a href="{{ $item->itemsite }}" class="btn my-btn-2 text-black" target="_blank" title="Visit site"><i class="bi bi-globe"></i></a></span>
+                            <span class="card-price">R {{ number_format($item->price, 2, ',', ' ') }}</span>
+                           
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </div>
     

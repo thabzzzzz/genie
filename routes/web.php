@@ -57,6 +57,12 @@ Route::middleware('splade')->group(function () {
         Route::get('/browse',[ClientController::class,'browse'])->name('browse');
 
 
+        //crud
+        Route::get('/client/{item}/edit',[ClientController::class,'edit'])->name('item.edit');
+        Route::put('/client/{item}/update',[ClientController::class,'update'])->name('item.update');
+        Route::delete('/client/{item}/destroy',[ClientController::class,'destroy'])->name('item.destroy');
+
+
 
     });
 

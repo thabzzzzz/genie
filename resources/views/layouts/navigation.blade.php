@@ -44,13 +44,13 @@
                         </x-slot>
                         <x-slot name="content">
                             <div class="bg-maintheme shadow rounded-md overflow-hidden">
-                              <x-dropdown-link :href="route('profile.edit')" class="drop-text mt-0 pt-0">
+                              <x-dropdown-link :href="route('profile.edit')" class="drop-text mt-0 pt-0 heading1">
                                 {{ __('Profile') }}
                               </x-dropdown-link>
               
                               <form method="POST" action="{{ route('logout') }}" class="mt-1">
                                 @csrf
-                                <x-dropdown-link as="a" :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <x-dropdown-link class="heading1" as="a" :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
                                   {{ __('Log Out') }}
                                 </x-dropdown-link>
                               </form>
