@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Http;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +66,52 @@ class ClientController extends Controller
     return redirect()->back()->with('error', 'No image found to upload.');
     }
     
-    public function browse(){
-        return view('browse');
+    public function browse()
+    {
+        $response = Http::withHeaders([
+            'X-Auth-Token' => 'drxld1059s4lpcw3og0p2cpn7zft1th',
+            'Accept' => 'application/json',
+        ])->get('https://api.bigcommerce.com/stores/8wormqadd3/v3/catalog/products');
+    
+        $products = $response->json()['data']; // Assuming products are under 'data' key
+    
+        return view('browse', ['products' => $products]);
     }
+
+    public function edit (Items $item){
+        return view('edit',['item'=>$item]);
+    }
+
+    public function update(Items $item, Request $request)
+    {
+        $data = $request->validate([
+            'iname' => '',
+            'price' => 'numeric',
+            'itemsite' => '',
+            'description' => '',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        if ($request->hasFile('image')) {
+            
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads'), $imageName);
+    
+            
+            $data['itemimage'] = $imageName;
+        }
+    
+        $item->update($data);
+    
+        return redirect()->back()->with('message', 'Item updated');
+    }
+    
+
+    public function destroy(Items $item){
+        $item->delete();
+        return redirect()->back()->with('message', 'Item deleted');
+    }
+
+    
 }

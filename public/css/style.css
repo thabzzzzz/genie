@@ -15,7 +15,7 @@
 
   .home-link{
     font-family: opensans;
-    font-size: 15px;
+    font-size: 25px;
   }
 
   .profile-name{
@@ -34,6 +34,8 @@
     font-family: opensans;
     font-size: 45px;
 }
+
+
 
 .icon{
     width: 50px;
@@ -111,3 +113,17 @@ label,.btn{
     padding: 5px 0; /* Add some padding to create space between the input and the border */
     background-color: #f8f5f4;
 }
+
+.my-btn-2{
+    border-radius: 0px !important;
+    border:  1px solid black !important;
+    transition-duration: 0.4s;
+    background-color: var(--background);
+    text-decoration: none !important;
+    color: black !important;
+  }
+  
+  .my-btn-2:hover {
+    background-color: black !important;
+    color: white !important;
+  }

@@ -16,13 +16,13 @@
 
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="home-link text-3xl">
+                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="heading1 text-5xl">
                             {{ __('home') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')" class="home-link text-3xl">
+                        <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')" class="heading1 text-5xl">
                             {{ __('browse') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('create')" :active="request()->routeIs('create')" class="home-link text-3xl">
+                        <x-nav-link :href="route('create')" :active="request()->routeIs('create')" class="heading1 text-5xl">
                             {{ __('create') }}
                         </x-nav-link>
                     </div>
