@@ -73,7 +73,7 @@ class ClientController extends Controller
             'Accept' => 'application/json',
         ])->get('https://api.bigcommerce.com/stores/8wormqadd3/v3/catalog/products');
     
-        $products = $response->json()['data']; // Assuming products are under 'data' key
+        $products = $response->json()['data']; 
     
         return view('browse', ['products' => $products]);
     }
