@@ -16,7 +16,7 @@
 
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="heading1 text-5xl">
+                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="heading1 navlink text-orange-500 text-4xl">
                             {{ __('home') }}
                         </x-nav-link>
                         <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')" class="heading1 text-5xl">
