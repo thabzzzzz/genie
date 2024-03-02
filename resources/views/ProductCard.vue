@@ -1,23 +1,16 @@
 <template>
-  <div class="card border border-black mx-auto product-card" style="width: 21rem;" v-for="product in products" :key="product.id">
-    <img :src="getFirstImageUrl(product)" class="card-img-top" :alt="product.name">
+  <div class="card border border-black mx-auto product-card" style="width: 21rem;" v-for="game in games" :key="game.id">
+    <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
     <div class="card-body product-card-body p-2">
-      <b class="card-title">{{ removeSamplePrefix(product.name)  }}</b>
+      <b class="card-title">{{ game.name }}</b>
       <br>
       <br>
-      <div class="description-text clamp-description"><i class="card-text">{{ getFirstParagraph(product.description) }}</i></div>
+      <div class="description-text clamp-description"><i class="card-text">{{ game.summary }}</i></div>
       <br>
-      <span class="card-price">R {{ product.price }}</span>
+      <span class="card-price">Price: N/A</span>
       <br>
       <br>
-      <span>
-        <a :href="product.link" class="btn my-btn-2 text-black inline-block mr-1" target="_blank" title="Visit site">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6 inline-block icon">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
-          </svg>
-        </a>
-      </span>
-   
+      <!-- Add any additional buttons or links here -->
     </div>
   </div>
 </template>
@@ -25,32 +18,11 @@
 <script>
 export default {
   props: {
-    products: Array
+    games: Array // Assuming games is an array of objects with name, summary, and cover.url properties
   },
   methods: {
-    getFirstImageUrl(product) {
-      if (product.images && product.images.length > 0) {
-        return product.images[0].url_standard; 
-      } else {
-    
-        return 'placeholder_image_url.jpg';
-      }
-    },
-    removeSamplePrefix(name) {
-      return name.replace(/^\[Sample\]\s*/i, ''); 
-    },
-  
-    getFirstParagraph(description) {
-   
-      const match = description.match(/<p>(.*?)<\/p>/);
-      
-      return match ? match[1] : description;
-    }
-  },
-  computed: {
-    productsWithImages() {
-     
-      return this.products.filter(product => product.images && product.images.length > 0);
+    getCoverImageUrl(game) {
+      return game.cover ? `https:${game.cover.url}` : 'placeholder_image_url.jpg';
     }
   }
 }
