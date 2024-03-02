@@ -71,7 +71,7 @@ class ClientController extends Controller
         $response = Http::withHeaders([
             'X-Auth-Token' => 'drxld1059s4lpcw3og0p2cpn7zft1th',
             'Accept' => 'application/json',
-        ])->get('https://api.bigcommerce.com/stores/8wormqadd3/v3/catalog/products?include=images');
+        ])->get('https://api.bigcommerce.com/stores/8wormqadd3/v3/catalog/products?include=images&page=1&limit=250');
     
         $products = $response->json()['data']; 
     

@@ -5,7 +5,7 @@
       <b class="card-title">{{ removeSamplePrefix(product.name)  }}</b>
       <br>
       <br>
-      <div class="description-text clamp-description"><i class="card-text">{{ product.description }}</i></div>
+      <div class="description-text clamp-description"><i class="card-text">{{ getFirstParagraph(product.description) }}</i></div>
       <br>
       <span class="card-price">R {{ product.price }}</span>
       <br>
@@ -17,7 +17,7 @@
           </svg>
         </a>
       </span>
-      <!-- Add Edit and Delete buttons as needed -->
+   
     </div>
   </div>
 </template>
@@ -25,24 +25,31 @@
 <script>
 export default {
   props: {
-    products: Array // Assuming products is an array of objects with image, name, description, price, and link properties
+    products: Array
   },
   methods: {
     getFirstImageUrl(product) {
       if (product.images && product.images.length > 0) {
-        return product.images[0].url_standard; // You can use any image URL you prefer
+        return product.images[0].url_standard; 
       } else {
-        // Provide a placeholder image URL if no images are available
+    
         return 'placeholder_image_url.jpg';
       }
     },
     removeSamplePrefix(name) {
-      return name.replace(/^\[Sample\]\s*/i, ''); // Remove "[Sample]" prefix from the product name
+      return name.replace(/^\[Sample\]\s*/i, ''); 
+    },
+  
+    getFirstParagraph(description) {
+   
+      const match = description.match(/<p>(.*?)<\/p>/);
+      
+      return match ? match[1] : description;
     }
   },
   computed: {
     productsWithImages() {
-      // Filter out products that don't have images
+     
       return this.products.filter(product => product.images && product.images.length > 0);
     }
   }
@@ -50,32 +57,13 @@ export default {
 </script>
 
 <style scoped>
-/* Add your CSS styles here */
+
 .card {
-  /* Add card styles */
+
   border: 1px solid black;
   width: 21rem;
 }
 
-.card-img-top {
-  /* Add image styles */
-}
-
-.card-body {
-  /* Add card body styles */
-}
-
-.card-title {
-  /* Add title styles */
-}
-
-.card-text {
-  /* Add description text styles */
-}
-
-.card-price {
-  /* Add price styles */
-}
 
 .clamp-description {
   display: -webkit-box;
