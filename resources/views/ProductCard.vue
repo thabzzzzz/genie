@@ -9,8 +9,9 @@
       <br>
       <span class="card-price">Price: N/A</span>
       <br>
-      <br>
-      <!-- Add any additional buttons or links here -->
+      <a :href="game.url" class="btn my-btn-2 text-black inline-block mr-1" target="_blank" title="Visit site">
+        Visit Game
+      </a>
     </div>
   </div>
 </template>
@@ -18,24 +19,24 @@
 <script>
 export default {
   props: {
-    games: Array // Assuming games is an array of objects with name, summary, and cover.url properties
+    games: Array
   },
   methods: {
     getCoverImageUrl(game) {
-      return game.cover ? `https:${game.cover.url}` : 'placeholder_image_url.jpg';
-    }
+  if (!game.cover || !game.cover.url) return 'placeholder_image_url.jpg';
+  const coverUrl = game.cover.url;
+  const modifiedUrl = coverUrl.replace('/t_thumb/', '/t_cover_big/');
+  return `https:${modifiedUrl}`;
+}
   }
 }
 </script>
 
 <style scoped>
-
 .card {
-
   border: 1px solid black;
   width: 21rem;
 }
-
 
 .clamp-description {
   display: -webkit-box;

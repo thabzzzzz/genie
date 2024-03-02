@@ -75,9 +75,10 @@ class ClientController extends Controller
             'Client-ID' => $apiKey,
             'Authorization' => 'Bearer ' . $accessToken,
             'Content-Type' => 'application/json',
-        ])->post('https://api.igdb.com/v4/games/?fields=*&name=*', [
+        ])->post('https://api.igdb.com/v4/games/?fields=name,summary,cover.url,url&order=popularity:desc&limit=50&name=*
+        ', [
             'fields' => 'name, summary', // Include both name and summary fields
-            'limit' => 10,
+            'limit' => 50,
         ]);
        
         $games = $response->json();
