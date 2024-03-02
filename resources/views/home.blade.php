@@ -19,7 +19,7 @@
                     <div class="card border border-black mx-auto product-card" style="width: 21rem;">
                         <img src="uploads/{{ $item->itemimage }}" class="card-img-top " alt="product image">
                         <div class="card-body product-card-body p-2">
-                            <h5 class="card-title">{{ $item->iname }}</h5>
+                            <b class="card-title">{{ $item->iname }}</b>
                             <div class="description-text"><i class="card-text">{{ $item->description }}</i></div>
                             <span class="card-price">R {{ number_format($item->price, 2, ',', ' ') }}</span>
                             <br>

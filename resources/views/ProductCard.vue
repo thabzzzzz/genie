@@ -1,10 +1,13 @@
 <template>
   <div class="card border border-black mx-auto product-card" style="width: 21rem;" v-for="product in products" :key="product.id">
-    <img :src="product.image" class="card-img-top" :alt="product.name">
+    <img :src="getFirstImageUrl(product)" class="card-img-top" :alt="product.name">
     <div class="card-body product-card-body p-2">
-      <h5 class="card-title">{{ product.name }}</h5>
-      <div class="description-text"><i class="card-text">{{ product.description }}</i></div>
-      <span class="card-price">Price: {{ product.price }}</span>
+      <b class="card-title">{{ removeSamplePrefix(product.name)  }}</b>
+      <br>
+      <br>
+      <div class="description-text clamp-description"><i class="card-text">{{ product.description }}</i></div>
+      <br>
+      <span class="card-price">R {{ product.price }}</span>
       <br>
       <br>
       <span>
@@ -23,6 +26,25 @@
 export default {
   props: {
     products: Array // Assuming products is an array of objects with image, name, description, price, and link properties
+  },
+  methods: {
+    getFirstImageUrl(product) {
+      if (product.images && product.images.length > 0) {
+        return product.images[0].url_standard; // You can use any image URL you prefer
+      } else {
+        // Provide a placeholder image URL if no images are available
+        return 'placeholder_image_url.jpg';
+      }
+    },
+    removeSamplePrefix(name) {
+      return name.replace(/^\[Sample\]\s*/i, ''); // Remove "[Sample]" prefix from the product name
+    }
+  },
+  computed: {
+    productsWithImages() {
+      // Filter out products that don't have images
+      return this.products.filter(product => product.images && product.images.length > 0);
+    }
   }
 }
 </script>
@@ -53,6 +75,14 @@ export default {
 
 .card-price {
   /* Add price styles */
+}
+
+.clamp-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3; /* Number of lines to display */
 }
 
 /* Add styles for buttons, icons, etc. */
