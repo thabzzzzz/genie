@@ -68,14 +68,21 @@ class ClientController extends Controller
     
     public function browse()
     {
+        $apiKey = 'mzphnefd8jmf3d5d569scw2z0xjx93'; // Replace with your actual Client ID
+        $accessToken = 'zz12wws7n9otva78pvmw32giaftmww'; // Replace with your actual Access Token
+    
         $response = Http::withHeaders([
-            'X-Auth-Token' => 'drxld1059s4lpcw3og0p2cpn7zft1th',
-            'Accept' => 'application/json',
-        ])->get('https://api.bigcommerce.com/stores/8wormqadd3/v3/catalog/products?include=images&page=1&limit=250');
+            'Client-ID' => $apiKey,
+            'Authorization' => 'Bearer ' . $accessToken,
+            'Content-Type' => 'application/json',
+        ])->post('https://api.igdb.com/v4/games', [
+            'fields' => 'name,summary',
+            'limit' => 10, // Replace 10 with the desired limit
+        ]);
     
-        $products = $response->json()['data']; 
+        $games = $response->json();
     
-        return view('browse', ['products' => $products]);
+        return view('browse', ['games' => $games]);
     }
 
     public function edit (Items $item){
