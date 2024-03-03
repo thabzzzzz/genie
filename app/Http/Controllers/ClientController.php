@@ -68,21 +68,19 @@ class ClientController extends Controller
     
     public function browse()
     {
-        $apiKey = 'mzphnefd8jmf3d5d569scw2z0xjx93'; // Replace with your actual Client ID
-        $accessToken = 'zz12wws7n9otva78pvmw32giaftmww'; // Replace with your actual Access Token
+        $apiKey = '36e199df12d14562ad36f3befadf81d5'; // Replace with your actual RAWG API key
     
         $response = Http::withHeaders([
-            'Client-ID' => $apiKey,
-            'Authorization' => 'Bearer ' . $accessToken,
+            'User-Agent' => 'genie', // Replace with your app name
             'Content-Type' => 'application/json',
-        ])->post('https://api.igdb.com/v4/games/?fields=name,summary,cover.url,url&order=popularity:desc&limit=50&name=*
-        ', [
-            'fields' => 'name, summary', // Include both name and summary fields
-            'limit' => 50,
+        ])->get('https://api.rawg.io/api/games', [
+            'key' => $apiKey, // Pass the API key as a parameter
+            'ordering' => '-added', // Order by popularity
+            'page_size' => 50, // Adjust limit as needed
         ]);
-       
-        $games = $response->json();
-       
+    
+        $games = $response->json()['results'];
+      
         return view('browse', ['games' => $games]);
     }
 
