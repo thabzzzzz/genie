@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!games || games.length === 0">
-      <!-- Show loading message -->
+      
       <p>Loading...</p>
     </div>
     <div v-else>
@@ -44,10 +44,9 @@ export default {
     },
   },
   mounted() {
-    console.log('games prop:', this.games); // Check the initial state of the prop
+    console.log('games prop:', this.games); 
 
-    // Implement data fetching logic here (if not done in a parent component)
-    // Use tools like browser developer tools to inspect network requests and responses
+ 
 
     if (this.games && this.games.results) {
       console.log('Results:', this.games.results);
@@ -69,8 +68,8 @@ export default {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 3; /* Number of lines to display */
+  -webkit-line-clamp: 3; 
 }
 
-/* Add styles for buttons, icons, etc. */
+
 </style>

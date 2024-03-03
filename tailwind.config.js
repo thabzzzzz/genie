@@ -17,7 +17,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                maintheme: '#f8f5f4',
+                maintheme: '#10100e',
             },
         },
     },

@@ -1,6 +1,6 @@
 :root {
     --background: #f8f5f4;
-   
+   --secondcolor:#e2d8e1;
   }
 
 @font-face {
@@ -45,12 +45,12 @@
 }
 
 .home-navgroup{
-    border-right: solid black 1px;
+    border-right: solid #e2d8e1 1px;
 }
 
 h1{
     font-family: opensans;
-   
+   color: var(--secondcolor);;
 }
 
 .create-form .my-btn{
@@ -135,8 +135,29 @@ label,.btn{
    
 }
 
-.navlink{
-  font-size: 20px;
-  color: aqua;
+.navlink {
+  font-size: 30px;
+  color: var(--secondcolor);
+  font-family: opensans;
+  border-bottom: 2px solid transparent; /* Initially transparent border bottom */
+  transition: border-color 0.3s; /* Smooth transition for border color change */
 }
+
+.navlink:hover {
+  border-color: #e2d8e1; /* Change border color on hover */
+}
+
+.navlink.active {
+  color: #10100e; /* Change text color when active */
+}
+
+.navlink.active-container {
+  background-color: var(--secondcolor); /* Change background color of the container */
+}
+
+
+
+
+
+
 

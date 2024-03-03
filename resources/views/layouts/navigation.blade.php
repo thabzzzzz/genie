@@ -7,22 +7,28 @@
                     <!-- Logo -->
                     <div class="flex items-center home-navgroup">
                         <Link href="{{ route('home') }}" class="flex items-center">
-                            <img src="{{ asset('gallery/logo.png') }}" alt="Your Custom Logo" class="block h-24 w-auto">
-                            <h1 class="mr-4 text-4xl">genie</h1>
+                           
+                            <h1 class="pr-4 text-4xl">genie</h1>
                         </Link>
                     </div>
                     
                     
 
                     <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="heading1 navlink text-orange-500 text-4xl">
+                    <div class="hidden sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="heading1 navlink border-b-2 px-5 " style="font-size: 30px; color:#e2d8e1 .navlink:hover {
+                            border-color: #e2d8e1; 
+                          }">
                             {{ __('home') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')" class="heading1 text-5xl">
+                        <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')" class="heading1 navlink border-b-2 px-5 " style="font-size: 30px; color:#e2d8e1 .navlink:hover {
+                            border-color: #e2d8e1; /* Change border color on hover */
+                          }">
                             {{ __('browse') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('create')" :active="request()->routeIs('create')" class="heading1 text-5xl">
+                        <x-nav-link :href="route('create')" :active="request()->routeIs('create')" class="heading1 navlink border-b-2 px-5" style="font-size: 30px; color:#e2d8e1 .navlink:hover {
+                            border-color: #e2d8e1; /* Change border color on hover */
+                          }">
                             {{ __('create') }}
                         </x-nav-link>
                     </div>
