@@ -16,22 +16,29 @@
 
                     <!-- Navigation Links -->
                     <div class="hidden sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="heading1 navlink border-b-2 px-5 " style="font-size: 30px; color:#e2d8e1 .navlink:hover {
-                            border-color: #e2d8e1; 
-                          }">
+                        <x-nav-link :href="route('home')" 
+                                    class="heading1 navlink border-b-2 px-5 text-texttheme 
+                                           {{ request()->is('home') ? 'bg-texttheme text-maintheme' : '' }}" 
+                                    style="font-size: 30px">
                             {{ __('home') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')" class="heading1 navlink border-b-2 px-5 " style="font-size: 30px; color:#e2d8e1 .navlink:hover {
-                            border-color: #e2d8e1; /* Change border color on hover */
-                          }">
+                    
+                        <x-nav-link :href="route('browse')" 
+                                    class="heading1 navlink border-b-2 px-5 text-texttheme 
+                                           {{ request()->is('browse') ? 'bg-texttheme text-maintheme' : '' }}" 
+                                    style="font-size: 30px">
                             {{ __('browse') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('create')" :active="request()->routeIs('create')" class="heading1 navlink border-b-2 px-5" style="font-size: 30px; color:#e2d8e1 .navlink:hover {
-                            border-color: #e2d8e1; /* Change border color on hover */
-                          }">
+                    
+                        <x-nav-link :href="route('create')" 
+                                    class="heading1 navlink border-b-2 px-5 text-texttheme 
+                                           {{ request()->is('create') ? 'bg-texttheme text-maintheme' : '' }}" 
+                                    style="font-size: 30px">
                             {{ __('create') }}
                         </x-nav-link>
                     </div>
+                    
+
                 </div>
 
                 <!-- Settings Dropdown -->
@@ -39,7 +46,7 @@
                     <x-dropdown placement="bottom-end" >
                         <x-slot name="trigger">
                             <button class="flex items-center text-base profile-name ">
-                                <div class="home-link text-3xl">{{ Auth::user()->name }}</div>
+                                <div class="home-link text-3xl text-texttheme">{{ Auth::user()->name }}</div>
 
                                 <div class="ml-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -50,13 +57,13 @@
                         </x-slot>
                         <x-slot name="content">
                             <div class="bg-maintheme shadow rounded-md overflow-hidden">
-                              <x-dropdown-link :href="route('profile.edit')" class="drop-text mt-0 pt-0 heading1">
+                              <x-dropdown-link :href="route('profile.edit')" class="drop-text mt-0 pt-0 heading1 text-texttheme">
                                 {{ __('Profile') }}
                               </x-dropdown-link>
               
-                              <form method="POST" action="{{ route('logout') }}" class="mt-1">
+                              <form method="POST" action="{{ route('logout') }}" class="mt-1  ">
                                 @csrf
-                                <x-dropdown-link class="heading1" as="a" :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <x-dropdown-link class="heading1 text-texttheme" as="a" :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
                                   {{ __('Log Out') }}
                                 </x-dropdown-link>
                               </form>

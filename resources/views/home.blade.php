@@ -11,7 +11,7 @@
               </svg></Link>
            
               <br>
-            <strong>Balance: R{{$itemsprice}} </strong>
+            <h1>Balance: R{{$itemsprice}} </h1>
             <br>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
                 @foreach($items as $item)

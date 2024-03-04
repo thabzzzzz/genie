@@ -22,20 +22,6 @@
     font-family: poppins;
   }
 
-  #dropdown-content {
-    background-color: #b44d4d; /* Change to your desired background color */
-}
-
-.drop-text{
-    color: #b44d4d;
-}
-
-.heading1{
-  
-
-    
-
-}
 
 
 
@@ -154,6 +140,11 @@ label,.btn{
 .navlink.active-container {
   background-color: var(--secondcolor); /* Change background color of the container */
 }
+
+.mt-2.w-48.rounded-md.shadow-lg.ring-1.ring-black.ring-opacity-5.py-1.bg-white {
+  background-color: #10100e;
+}
+
 
 
 

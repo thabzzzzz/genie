@@ -18,6 +18,7 @@ export default {
         extend: {
             colors: {
                 maintheme: '#10100e',
+                texttheme:'#e2d8e1'
             },
         },
     },
