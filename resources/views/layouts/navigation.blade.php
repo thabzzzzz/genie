@@ -16,26 +16,28 @@
 
                     <!-- Navigation Links -->
                     <div class="hidden sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('home')" 
-                                    class="heading1 navlink border-b-2 px-5 text-texttheme 
-                                           {{ request()->is('home') ? 'bg-texttheme text-maintheme' : '' }}" 
-                                    style="font-size: 30px">
-                            {{ __('home') }}
-                        </x-nav-link>
-                    
-                        <x-nav-link :href="route('browse')" 
-                                    class="heading1 navlink border-b-2 px-5 text-texttheme 
-                                           {{ request()->is('browse') ? 'bg-texttheme text-maintheme' : '' }}" 
-                                    style="font-size: 30px">
-                            {{ __('browse') }}
-                        </x-nav-link>
-                    
-                        <x-nav-link :href="route('create')" 
-                                    class="heading1 navlink border-b-2 px-5 text-texttheme 
-                                           {{ request()->is('create') ? 'bg-texttheme text-maintheme' : '' }}" 
-                                    style="font-size: 30px">
-                            {{ __('create') }}
-                        </x-nav-link>
+                        <Link href="{{ route('home') }}" 
+                        class="heading1 navlink border-b-2 px-5 text-texttheme 
+                              " 
+                        style="font-size: 30px ">
+                         {{ __('home') }}
+                    </Link>
+                     
+            
+            <x-nav-link :href="route('browse')" 
+                        class="transition duration-200 ease-in-out heading1 navlink border-b-2 px-5 text-texttheme 
+                               {{ request()->is('browse') ? 'bg-texttheme text-maintheme' : '' }}" 
+                        style="font-size: 30px">
+                {{ __('browse') }}
+            </x-nav-link>
+            
+            <x-nav-link :href="route('create')" 
+                        class=" transition duration-200 ease-in-out heading1 navlink border-b-2 px-5 text-texttheme 
+                               {{ request()->is('create') ? 'bg-texttheme text-maintheme' : '' }}" 
+                        style="font-size: 30px">
+                {{ __('create') }}
+            </x-nav-link>
+            
                     </div>
                     
 

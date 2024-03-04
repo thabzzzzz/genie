@@ -145,6 +145,17 @@ label,.btn{
   background-color: #10100e;
 }
 
+.navlink {
+  transition: background-color 0.9s ease !important; 
+}
+
+
+.navlink.active {
+  background-image: linear-gradient(to top, transparent, var(--secondcolor));
+}
+
+
+
 
 
 
