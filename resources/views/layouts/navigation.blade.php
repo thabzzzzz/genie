@@ -1,5 +1,5 @@
 <x-splade-toggle>
-    <nav class="bg-maintheme border-b border-solid border-black">
+    <nav class="bg-maintheme border-b border-solid border-texttheme">
         <!-- Primary Navigation Menu -->
         <div class="w-full mx-5">
             <div class="flex justify-between h-24">
@@ -8,7 +8,7 @@
                     <div class="flex items-center home-navgroup">
                         <Link href="{{ route('home') }}" class="flex items-center">
                            
-                            <h1 class="pr-4 text-4xl">genie</h1>
+                            <h1 class="pr-14 pl-10 text-4xl">genie</h1>
                         </Link>
                     </div>
                     
@@ -16,27 +16,24 @@
 
                     <!-- Navigation Links -->
                     <div class="hidden sm:-my-px sm:ml-10 sm:flex">
-                        <Link href="{{ route('home') }}" 
-                        class="heading1 navlink border-b-2 px-5 text-texttheme 
-                              " 
-                        style="font-size: 30px ">
-                         {{ __('home') }}
-                    </Link>
+
+
+                        <Link href="{{ route('home') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
+                            {{ __('home') }}
+                         </Link>
+                         
+
+                         <Link href="{{ route('browse') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
+                            {{ __('browse') }}
+                         </Link>
+
+                         <Link href="{{ route('create') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
+                            {{ __('create') }}
+                         </Link>
                      
             
-            <x-nav-link :href="route('browse')" 
-                        class="transition duration-200 ease-in-out heading1 navlink border-b-2 px-5 text-texttheme 
-                               {{ request()->is('browse') ? 'bg-texttheme text-maintheme' : '' }}" 
-                        style="font-size: 30px">
-                {{ __('browse') }}
-            </x-nav-link>
-            
-            <x-nav-link :href="route('create')" 
-                        class=" transition duration-200 ease-in-out heading1 navlink border-b-2 px-5 text-texttheme 
-                               {{ request()->is('create') ? 'bg-texttheme text-maintheme' : '' }}" 
-                        style="font-size: 30px">
-                {{ __('create') }}
-            </x-nav-link>
+                    
+        
             
                     </div>
                     

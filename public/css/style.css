@@ -58,10 +58,10 @@ h1{
     transition: transform 0.1s ease-in-out;
 }
 
-/* Apply styles on hover */
+
 .link-container:hover #icon-path {
-    stroke: #f8f5f4; /* Change stroke color to #f8f5f4 */
-    fill: black; /* Change fill color to black */
+    stroke: #f8f5f4; 
+    fill: black; 
 }
 
 input[type="email"],
@@ -69,10 +69,10 @@ input[type="password"],
 input[type="text"],
 select.form-control {
   background: var(--background);
-  border: none; /* Removes all borders */
+  border: none; 
   box-shadow: none;
-  border-radius: 0; /* Remove border radius for a clean edge */
-  padding: 10px; /* Optional: Add padding for better usability */
+  border-radius: 0; 
+  padding: 10px; 
 }
 
 input[type="email"]:focus,
@@ -85,10 +85,10 @@ label,.btn{
   }
 
   x-splade-form input {
-    border-width: 1px 0 0 0 !important; /* Force a single bottom border with !important */
+    border-width: 1px 0 0 0 !important; 
   }
   
-  /* Additional styling for a clean appearance */
+  
   x-splade-form input {
     box-shadow: none;
     border-radius: 0;
@@ -97,8 +97,8 @@ label,.btn{
 
   input.block.w-full.border-0.focus\:border-indigo-300.focus\:ring.focus\:ring-indigo-200.focus\:ring-opacity-50.disabled\:opacity-50.disabled\:bg-gray-50.disabled\:cursor-not-allowed.rounded-md {
     border: none;
-    border: 1px solid black; /* Add a 1px solid black border at the bottom */
-    padding: 5px 0; /* Add some padding to create space between the input and the border */
+    border: 1px solid black; 
+    padding: 5px 0; 
     background-color: #f8f5f4;
 }
 
@@ -116,43 +116,37 @@ label,.btn{
     color: white !important;
   }
 
-  .text-4xl-custom {
-    font-size: 2.25rem; 
-   
-}
 
-.navlink {
-  font-size: 30px;
-  color: var(--secondcolor);
-  font-family: opensans;
-  border-bottom: 2px solid transparent; /* Initially transparent border bottom */
-  transition: border-color 0.3s; /* Smooth transition for border color change */
-}
-
-.navlink:hover {
-  border-color: #e2d8e1; /* Change border color on hover */
-}
-
-.navlink.active {
-  color: #10100e; /* Change text color when active */
-}
-
-.navlink.active-container {
-  background-color: var(--secondcolor); /* Change background color of the container */
-}
+  .navlink {
+    font-size: 30px;
+    color: var(--secondcolor);
+    font-family: opensans;
+    border-bottom: 2px solid transparent; /* Initially transparent border bottom */
+    transition: border-color 0.9s; /* Smooth transition for border color change */
+    position: relative; /* Needed for absolute positioning of pseudo-element */
+  }
+  
 
 .mt-2.w-48.rounded-md.shadow-lg.ring-1.ring-black.ring-opacity-5.py-1.bg-white {
   background-color: #10100e;
 }
 
-.navlink {
-  transition: background-color 0.9s ease !important; 
+
+Link:after {
+  display:block;
+  content: '';
+  border-bottom: solid 3px black;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
+}
+Link:hover:after { transform: scaleX(1); }
+
+.navlink:after {
+
+  bottom: 0;
+  left: 0;
 }
 
-
-.navlink.active {
-  background-image: linear-gradient(to top, transparent, var(--secondcolor));
-}
 
 
 

@@ -7,6 +7,7 @@ import ProductCard from '../views/ProductCard.vue'; // Correct path to your Vue 
 
 const el = document.getElementById("app");
 
+
 createApp({
     render: renderSpladeApp({ el })
 })
