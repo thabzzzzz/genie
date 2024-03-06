@@ -2,7 +2,7 @@
     
 
     <div class="py-12 bg-maintheme">
-        <div class="w-full mx-auto sm:px-6 lg:px-8 ">
+        <div class="w-full mx-auto  ">
             <h1 class="content-heading heading1">your wishlist</h1>
             <br>
 
@@ -16,11 +16,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
                 @foreach($items as $item)
                 <div class="col">
-                    <div class="card border border-black mx-auto product-card" style="width: 21rem;">
+                    <div class="card border text-texttheme mx-auto product-card" style="width: 21rem;">
                         <img src="uploads/{{ $item->itemimage }}" class="card-img-top " alt="product image">
                         <div class="card-body product-card-body p-2">
-                            <b class="card-title">{{ $item->iname }}</b>
-                            <div class="description-text"><i class="card-text">{{ $item->description }}</i></div>
+                            <b class="card-title text-texttheme">{{ $item->iname }}</b>
+                            <div class="description-text text-texttheme"><i class="card-text">{{ $item->description }}</i></div>
                             <span class="card-price">R {{ number_format($item->price, 2, ',', ' ') }}</span>
                             <br>
                             <br>
@@ -33,7 +33,7 @@
                             </span>
                             
                             <span>
-                                <a title="Edit" href="{{ route('item.edit',['item'=>$item]) }}" class="btn my-btn-2 text-black inline-block mr-1">
+                                <a title="Edit" href="{{ route('item.edit',['item'=>$item]) }}" class="btn my-btn-2 text-texttheme inline-block mr-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6 inline-block">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                     </svg>

@@ -6,7 +6,7 @@
     </div>
     <div v-else>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
-        <div v-for="game in games" :key="game.id" class="card border border-black mx-auto product-card" style="width: 21rem;">
+        <div v-for="game in games" :key="game.id" class="card border border-texttheme mx-auto product-card" style="width: 21rem;">
           <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
           <div class="card-body product-card-body p-2">
             <b class="card-title">{{ game.name }}</b>
