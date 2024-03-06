@@ -1,12 +1,12 @@
 <template>
   <div>
     <div v-if="!games || games.length === 0">
-      
       <p>Loading...</p>
     </div>
     <div v-else>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
-        <div v-for="game in games" :key="game.id" class="card border border-texttheme mx-auto product-card" style="width: 21rem;">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10 mx-10 ">
+
+        <div v-for="game in games" :key="game.id" class="card border border-texttheme mx-auto product-card" >
           <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
           <div class="card-body product-card-body p-2">
             <b class="card-title">{{ game.name }}</b>
@@ -28,15 +28,13 @@
   </div>
 </template>
 
-
-
 <script>
 export default {
   props: {
     games: {
-    type: Array,
-    required: true,
-  },
+      type: Array,
+      required: true,
+    },
   },
   methods: {
     getCoverImageUrl(game) {
@@ -45,8 +43,6 @@ export default {
   },
   mounted() {
     console.log('games prop:', this.games); 
-
- 
 
     if (this.games && this.games.results) {
       console.log('Results:', this.games.results);
@@ -58,10 +54,7 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border: 1px solid black;
-  width: 21rem;
-}
+
 
 .clamp-description {
   display: -webkit-box;
@@ -71,5 +64,56 @@ export default {
   -webkit-line-clamp: 3; 
 }
 
+
+
+.card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+ margin-right: 20px;
+  overflow: hidden;
+  transition: transform 0.3s;
+  display: flex; /* Add display:flex to make sure the card content is vertically centered */
+}
+
+.card-body {
+  flex: 1; /* Add flex: 1 to make sure the card body takes up the remaining space */
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
+}
+
+.card-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
 
 </style>
