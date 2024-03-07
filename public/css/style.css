@@ -1,6 +1,10 @@
 :root {
-    --background: #f8f5f4;
+  /* ghost white */
+ --background: #F8F8FF;
+
    --secondcolor:#232B2B;
+
+   --thirdcolor:#f0eeee;
   }
 
 @font-face {
@@ -31,7 +35,7 @@
 }
 
 .home-navgroup{
-    border-right: solid #e2d8e1 1px;
+    border-right: solid #232B2B 1px;
 }
 
 h1{
@@ -104,15 +108,16 @@ label,.btn{
 
 .my-btn-2{
     border-radius: 0px !important;
-    border:  1px solid black !important;
+    border:  1px solid #232B2B !important;
     transition-duration: 0.4s;
     background-color: var(--background);
     text-decoration: none !important;
-    color: black !important;
+    color: #232B2B !important;
+    padding: 10px;
   }
   
   .my-btn-2:hover {
-    background-color: black !important;
+    background-color: #232B2B !important;
     color: white !important;
   }
 
@@ -127,8 +132,15 @@ label,.btn{
   }
   
 
+/* nav dropdown */
+
 .mt-2.w-48.rounded-md.shadow-lg.ring-1.ring-black.ring-opacity-5.py-1.bg-white {
   background-color: #10100e;
+  border-radius: 0;
+}
+
+.block.px-4.py-2.text-sm.leading-5.text-gray-700.hover:bg-gray-100.focus\:outline-none.focus\:bg-gray-100.transition.duration-150.ease-in-out.drop-text.mt-0.pt-0.heading1.text-texttheme {
+  border-radius: 0;
 }
 
 
@@ -148,8 +160,8 @@ Link:hover:after { transform: scaleX(1); }
 }
 
 .card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: var(--background);
+  border: 1px solid #232B2B;
 
   overflow: hidden;
   transition: transform 0.3s;
@@ -161,9 +173,9 @@ Link:hover:after { transform: scaleX(1); }
 
 .card-img-top {
   width: 100%;
-  height: auto;
+  height: 430px;
   display: block;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--background);
 }
 
 .card-body {
@@ -205,6 +217,7 @@ Link:hover:after { transform: scaleX(1); }
 .btn:hover {
   background-color: #0056b3;
 }
+
 
 
 

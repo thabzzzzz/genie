@@ -8,7 +8,7 @@
                     <div class="flex items-center home-navgroup">
                         <Link href="{{ route('home') }}" class="flex items-center">
                            
-                            <h1 class="pr-14 pl-10 text-4xl">genie</h1>
+                            <h1 class="pr-14 pl-10 text-4xl logo-text">genie</h1>
                         </Link>
                     </div>
                     
