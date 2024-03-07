@@ -214,9 +214,31 @@ Link:hover:after { transform: scaleX(1); }
   transition: background-color 0.3s;
 }
 
-.btn:hover {
-  background-color: #0056b3;
+.card {
+  position: relative; /* Make the card container a positioned parent for absolute positioning */
 }
+
+.card-buttons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none; /* Initially hide the buttons */
+}
+
+.card:hover .card-buttons {
+  display: flex; /* Show the buttons when card is hovered */
+}
+
+.card-buttons img {
+  width: 24px; /* Adjust the width of the button icons */
+  height: 24px; /* Adjust the height of the button icons */
+}
+
+.card:hover .card-img-top {
+  filter: blur(2px); /* Apply a slight blur to the image */
+}
+
 
 
 
