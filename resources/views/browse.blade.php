@@ -3,7 +3,7 @@
     </x-slot>
 
     <div class="py-12 bg-maintheme">
-        <div class="w-full mx-auto sm:px-6 lg:px-8 ">
+        <div class="w-full mx-auto   ">
             <h1 class="content-heading heading1 text-center text-2xl">trending games</h1>
             <br>
             

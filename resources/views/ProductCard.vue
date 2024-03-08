@@ -4,7 +4,7 @@
       <p>Loading...</p>
     </div>
     <div v-else>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10 mx-10 ">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
 
         <div v-for="game in games" :key="game.id" class="card  border-2 border-texttheme mx-auto product-card" >
           <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
@@ -69,7 +69,7 @@ export default {
 .card {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
- margin-right: 20px;
+
   overflow: hidden;
   transition: transform 0.3s;
   display: flex; /* Add display:flex to make sure the card content is vertically centered */
