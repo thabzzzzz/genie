@@ -239,6 +239,10 @@ Link:hover:after { transform: scaleX(1); }
   filter: blur(2px); /* Apply a slight blur to the image */
 }
 
+.prodcard-body{
+  background-color: var(--background);
+}
+
 
 
 

@@ -4,23 +4,25 @@
       <p>Loading...</p>
     </div>
     <div v-else>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
-
-        <div v-for="game in games" :key="game.id" class="card  border-2 border-texttheme mx-auto product-card" >
-          <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
-          <div class="card-body product-card-body p-2">
-            <b class="card-title">{{ game.name }}</b>
-            <br>
-            <span v-for="(platform, index) in game.platforms" :key="index">{{ platform.platform.name }}</span>
-            <br>
-            <br>
-            <div class="description-text clamp-description"><i class="card-text">{{ game.summary }}</i></div>
-            <br>
-            <span class="card-price">Price: N/A</span>
-            <br>
-            <a :href="game.url" class="btn my-btn-2 text-black inline-block mr-1" target="_blank" title="Visit site">
-              Visit Game
-            </a>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-10">
+        <div class="col" v-for="game in games" :key="game.id">
+          <div class="card product-card" @mouseover="showButtons(game.id)" @mouseleave="hideButtons(game.id)">
+            <div class="relative">
+              <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
+              <div v-if="isHovered === game.id" class="card-buttons">
+                <a href="{{ $item->itemsite }}" class="my-btn-2" target="_blank"><img src="site-images/cardicons/globe2.svg" alt=""></a>
+                                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Edit"><img src="site-images/cardicons/pencil-fill.svg" alt=""></a>
+                                <form class="delete-form" method="post" action="{{ route('item.destroy',['item'=>$item]) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="my-btn-2" title="Delete"><img src="site-images/cardicons/trash-fill.svg" alt=""></button>
+                                </form>
+              </div>
+              <div class="prodcard-body py-3">
+                <p class="card-title">{{ game.name }}</p>
+                <p class="additional-text">[{{ game.released }}]</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -68,7 +70,7 @@ export default {
 
 .card {
   background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  border: 1px solid black;
 
   overflow: hidden;
   transition: transform 0.3s;
@@ -81,7 +83,7 @@ export default {
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 13px;
   margin-bottom: 0.5rem;
 }
 
@@ -116,4 +118,23 @@ export default {
   background-color: #0056b3;
 }
 
+
+.prodcard-body{
+  padding-left: 10px;
+}
+
+.prodcard-body {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.card-title {
+  margin: 0; 
+}
+
+.additional-text {
+ margin-right: 13px;
+  font-size: 13px;
+}
 </style>
