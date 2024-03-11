@@ -8,8 +8,12 @@
         <div class="col" v-for="game in games" :key="game.id">
           <div class="card product-card" >
             <div class="relative">
+              <a :href="`/gamedetail/${game.id}`">
+        <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
+        <span v-if="game.id">Navigating to: /gamedetail/{{ game.id }}</span>
+    </a>
+
               
-              <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
               <div class="card-buttons">
                                
                                 <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Bookmark"><img src="site-images/cardicons/bookmark-plus-fill.svg" alt=""></a>

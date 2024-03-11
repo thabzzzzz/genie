@@ -118,6 +118,15 @@ class ClientController extends Controller
         $item->delete();
         return redirect()->back()->with('message', 'Item deleted');
     }
+    public function show($id)
+    {
+        // Retrieve the game with the specified ID from the database
+        
 
+        // Pass the game data to the view
+        return view('gamedetail');
+    }
+
+    
     
 }
