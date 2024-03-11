@@ -162,7 +162,7 @@ Link:hover:after { transform: scaleX(1); }
 .card {
   background-color: var(--background);
   border: 1px solid #232B2B;
-
+ 
   overflow: hidden;
   transition: transform 0.3s;
 }
@@ -243,7 +243,15 @@ Link:hover:after { transform: scaleX(1); }
   background-color: var(--background);
 }
 
+.no-right-border {
+  border-right: none; 
+}
 
+.additional-text {
+  margin-right: 13px;
+   font-size: 13px;
+ }
+ 
 
 
 

@@ -6,20 +6,17 @@
     <div v-else>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-10">
         <div class="col" v-for="game in games" :key="game.id">
-          <div class="card product-card" @mouseover="showButtons(game.id)" @mouseleave="hideButtons(game.id)">
+          <div class="card product-card" >
             <div class="relative">
               <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
-              <div v-if="isHovered === game.id" class="card-buttons">
-                <a href="{{ $item->itemsite }}" class="my-btn-2" target="_blank"><img src="site-images/cardicons/globe2.svg" alt=""></a>
-                                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Edit"><img src="site-images/cardicons/pencil-fill.svg" alt=""></a>
-                                <form class="delete-form" method="post" action="{{ route('item.destroy',['item'=>$item]) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="my-btn-2" title="Delete"><img src="site-images/cardicons/trash-fill.svg" alt=""></button>
-                                </form>
-              </div>
+              <div class="card-buttons">
+                               
+                                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Bookmark"><img src="site-images/cardicons/bookmark-plus-fill.svg" alt=""></a>
+                              
+                            </div>
               <div class="prodcard-body py-3">
                 <p class="card-title">{{ game.name }}</p>
+                <p class="card-title">{{ game.website}} </p>
                 <p class="additional-text">[{{ game.released }}]</p>
               </div>
             </div>
@@ -103,20 +100,9 @@ export default {
   justify-content: space-between;
 }
 
-.btn {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-.btn:hover {
-  background-color: #0056b3;
-}
+
+
 
 
 .prodcard-body{
@@ -133,8 +119,18 @@ export default {
   margin: 0; 
 }
 
-.additional-text {
- margin-right: 13px;
-  font-size: 13px;
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease;
 }
+
+.card:hover .card-buttons {
+  opacity: 1; /* Show buttons on hover */
+}
+
+
+
 </style>
