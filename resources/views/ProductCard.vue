@@ -8,6 +8,7 @@
         <div class="col" v-for="game in games" :key="game.id">
           <div class="card product-card" >
             <div class="relative">
+              
               <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
               <div class="card-buttons">
                                
