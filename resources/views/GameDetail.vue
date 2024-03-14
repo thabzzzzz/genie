@@ -14,16 +14,16 @@
       <br>
       <div class="platforms">
         <h3>Platforms:</h3>
-        <ul>
-          <li v-for="platform in gameDetail.platforms" :key="platform.platform.id">
-            <img :src="getPlatformIconUrl(platform.platform.slug)" alt="Platform Icon" class="platform-icon" />
-            {{ platform.platform.name }}
+        <ul class="platform-icons-container">
+          <li v-for="platform in filteredPlatforms" :key="platform.platform.id">
+            <img :src="getPlatformIconUrl(platform.platform.slug)" :alt="getPlatformName(platform.platform.slug)" class="platform-icon" :title="getPlatformName(platform.platform.slug)" />
           </li>
         </ul>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -33,43 +33,71 @@ export default {
       required: true
     }
   },
+  computed: {
+    filteredPlatforms() {
+      
+      return this.gameDetail.platforms.filter(platform => platform.platform.slug !== "macos" && platform.platform.slug !== "linux");
+    }
+  },
   methods: {
-  getPlatformIconUrl(slug) {
-    // Define mappings between slugs and icon filenames
-    const platformIcons = {
-      "android": "android.svg",
-      "ios": "ios.svg",
-      "playstation": "playstation.svg",
-      "playstation3": "ps-3.svg",
-      "playstation4": "ps4.svg",
-      "ps4": "ps4.svg",
-      "xbox": "xbox.svg",
-      "xbox360": "xbox.svg",
-      "xbox-one": "xbox.svg",
-      "pc": "windows.svg",
-      "linux": "windows.svg",
-      "macos": "windows.svg"
-      // Add more mappings as needed
-    };
+    getPlatformIconUrl(slug) {
 
-    // Construct the relative path to the icons folder
-    const iconsFolder = '/site-images/platforms/';
-    
-    // Check if the slug exists in the platformIcons mapping
-    if (slug in platformIcons) {
-      // Construct the URL for the platform icon
-      return iconsFolder + platformIcons[slug];
+  const genericPlatformIcons = {
+    "android": "mobile.svg",
+    "ios": "mobile.svg",
+    "playstation": "playstation.svg",
+    "xbox": "xbox.svg",
+    "pc": "windows.svg",
+    "ubuntu": "windows.svg" 
+   
+  };
+
+
+  const iconsFolder = '/site-images/platforms/';
+  
+ 
+  if (slug in genericPlatformIcons) {
+   
+    return iconsFolder + genericPlatformIcons[slug];
+  } else {
+   
+    if (slug.includes("playstation")) {
+      return iconsFolder + genericPlatformIcons["playstation"];
+    } else if (slug.includes("xbox")) {
+      return iconsFolder + genericPlatformIcons["xbox"];
     } else {
-      // If no matching slug is found, return a default icon or handle it as needed
+      
       return iconsFolder + 'default-icon.svg';
     }
   }
 }
+,
+getPlatformName(slug) {
+ 
+  const platformNames = {
+    "android": "Mobile",
+    "ios": "Mobile",
+    "playstation": "Playstation",
+    "xbox": "Xbox",
+    "pc": "PC",
+    "ubuntu": "Ubuntu"
+   
+  };
 
 
+  if (slug in platformNames) {
+    return platformNames[slug];
+  } else {
 
+    return slug;
+  }
+}
+
+
+  }
 };
 </script>
+
 
 <style scoped>
 .gamedetailimg{
@@ -88,8 +116,18 @@ export default {
   width: 460px;
 }
 
+.platform-icons-container {
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+.platforms {
+  width: 100%;
+}
+
 .platform-icon{
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px; 
 }
 </style>
