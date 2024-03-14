@@ -68,15 +68,15 @@ class ClientController extends Controller
     
     public function browse()
     {
-        $apiKey = '36e199df12d14562ad36f3befadf81d5'; // Replace with your actual RAWG API key
+        $apiKey = '36e199df12d14562ad36f3befadf81d5'; 
     
         $response = Http::withHeaders([
-            'User-Agent' => 'genie', // Replace with your app name
+            'User-Agent' => 'genie',
             'Content-Type' => 'application/json',
         ])->get('https://api.rawg.io/api/games', [
-            'key' => $apiKey, // Pass the API key as a parameter
-            'ordering' => '-added', // Order by popularity
-            'page_size' => 50, // Adjust limit as needed
+            'key' => $apiKey, 
+            'ordering' => '-added', 
+            'page_size' => 50, 
         ]);
     
         $games = $response->json()['results'];
@@ -118,13 +118,21 @@ class ClientController extends Controller
         $item->delete();
         return redirect()->back()->with('message', 'Item deleted');
     }
-    public function show($id)
+    public function gamedetail($id)
     {
-        // Retrieve the game with the specified ID from the database
+        $apiKey = '36e199df12d14562ad36f3befadf81d5'; 
+    
         
-
-        // Pass the game data to the view
-        return view('gamedetail');
+        $response = Http::withHeaders([
+            'User-Agent' => 'genie',
+            'Content-Type' => 'application/json',
+        ])->get("https://api.rawg.io/api/games/{$id}", [
+            'key' => $apiKey, 
+        ]);
+    
+        $gameDetail = $response->json();
+       
+        return view('gamedetail', ['gameDetail' => $gameDetail]);
     }
 
     

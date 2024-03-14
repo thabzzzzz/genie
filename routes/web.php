@@ -61,8 +61,8 @@ Route::middleware('splade')->group(function () {
         Route::get('/client/{item}/edit',[ClientController::class,'edit'])->name('item.edit');
         Route::put('/client/{item}/update',[ClientController::class,'update'])->name('item.update');
         Route::delete('/client/{item}/destroy',[ClientController::class,'destroy'])->name('item.destroy');
+        Route::get('/gamedetail/{id}', [ClientController::class, 'gamedetail'])->name('gamedetail');
 
-        Route::get('/gamedetail/{id}', [ClientController::class, 'show'])->name('game.show');
 
 
 

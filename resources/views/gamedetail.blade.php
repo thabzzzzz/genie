@@ -4,13 +4,12 @@
 
     <div class="py-12 bg-maintheme">
         <div class="w-full mx-auto   ">
-            <h1 class="content-heading heading1 text-center text-2xl">trending games</h1>
+           
             <br>
             
-               
-            <p>gamedetail</p>
+            
+            <GameDetail :game-detail="{{ json_encode($gameDetail) }}"></GameDetail>
                 
-           
         </div>
     </div>
 </x-app-layout>

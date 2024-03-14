@@ -10,7 +10,7 @@
             <div class="relative">
               <a :href="`/gamedetail/${game.id}`">
         <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
-        <span v-if="game.id">Navigating to: /gamedetail/{{ game.id }}</span>
+      
     </a>
 
               
