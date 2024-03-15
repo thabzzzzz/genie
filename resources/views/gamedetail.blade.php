@@ -2,7 +2,7 @@
     <x-slot name="header">
     </x-slot>
 
-    <div class="py-12 bg-maintheme">
+    <div class="pb-12 bg-maintheme">
         <div class="w-full mx-auto   ">
            
             <br>
