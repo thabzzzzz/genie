@@ -4,24 +4,34 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateWishlistsTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id'); // Add user_id column
+            $table->unsignedBigInteger('game_id')->index();
             $table->timestamps();
+
+            // Add foreign key constraint
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('wishlists');
     }
-};
+}
+;

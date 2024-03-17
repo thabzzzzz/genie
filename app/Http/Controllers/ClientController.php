@@ -140,15 +140,18 @@ class ClientController extends Controller
 
     public function test(Request $request)
     {
-        // Perform any actions you want here
-        // For now, let's just dd('test message')
-        $gameId = $request->input('gameId'); // Access the gameId from the request data
-
-        // Implement your logic here using the gameId
-        // For example, you could log it or use it for further processing
+        $gameId = $request->input('gameId');
+    
+        // Validate the gameId if needed
+    
+        // Create a new Wishlist entry for the user
+        $wishlistEntry = Wishlist::create([
+            'user_id' => Auth::user()->id, // Assuming you have user authentication
+            'game_id' => $gameId,
+        ]);
     
         // Respond with a success message or data (optional)
-        return response()->json(['message' => $gameId]);
+        return response()->json(['message' => 'Game added to wishlist!']);
     }
     
     
