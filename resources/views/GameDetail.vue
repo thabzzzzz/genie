@@ -11,7 +11,7 @@
           <br>
           <p>{{ gameDetail.name }}</p>
           <br>
-          <div class="desc" :style="{ maxHeight: descriptionMaxHeight }"> 
+          <div class="desc " :style="{ maxHeight: descriptionMaxHeight }"> 
             <div v-html="gameDetail.description"></div> 
           </div>
           <br>
@@ -29,7 +29,7 @@
         <div class="p-6">
           <p>Actions /</p>
           <br>
-          <button class="my-btn-2">
+          <button class="my-btn-2" @click="test">
             <span class="btn-content">
               <img src="/site-images/generalicons/bookmark-plus-fill.svg" alt="" class="mr-2"> 
               Add to Wishlist
@@ -55,6 +55,10 @@
 
 <script>
 import Rating from "./Rating.vue";
+import axios from 'axios';
+
+
+
 
 export default {
   components: {
@@ -117,8 +121,28 @@ export default {
     },
     updateRating(newRating) {
       this.userRating = newRating;
+    },  
+
+    test() {
+      // Send a POST request to your controller endpoint
+      axios.post('/test', {
+      gameId: this.gameDetail.id, // Assuming you have gameDetail.id accessible
+    })
+      .then(response => {
+        // Handle successful addition to wishlist (e.g., display a message)
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Handle errors
+        console.error('Error:', error);
+      });
     }
+  
+
+
+
   }
+
 };
 </script>
 

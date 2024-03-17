@@ -63,11 +63,15 @@ Route::middleware('splade')->group(function () {
         Route::delete('/client/{item}/destroy',[ClientController::class,'destroy'])->name('item.destroy');
         Route::get('/gamedetail/{id}', [ClientController::class, 'gamedetail'])->name('gamedetail');
 
+        //vue requests
+        Route::post('/test', [ClientController::class, 'test'])->name('test');
+
+       
 
 
 
 
     });
-
+   
     require __DIR__.'/auth.php';
 });

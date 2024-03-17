@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Items;
 use ProtoneMedia\Splade\Facades\Toast;
 
+use App\Models\Wishlist;
+
 class ClientController extends Controller
 {
     public function home (){
@@ -135,6 +137,19 @@ class ClientController extends Controller
         return view('gamedetail', ['gameDetail' => $gameDetail]);
     }
 
+
+    public function test(Request $request)
+    {
+        // Perform any actions you want here
+        // For now, let's just dd('test message')
+        $gameId = $request->input('gameId'); // Access the gameId from the request data
+
+        // Implement your logic here using the gameId
+        // For example, you could log it or use it for further processing
+    
+        // Respond with a success message or data (optional)
+        return response()->json(['message' => $gameId]);
+    }
     
     
 }
