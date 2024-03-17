@@ -142,17 +142,18 @@ class ClientController extends Controller
     {
         $gameId = $request->input('gameId');
     
-        // Validate the gameId if needed
-    
-        // Create a new Wishlist entry for the user
+       
         $wishlistEntry = Wishlist::create([
             'user_id' => Auth::user()->id, // Assuming you have user authentication
             'game_id' => $gameId,
         ]);
     
-        // Respond with a success message or data (optional)
-        return response()->json(['message' => 'Game added to wishlist!']);
-    }
+    
+       
+
+        
+
+        return response()->json(['success' => true, 'message' => 'Game added to wishlist!']);    }
     
     
 }
