@@ -148,7 +148,7 @@ class ClientController extends Controller
                                 ->first();
 
     if ($wishlistEntry) {
-        return response()->json(['success' => false, 'message' => 'This game is already in your wishlist!']);
+        return response()->json('This game is already in your wishlist!');
     }
 
     // If the game does not exist in the user's wishlist, add it

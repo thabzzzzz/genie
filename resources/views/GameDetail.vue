@@ -139,7 +139,8 @@ export default {
       .then(response => {
         // Handle successful addition to wishlist (e.g., display a message)
         console.log(response.data);
-        toast("Game added to wishlist!");
+        const toastMessage = response.data;
+        toast(toastMessage);
            })
       .catch(error => {
         // Handle errors
