@@ -139,21 +139,32 @@ class ClientController extends Controller
 
 
     public function test(Request $request)
-    {
-        $gameId = $request->input('gameId');
-    
-       
-        $wishlistEntry = Wishlist::create([
-            'user_id' => Auth::user()->id, // Assuming you have user authentication
-            'game_id' => $gameId,
-        ]);
-    
-    
-       
+{
+    $gameId = $request->input('gameId');
 
-        
+    // Check if the game already exists in the user's wishlist
+    $wishlistEntry = Wishlist::where('user_id', Auth::user()->id)
+                                ->where('game_id', $gameId)
+                                ->first();
 
-        return response()->json(['success' => true, 'message' => 'Game added to wishlist!']);    }
+    if ($wishlistEntry) {
+        return response()->json(['success' => false, 'message' => 'This game is already in your wishlist!']);
+    }
+
+    // If the game does not exist in the user's wishlist, add it
+    $wishlistEntry = Wishlist::create([
+        'user_id' => Auth::user()->id,
+        'game_id' => $gameId,
+    ]);
+
+    if ($wishlistEntry) {
+        return response()->json(['success' => true, 'message' => 'Game added to wishlist!']);
+    } else {
+        // If there are any other errors, return a generic error message
+        return response()->json(['success' => false, 'message' => 'Something went wrong. Please try again.']);
+    }
+}
+
     
     
 }

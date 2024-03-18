@@ -45,6 +45,11 @@
           </button>
           <br>
           <br>
+          <button class="my-btn-2" @click="logMessage1">
+      <span class="btn-content">
+        Log Message 1
+      </span>
+    </button>
           Rate:
           <Rating :rating="userRating" @update:rating="updateRating" />
         </div>
@@ -131,15 +136,18 @@ export default {
       .then(response => {
         // Handle successful addition to wishlist (e.g., display a message)
         console.log(response.data);
-      })
+        alert(JSON.stringify(response.data));      })
       .catch(error => {
         // Handle errors
         console.error('Error:', error);
       });
-    }
+    },
   
 
-
+    logMessage1() {
+      console.log('message1');
+      alert('message1');
+    }
 
   }
 
