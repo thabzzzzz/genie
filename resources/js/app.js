@@ -5,9 +5,15 @@ import { renderSpladeApp, SpladePlugin } from "@protonemedia/laravel-splade";
 import "@protonemedia/laravel-splade/dist/style.css";
 import ProductCard from '../views/ProductCard.vue'; 
 import GameDetail from '../views/GameDetail.vue'; 
+import Toast from "vue-toastification";
+// Import the CSS or use your own!
+import "vue-toastification/dist/index.css";
+
 
 const el = document.getElementById("app");
-
+const options = {
+    // You can set your default options here
+};
 
 createApp({
     render: renderSpladeApp({ el })
@@ -19,4 +25,5 @@ createApp({
     })
     .component('ProductCard', ProductCard)
 .component('GameDetail', GameDetail) 
+.use(Toast, options)
 .mount(el);

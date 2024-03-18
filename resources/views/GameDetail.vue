@@ -61,6 +61,7 @@
 <script>
 import Rating from "./Rating.vue";
 import axios from 'axios';
+import { useToast } from "vue-toastification";
 
 
 
@@ -129,6 +130,8 @@ export default {
     },  
 
     test() {
+      const toast = useToast();
+      
       // Send a POST request to your controller endpoint
       axios.post('/test', {
       gameId: this.gameDetail.id, // Assuming you have gameDetail.id accessible
@@ -136,7 +139,8 @@ export default {
       .then(response => {
         // Handle successful addition to wishlist (e.g., display a message)
         console.log(response.data);
-        alert(JSON.stringify(response.data));      })
+        toast("Game added to wishlist!");
+           })
       .catch(error => {
         // Handle errors
         console.error('Error:', error);
