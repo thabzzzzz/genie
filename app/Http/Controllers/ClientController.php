@@ -139,31 +139,39 @@ class ClientController extends Controller
 
 
     public function test(Request $request)
-{
-    $gameId = $request->input('gameId');
-
-    // Check if the game already exists in the user's wishlist
-    $wishlistEntry = Wishlist::where('user_id', Auth::user()->id)
-                                ->where('game_id', $gameId)
-                                ->first();
-
-    if ($wishlistEntry) {
-        return response()->json('This game is already in your wishlist!');
+    {
+        $gameId = $request->input('gameId');
+    
+        // Check if the game already exists in the user's wishlist
+        $wishlistEntry = Wishlist::where('user_id', Auth::user()->id)
+                                    ->where('game_id', $gameId)
+                                    ->first();
+    
+        // If the game already exists in the wishlist, return corresponding message
+        if ($wishlistEntry) {
+            return response()->json('This game is already in your wishlist!');
+        }
+    
+        // If the game does not exist in the user's wishlist, add it
+        try {
+            $wishlistEntry = Wishlist::create([
+                'user_id' => Auth::user()->id,
+                'game_id' => $gameId,
+            ]);
+        } catch (\Exception $e) {
+            // If there are any errors during insertion, return a generic error message
+            return response()->json(['Something went wrong. Please try again.']);
+        }
+    
+        // If the game is successfully added to the wishlist, return success message
+        if ($wishlistEntry) {
+            return response()->json('Game added to wishlist!');
+        } else {
+            // If insertion fails for some reason, return a generic error message
+            return response()->json('Something went wrong. Please try again.');
+        }
     }
-
-    // If the game does not exist in the user's wishlist, add it
-    $wishlistEntry = Wishlist::create([
-        'user_id' => Auth::user()->id,
-        'game_id' => $gameId,
-    ]);
-
-    if ($wishlistEntry) {
-        return response()->json(['success' => true, 'message' => 'Game added to wishlist!']);
-    } else {
-        // If there are any other errors, return a generic error message
-        return response()->json(['success' => false, 'message' => 'Something went wrong. Please try again.']);
-    }
-}
+    
 
     
     
