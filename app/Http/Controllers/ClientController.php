@@ -13,10 +13,16 @@ use App\Models\Wishlist;
 class ClientController extends Controller
 {
     public function home (){
-        $items=Items::where('client', Auth::user()->name )->get();
-        $itemsprice=  number_format(Items::where('client', Auth::user()->name )->sum('price'), 2, ',', ' ');
-        return view('home',['items'=>$items,'itemsprice'=>$itemsprice]);
-    }
+        // Fetch wishlist items associated with the current user
+        $wishlistGameIds = Wishlist::where('user_id', Auth::user()->id)->pluck('game_id');
+  
+        // Debug to ensure you're getting the correct data
+      
+    
+        // Pass wishlist game IDs to the view
+        return view('home', ['wishlistGameIds' => $wishlistGameIds]);
+      }
+  
 
     public function create(){
         return view('create'); 

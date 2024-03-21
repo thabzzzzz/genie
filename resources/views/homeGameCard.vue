@@ -1,0 +1,140 @@
+<template>
+  <div>
+      <div v-if="!wishlistGameIds || wishlistGameIds.length === 0">        <p>Loading...</p>
+    </div>
+    <div v-else>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+          <div class="col" v-for="gameId in wishlistGameIds" :key="gameId">
+          <div class="card product-card" >
+            <div class="relative">
+              <a :href="`/gamedetail/${gameId}`">
+     
+      
+    </a>
+
+              
+              <div class="card-buttons">
+                               
+                                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Bookmark"><img src="site-images/cardicons/bookmark-plus-fill.svg" alt=""></a>
+                              
+                            </div>
+              <div class="prodcard-body py-3">
+                <p class="card-title">{{ gameId}}</p>
+               
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+      wishlistGameIds: {
+      type: Array,
+      required: true,
+    },
+  },
+  methods: {
+    getCoverImageUrl(game) {
+      return game.background_image || 'placeholder_image_url.jpg';
+    },
+  },
+  mounted() {
+    console.log('games prop:', this.games); 
+
+    if (this.games && this.games.results) {
+      console.log('Results:', this.games.results);
+    } else {
+      console.log('Games or Results is undefined or empty:', this.games);
+    }
+  },
+};
+</script>
+
+<style scoped>
+
+
+.clamp-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3; 
+}
+
+
+
+.card {
+  background-color: #f9f9f9;
+  border: 1px solid black;
+
+  overflow: hidden;
+  transition: transform 0.3s;
+  display: flex; /* Add display:flex to make sure the card content is vertically centered */
+}
+
+.card-body {
+  flex: 1; /* Add flex: 1 to make sure the card body takes up the remaining space */
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 13px;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
+}
+
+.card-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+
+
+
+.prodcard-body{
+  padding-left: 10px;
+}
+
+.prodcard-body {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.card-title {
+  margin: 0; 
+}
+
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .card-buttons {
+  opacity: 1; /* Show buttons on hover */
+}
+
+
+
+</style>
