@@ -73,7 +73,7 @@ export default {
 .card {
   background-color: #f9f9f9;
   border: 1px solid black;
-
+  margin: 1px; 
   overflow: hidden;
   transition: transform 0.3s;
   display: flex; /* Add display:flex to make sure the card content is vertically centered */
