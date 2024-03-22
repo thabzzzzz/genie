@@ -1,27 +1,24 @@
 <template>
   <div>
-      <div v-if="!wishlistGameIds || wishlistGameIds.length === 0">        <p>Loading...</p>
+    <div v-if="!wishlistGameIds || wishlistGameIds.length === 0">
+      <p>Loading...</p>
     </div>
     <div v-else>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-          <div class="col" v-for="gameId in wishlistGameIds" :key="gameId">
-          <div class="card product-card" >
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div class="col" v-for="gameId in wishlistGameIds" :key="gameId">
+          <div class="card product-card">
             <div class="relative">
-              <a :href="`/gamedetail/${gameId}`">
-     
-      
-    </a>
-
-              
+              <a :href="`/gamedetail/${gameId}`"></a>
               <div class="card-buttons">
-                               
-                                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Bookmark"><img src="site-images/cardicons/bookmark-plus-fill.svg" alt=""></a>
-                              
-                            </div>
+                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Bookmark">
+                  <img src="site-images/cardicons/bookmark-plus-fill.svg" alt="">
+                </a>
+              </div>
               <div class="prodcard-body py-3">
-                <p class="card-title">{{ gameId}}</p>
-               
-               
+                <p class="card-title">{{ gameId }}</p>
+                <!-- Display the game name once it's fetched -->
+                <p v-if="gameNames[gameId]">{{ gameNames[gameId] }}</p>
+                <p v-else>Loading game name...</p>
               </div>
             </div>
           </div>
@@ -32,26 +29,50 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
+
 export default {
   props: {
-      wishlistGameIds: {
+    wishlistGameIds: {
       type: Array,
       required: true,
     },
   },
-  methods: {
-    getCoverImageUrl(game) {
-      return game.background_image || 'placeholder_image_url.jpg';
-    },
-  },
-  mounted() {
-    console.log('games prop:', this.games); 
+  setup(props) {
+    const gameNames = ref({}); // Use ref for reactive property
 
-    if (this.games && this.games.results) {
-      console.log('Results:', this.games.results);
-    } else {
-      console.log('Games or Results is undefined or empty:', this.games);
-    }
+    const fetchGameNames = async () => {
+      try {
+        for (const gameId of props.wishlistGameIds) {
+          const name = await getGameName(gameId);
+          // Use Vue.set or directly set the property
+          gameNames.value[gameId] = name;
+        }
+      } catch (error) {
+        console.error('Error fetching game names:', error);
+      }
+    };
+
+    const getGameName = async (gameId) => {
+      try {
+        console.log('Fetching game name for game ID:', gameId);
+        const response = await fetch(`https://api.rawg.io/api/games/${gameId}?key=36e199df12d14562ad36f3befadf81d5`);
+        const data = await response.json();
+        console.log('Game name fetched:', data.name);
+        return data.name;
+      } catch (error) {
+        console.error('Error fetching game name:', error);
+        return 'Error fetching game name';
+      }
+    };
+
+    onMounted(() => {
+      fetchGameNames();
+    });
+
+    return {
+      gameNames,
+    };
   },
 };
 </script>
