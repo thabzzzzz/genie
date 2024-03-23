@@ -8,17 +8,28 @@
         <div class="col" v-for="gameId in wishlistGameIds" :key="gameId">
           <div class="card product-card">
             <div class="relative">
-              <a :href="`/gamedetail/${gameId}`"></a>
+              <a :href="`/gamedetail/${gameId}`">
+                <img v-if="gameNames[gameId] && gameNames[gameId].image" :src="gameNames[gameId].image" alt="Game cover" />
+              </a>
+              <!-- image here -->
               <div class="card-buttons">
                 <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Bookmark">
                   <img src="site-images/cardicons/bookmark-plus-fill.svg" alt="">
                 </a>
               </div>
               <div class="prodcard-body py-3">
-                <p class="card-title">{{ gameId }}</p>
+             
                 <!-- Display the game name once it's fetched -->
-                <p v-if="gameNames[gameId]">{{ gameNames[gameId] }}</p>
-                <p v-else>Loading game name...</p>
+          
+               
+
+                <div class="prodcard-body py-3">
+                  <p class="card-title" v-if="gameNames[gameId]">{{ gameNames[gameId].name }}</p>
+               
+                  <p class="additional-text" v-if="gameNames[gameId]">{{ gameNames[gameId].releasedDate }}</p>
+                  <p v-else>Loading game ...</p>
+              </div>
+
               </div>
             </div>
           </div>
@@ -54,17 +65,32 @@ export default {
     };
 
     const getGameName = async (gameId) => {
-      try {
-        console.log('Fetching game name for game ID:', gameId);
-        const response = await fetch(`https://api.rawg.io/api/games/${gameId}?key=36e199df12d14562ad36f3befadf81d5`);
-        const data = await response.json();
-        console.log('Game name fetched:', data.name);
-        return data.name;
-      } catch (error) {
-        console.error('Error fetching game name:', error);
-        return 'Error fetching game name';
-      }
+  try {
+    console.log('Fetching game name for game ID:', gameId);
+    const response = await fetch(`https://api.rawg.io/api/games/${gameId}?key=36e199df12d14562ad36f3befadf81d5`);
+    const data = await response.json();
+    console.log('Game name fetched:', data.name);
+
+    // Extract and format release date (unchanged)
+    const releaseDate = new Date(data.released);
+    const formattedDate = releaseDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    const imageUrl = data.background_image || data.background_image_large; // Use fallback
+
+    return {
+      name: data.name,
+      releasedDate: formattedDate,
+      image: imageUrl,
     };
+  } catch (error) {
+    console.error('Error fetching game name:', error);
+    return 'Error fetching game name';
+  }
+};
 
     onMounted(() => {
       fetchGameNames();
