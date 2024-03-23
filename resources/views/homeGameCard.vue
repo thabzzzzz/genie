@@ -9,12 +9,12 @@
           <div class="card product-card">
             <div class="relative">
               <a :href="`/gamedetail/${gameId}`">
-                <img v-if="gameNames[gameId] && gameNames[gameId].image" :src="gameNames[gameId].image" alt="Game cover" />
+                <img v-if="gameNames[gameId] && gameNames[gameId].image" :src="gameNames[gameId].image" alt="Game cover" class="card-img-top"/>
               </a>
               <!-- image here -->
               <div class="card-buttons">
-                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Bookmark">
-                  <img src="site-images/cardicons/bookmark-plus-fill.svg" alt="">
+                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Remove">
+                  <img src="site-images/cardicons/trash-fill.svg"   >
                 </a>
               </div>
               <div class="prodcard-body py-3">
