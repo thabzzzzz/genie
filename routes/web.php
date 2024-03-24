@@ -66,6 +66,7 @@ Route::middleware('splade')->group(function () {
         //vue requests
         Route::post('/test', [ClientController::class, 'test'])->name('test');
 
+Route::delete('/api/games/{gameId}', [ClientController::class, 'delete'])->name('delete');
        
 
 

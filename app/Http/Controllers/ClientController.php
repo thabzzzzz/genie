@@ -177,6 +177,27 @@ class ClientController extends Controller
             return response()->json('Something went wrong. Please try again.');
         }
     }
+
+    public function delete($gameId) {
+        try {
+            // Find the game in the wishlist by both the user ID and the game ID
+            $game = Wishlist::where('game_id', $gameId)
+                            ->where('user_id', Auth::user()->id)
+                            ->first();
+            
+            if (!$game) {
+                return response()->json(['message' => 'Game not found'], 404);
+            }
+            
+            // Perform deletion
+            $game->delete();
+            
+            return response()->json(['message' => 'Game deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to delete game', 'error' => $e->getMessage()], 500);
+        }
+    }
+    
     
 
     

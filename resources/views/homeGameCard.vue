@@ -13,9 +13,9 @@
               </a>
               <!-- image here -->
               <div class="card-buttons">
-                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Remove">
-                  <img src="site-images/cardicons/trash-fill.svg"   >
-                </a>
+                <a @click="deleteGame(gameId)" class="my-btn-2" title="Remove">
+  <img src="site-images/cardicons/trash-fill.svg">
+</a>
               </div>
               <div class="prodcard-body py-3">
              
@@ -26,7 +26,8 @@
                 <div class="prodcard-body py-3">
                   <p class="card-title" v-if="gameNames[gameId]">{{ gameNames[gameId].name }}</p>
                
-                  <p class="additional-text" v-if="gameNames[gameId]">{{ gameNames[gameId].releasedDate }}</p>
+                  <hr>
+                 <p class="additional-text" v-if="gameNames[gameId]">[{{ gameNames[gameId].releasedDate }}]</p>
                   <p v-else>Loading game ...</p>
               </div>
 
@@ -50,6 +51,27 @@ export default {
     },
   },
   setup(props) {
+    const deleteGame = async (gameId) => {
+      console.log('Deleting game with ID:', gameId);
+      try {
+        const response = await axios.delete(`/api/games/${gameId}`, {
+          headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          },
+        });
+
+        if (response.status === 200) { // Check for successful deletion (200 OK)
+          // Remove the game ID from the wishlistGameIds array or update the list as necessary
+          const index = props.wishlistGameIds.indexOf(gameId);
+          props.wishlistGameIds.splice(index, 1);
+        } else {
+          console.error('Failed to delete game:', response.data);
+        }
+      } catch (error) {
+        console.error('Error deleting game:', error);
+      }
+    };
+
     const gameNames = ref({}); // Use ref for reactive property
 
     const fetchGameNames = async () => {
@@ -98,6 +120,7 @@ export default {
 
     return {
       gameNames,
+      deleteGame
     };
   },
 };
