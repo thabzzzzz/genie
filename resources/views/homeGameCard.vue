@@ -64,6 +64,7 @@ export default {
           // Remove the game ID from the wishlistGameIds array or update the list as necessary
           const index = props.wishlistGameIds.indexOf(gameId);
           props.wishlistGameIds.splice(index, 1);
+          window.location.reload();
         } else {
           console.error('Failed to delete game:', response.data);
         }
