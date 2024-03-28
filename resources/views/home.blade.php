@@ -4,9 +4,9 @@
             <h1 class="content-heading heading1">Your wishlist</h1>
             <br>
            
-            
+            <x-splade-rehydrate >
             <homeGameCard :wishlistGameIds="{{ json_encode($wishlistGameIds) }}"></homeGameCard>
-                
+            </x-splade-rehydrate> 
             
         </div>
     </div>

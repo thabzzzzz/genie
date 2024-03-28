@@ -52,26 +52,30 @@ export default {
   },
   setup(props) {
     const deleteGame = async (gameId) => {
-      console.log('Deleting game with ID:', gameId);
-      try {
-        const response = await axios.delete(`/api/games/${gameId}`, {
-          headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-          },
-        });
+  console.log('Deleting game with ID:', gameId);
+  try {
+    const response = await axios.delete(`/api/games/${gameId}`, {
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      },
+    });
 
-        if (response.status === 200) { // Check for successful deletion (200 OK)
-          // Remove the game ID from the wishlistGameIds array or update the list as necessary
-          const index = props.wishlistGameIds.indexOf(gameId);
-          props.wishlistGameIds.splice(index, 1);
-          window.location.reload();
-        } else {
-          console.error('Failed to delete game:', response.data);
-        }
-      } catch (error) {
-        console.error('Error deleting game:', error);
-      }
-    };
+    if (response.status === 200) { // Check for successful deletion (200 OK)
+      // Remove the game ID from the wishlistGameIds array or update the list as necessary
+      const index = props.wishlistGameIds.indexOf(gameId);
+      props.wishlistGameIds.splice(index, 1);
+
+      // Remove the game from the gameNames object
+      const { [gameId]: removedGame, ...remainingGames } = gameNames.value;
+      gameNames.value = remainingGames;
+    } else {
+      console.error('Failed to delete game:', response.data);
+    }
+  } catch (error) {
+    console.error('Error deleting game:', error);
+  }
+};
+
 
     const gameNames = ref({}); // Use ref for reactive property
 
@@ -80,7 +84,7 @@ export default {
         for (const gameId of props.wishlistGameIds) {
           const name = await getGameName(gameId);
           // Use Vue.set or directly set the property
-          gameNames.value[gameId] = name;
+          gameNames.value = { ...gameNames.value, [gameId]: name };
         }
       } catch (error) {
         console.error('Error fetching game names:', error);
