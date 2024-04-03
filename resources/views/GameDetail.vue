@@ -55,6 +55,16 @@
         </div>
       </div>
     </div>
+    <carousel :items-to-show="1.5">
+    <slide v-for="slide in 10" :key="slide">
+      {{ slide }}
+    </slide>
+
+    <template #addons>
+      <navigation />
+      <pagination />
+    </template>
+  </carousel>
   </div>
 </template>
 
@@ -62,13 +72,18 @@
 import Rating from "./Rating.vue";
 import axios from 'axios';
 import { useToast } from "vue-toastification";
-
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 
 
 export default {
   components: {
     Rating,
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
   },
   props: {
     gameDetail: {

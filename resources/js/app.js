@@ -11,6 +11,7 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
 
+
 const el = document.getElementById("app");
 const options = {
     // You can set your default options here
@@ -28,4 +29,5 @@ createApp({
 .component('GameDetail', GameDetail) 
 .component('homeGameCard', homeGameCard)
 .use(Toast, options)
+
 .mount(el);
