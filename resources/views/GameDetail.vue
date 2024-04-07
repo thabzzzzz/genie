@@ -55,16 +55,27 @@
         </div>
       </div>
     </div>
-    <carousel :items-to-show="1.5">
-    <slide v-for="slide in 10" :key="slide">
-      {{ slide }}
-    </slide>
+    <div>
 
-    <template #addons>
-      <navigation />
-      <pagination />
-    </template>
-  </carousel>
+      <div class="second-section">
+        <h1 class="text-center gamename">Media</h1>
+      </div>
+     
+      <carousel :items-to-show="1.5">
+      <!-- Loop through images from API response and generate slides -->
+      <slide v-for="(image, index) in gameImages" :key="index">
+        <!-- Use image URLs as src attribute -->
+        <img :src="image.image" :alt="'Screenshot ' + (index + 1)" />
+      </slide>
+
+      <!-- Navigation and Pagination components -->
+      <template #addons>
+        <navigation />
+        <pagination />
+      </template>
+    </carousel>
+    </div>
+    
   </div>
 </template>
 
@@ -95,7 +106,12 @@ export default {
     return {
       descriptionMaxHeight: 'calc(1.2em * 10)', // Set the maximum height based on 10 lines
       userRating: 0, // Initial user rating
+      gameImages: []
     };
+  },
+  created() {
+    // Fetch images from API when component is created
+    this.fetchGameImages();
   },
   computed: {
     filteredPlatforms() {
@@ -164,9 +180,15 @@ export default {
     },
   
 
-    logMessage1() {
-      console.log('message1');
-      alert('message1');
+    fetchGameImages() {
+      axios.get(`https://api.rawg.io/api/games/${this.gameDetail.id}/screenshots?key=36e199df12d14562ad36f3befadf81d5`)
+        .then(response => {
+          // Extract image URLs from API response
+          this.gameImages = response.data.results;
+        })
+        .catch(error => {
+          console.error('Error fetching game images:', error);
+        });
     }
 
   }
@@ -228,6 +250,11 @@ export default {
 
 .rating {
     display: inline-flex; /* Set the Rating component to display inline */
+  }
+
+  .second-section{
+    padding-top: 1.25rem;
+    border-bottom: solid black 1px;
   }
 
 </style>
