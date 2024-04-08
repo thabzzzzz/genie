@@ -1,10 +1,10 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h1 class="content-heading  heading1">
             {{ __('Update Password') }}
-        </h2>
+        </h1>
 
-        <p class="mt-1 text-sm text-gray-600">
+        <p class="mt-1 text-sm text-gray-600 ">
             {{ __('Ensure your account is using a long, random password to stay secure.') }}
         </p>
     </header>
@@ -15,7 +15,8 @@
         <x-splade-input id="password_confirmation" name="password_confirmation" type="password" :label="__('Confirm Password')" autocomplete="new-password" />
 
         <div class="flex items-center gap-4">
-            <x-splade-submit :label="__('Save')" />
+            <x-splade-submit :label="__('Save')" class="profileButton my-btn-2 bg-transparent hover:bg-gray-200 text-gray-800" />
+
 
             @if (session('status') === 'password-updated')
                 <p class="text-sm text-gray-600">{{ __('Saved.') }}</p>

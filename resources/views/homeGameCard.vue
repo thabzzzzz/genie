@@ -22,14 +22,17 @@
                 <!-- Display the game name once it's fetched -->
           
                
-
                 <div class="prodcard-body py-3">
-                  <p class="card-title" v-if="gameNames[gameId]">{{ gameNames[gameId].name }}</p>
-               
-                  <hr>
-                 <p class="additional-text" v-if="gameNames[gameId]">[{{ gameNames[gameId].releasedDate }}]</p>
-                  <p v-else>Loading game ...</p>
-              </div>
+  <p class="card-title homecard-title" v-if="gameNames[gameId]">{{ gameNames[gameId].name }}</p>
+  <p class="card-title" v-else>Loading game ...</p>
+
+ 
+ 
+
+  <!-- Render additional text (release date) only if gameNames and releasedDate exist -->
+  
+</div>
+
 
               </div>
             </div>
@@ -209,8 +212,6 @@ export default {
 .card:hover .card-buttons {
   opacity: 1; /* Show buttons on hover */
 }
-
-
 
 
 

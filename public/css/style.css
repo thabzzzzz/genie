@@ -235,10 +235,23 @@ Link:hover:after { transform: scaleX(1); }
   height: 24px; /* Adjust the height of the button icons */
 }
 
-.card:hover .card-img-top {
-  filter: blur(2px); /* Apply a slight blur to the image */
+.card .card-img-top {
+  transition: filter 0.1s ease-in-out; /* Apply transition to the filter property */
 }
 
+/* Bolden the game name */
+.card .card-title {
+  transition: font-weight 0.1s ease-in-out; /* Apply transition to the font-weight property */
+}
+
+/* Hover effects */
+.card:hover .card-img-top {
+  filter: blur(2px); /* Apply blur on hover */
+}
+
+.card:hover .card-title {
+  font-weight: bold; /* Bolden the game name on hover */
+}
 .prodcard-body{
   background-color: var(--background);
 }
@@ -250,8 +263,14 @@ Link:hover:after { transform: scaleX(1); }
 .additional-text {
   margin-right: 13px;
    font-size: 13px;
-   
+
  }
+
+ .profilep,.profileButton{
+  font-family: opensans;
+ }
+
+
  
 
 
