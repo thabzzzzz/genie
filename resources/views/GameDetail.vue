@@ -27,38 +27,33 @@
         <hr class="dashed-line">
 
         <div class="p-6">
-          <p>Actions /</p>
+          <p >Actions /</p>
           <br>
           <button class="my-btn-2" @click="test">
             <span class="btn-content">
               <img src="/site-images/generalicons/bookmark-plus-fill.svg" alt="" class="mr-2"> 
-              Add to Wishlist
+              Add to Collection
             </span>
           </button>
           <br>
           <br>
-          <button class="my-btn-2">
-            <span class="btn-content">
-              <img src="/site-images/generalicons/collection-fill.svg" alt="" class="mr-2"> 
-              Add to Library
-            </span>
-          </button>
-          <br>
-          <br>
-          <button class="my-btn-2" @click="logMessage1">
-      <span class="btn-content">
-        Log Message 1
-      </span>
-    </button>
+        
+          
+        
           Rate:
           <Rating :rating="userRating" @update:rating="updateRating" />
+
+          <br>
+          <br>
+
+          <p>Genie rating: 4.5</p>
         </div>
       </div>
     </div>
     <div>
 
       <div class="second-section">
-        <h1 class="text-center gamename">Media</h1>
+        <h1 class="text-center gamename">Screenshots</h1>
       </div>
      
       <carousel :items-to-show="1.5">
@@ -126,7 +121,9 @@ export default {
         "playstation": "playstation.svg",
         "xbox": "xbox.svg",
         "pc": "windows.svg",
-        "ubuntu": "windows.svg" 
+        "ubuntu": "windows.svg",
+        "nintendo-switch": "nintendo-switch.svg",
+        "ps-vita": "vita.svg",
       };
       const iconsFolder = '/site-images/platforms/';
       if (slug in genericPlatformIcons) {
@@ -148,7 +145,9 @@ export default {
         "playstation": "Playstation",
         "xbox": "Xbox",
         "pc": "PC",
-        "ubuntu": "Ubuntu"
+        "ubuntu": "Ubuntu",
+        "nintendo-switch":"Switch",
+        "ps-vita":"Vita"
       };
       if (slug in platformNames) {
         return platformNames[slug];
@@ -256,5 +255,7 @@ export default {
     padding-top: 1.25rem;
     border-bottom: solid black 1px;
   }
+
+  
 
 </style>

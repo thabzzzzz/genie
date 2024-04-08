@@ -155,7 +155,7 @@ class ClientController extends Controller
     
         // If the game already exists in the wishlist, return corresponding message
         if ($wishlistEntry) {
-            return response()->json('This game is already in your wishlist!');
+            return response()->json('This game is already in your collection!');
         }
     
         // If the game does not exist in the user's wishlist, add it
@@ -171,7 +171,7 @@ class ClientController extends Controller
     
         // If the game is successfully added to the wishlist, return success message
         if ($wishlistEntry) {
-            return response()->json('Game added to wishlist!');
+            return response()->json('Game added to collection!');
         } else {
             // If insertion fails for some reason, return a generic error message
             return response()->json('Something went wrong. Please try again.');
