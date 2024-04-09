@@ -11,7 +11,7 @@
                     {{ __('Already registered?') }}
                 </Link>
 
-                <x-splade-submit class="ml-4" :label="__('Register')" />
+                <x-splade-submit class="ml-4  my-btn-2 bg-transparent" :label="__('Register')" />
             </div>
         </x-splade-form>
     </x-auth-card>

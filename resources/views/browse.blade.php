@@ -4,9 +4,9 @@
 
     <div class="pb-12 bg-maintheme">
         <div class="w-full mx-auto   ">
-            <h1 class="content-heading heading1 text-center pt-6">trending games</h1>
+            <h1 class="content-heading text-center heading1 mb-4 mt-10">trending games</h1>
             <br>
-            
+           
                
                 <ProductCard :games="{{ json_encode($games) }}"></ProductCard>
                 

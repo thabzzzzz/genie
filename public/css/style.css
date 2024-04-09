@@ -241,7 +241,7 @@ Link:hover:after { transform: scaleX(1); }
 
 /* Bolden the game name */
 .card .card-title {
-  transition: font-weight 0.1s ease-in-out; /* Apply transition to the font-weight property */
+  transition: font-weight 0.1s ease-out; /* Apply transition to the font-weight property */
 }
 
 /* Hover effects */
@@ -284,7 +284,19 @@ Link:hover:after { transform: scaleX(1); }
   background-color: #F8F8FF !important;
 }
 
- 
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.min-h-screen {
+    min-height: 100vh; /* Set the minimum height to 100% of the viewport height */
+}
+.border {
+  border-width: 1px; /* Adjust border width as needed */
+}
 
 
 

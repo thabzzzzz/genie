@@ -1,11 +1,11 @@
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-screen bg-maintheme">
     @include('layouts.navigation')
 
     <!-- Page Heading -->
  
 
     <!-- Page Content -->
-    <main>
+    <main >
         {{ $slot }}
     </main>
 </div>

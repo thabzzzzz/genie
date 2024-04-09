@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="py-12 bg-maintheme">
         <div class="w-full mx-auto">
-            <h1 class="content-heading text-center heading1">Your Collection</h1>
+            <h1 class="content-heading text-center heading1 mb-5 ">your collection</h1>
             <br>
            
             <x-splade-rehydrate >
