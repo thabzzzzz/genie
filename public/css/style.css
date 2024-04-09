@@ -137,7 +137,7 @@ label,.btn{
 /* nav dropdown */
 
 .mt-2.w-48.rounded-md.shadow-lg.ring-1.ring-black.ring-opacity-5.py-1.bg-white {
-  background-color: #10100e;
+  background-color: transparent;
   border-radius: 0;
 }
 
@@ -270,6 +270,19 @@ Link:hover:after { transform: scaleX(1); }
   font-family: opensans;
  }
 
+ .profilesection{
+  border: solid 1px black;
+ }
+
+ .custom-label  {
+  font-family:opensans; /* Replace 'YourFontName' with the desired font name */
+  background-color: #F8F8FF;
+}
+
+.custom-label input  {
+  
+  background-color: #F8F8FF !important;
+}
 
  
 
