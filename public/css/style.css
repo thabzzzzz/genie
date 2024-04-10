@@ -302,6 +302,10 @@ body {
   width: 200px;
 }
 
+.logincard.{
+  border: solid black 1px;
+}
+
 
 
 
