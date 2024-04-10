@@ -7,7 +7,7 @@
                     <!-- Logo -->
                     <div class="flex items-center home-navgroup">
                         <Link href="{{ route('home') }}" class="flex items-center">
-                           
+                            <x-application-logo class="w-20 h-14 fill-current text-gray-500" />
                             <h1 class="pr-14 pl-10 text-4xl logo-text">genie</h1>
                         </Link>
                     </div>
