@@ -302,8 +302,12 @@ body {
   width: 200px;
 }
 
-.logincard.{
+.logincard{
   border: solid black 1px;
+}
+
+.notfoundtext{
+  font-size: 50px;
 }
 
 

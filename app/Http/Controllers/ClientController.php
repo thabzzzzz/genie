@@ -197,6 +197,11 @@ class ClientController extends Controller
             return response()->json(['message' => 'Failed to delete game', 'error' => $e->getMessage()], 500);
         }
     }
+
+    public function notFound()
+    {
+        return view('notFound'); 
+    }
     
     
 

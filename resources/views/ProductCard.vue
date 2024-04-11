@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div>
+      <h1>Filters:</h1>
+      <h1>Search:</h1>
+    </div>
     <div v-if="!games || games.length === 0">
       <p>Loading...</p>
     </div>
@@ -14,11 +18,7 @@
     </a>
 
               
-              <div class="card-buttons">
-                               
-                                <a href="{{ route('item.edit',['item'=>$item]) }}" class="my-btn-2" title="Bookmark"><img src="site-images/cardicons/bookmark-plus-fill.svg" alt=""></a>
-                              
-                            </div>
+            
               <div class="prodcard-body py-3">
                 <p class="card-title">{{ game.name }}</p>
                 <p class="card-title">{{ game.website}} </p>

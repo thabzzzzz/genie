@@ -41,6 +41,8 @@ Route::middleware('splade')->group(function () {
         return redirect('/login');
     });
 
+    Route::fallback([ClientController::class, 'notFound']);
+
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
