@@ -6,6 +6,7 @@ import "@protonemedia/laravel-splade/dist/style.css";
 import ProductCard from '../views/ProductCard.vue'; 
 import GameDetail from '../views/GameDetail.vue'; 
 import homeGameCard from '../views/homeGameCard.vue';
+import searchcard from '../views/searchcard.vue';
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
@@ -28,6 +29,7 @@ createApp({
     .component('ProductCard', ProductCard)
 .component('GameDetail', GameDetail) 
 .component('homeGameCard', homeGameCard)
+.component('searchcard', searchcard)
 .use(Toast, options)
 
 .mount(el);

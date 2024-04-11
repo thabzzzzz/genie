@@ -203,6 +203,10 @@ class ClientController extends Controller
         return view('notFound'); 
     }
     
+    public function search()
+    {
+        return view('search'); 
+    }
     
 
     

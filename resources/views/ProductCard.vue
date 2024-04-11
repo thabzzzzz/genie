@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div>
-      <h1>Filters:</h1>
-      <h1>Search:</h1>
-    </div>
+   
     <div v-if="!games || games.length === 0">
       <p>Loading...</p>
     </div>

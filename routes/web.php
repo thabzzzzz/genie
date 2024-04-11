@@ -76,7 +76,7 @@ Route::middleware('splade')->group(function () {
 
 Route::delete('/api/games/{gameId}', [ClientController::class, 'delete'])->name('delete');
        
-
+Route::get('/search',[ClientController::class,'search'])->name('search');  
 
 
 
