@@ -74,9 +74,13 @@ Route::middleware('splade')->group(function () {
         //vue requests
         Route::post('/test', [ClientController::class, 'test'])->name('test');
 
-Route::delete('/api/games/{gameId}', [ClientController::class, 'delete'])->name('delete');
-       
-Route::get('/search',[ClientController::class,'search'])->name('search');  
+        Route::delete('/api/games/{gameId}', [ClientController::class, 'delete'])->name('delete');
+            
+        Route::get('/search',[ClientController::class,'search'])->name('search');  
+
+        Route::get('/customize',[ClientController::class,'customize'])->name('customize');  
+
+        Route::post('/customize/update', [ClientController::class, 'customizeupdate'])->name('customizeupdate');
 
 
 

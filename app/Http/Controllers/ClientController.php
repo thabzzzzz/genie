@@ -9,6 +9,7 @@ use App\Models\Items;
 use ProtoneMedia\Splade\Facades\Toast;
 
 use App\Models\Wishlist;
+use App\Models\ProfileCustomization;
 
 class ClientController extends Controller
 {
@@ -206,6 +207,37 @@ class ClientController extends Controller
     public function search()
     {
         return view('search'); 
+    }
+
+    public function customize()
+    {
+        return view('customizeProfile'); 
+    }
+
+    public function customizeupdate(Request $request)
+    {
+        $user = auth()->user(); // Assuming you have user authentication
+    
+        $validatedData = $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validation rules for image
+            'summary' => 'nullable|string|max:255', // Optional description validation
+        ]);
+    
+        // Handle image upload
+        if ($request->hasFile('avatar')) {
+            $fileName = uniqid() . '.' . $request->profile_picture->getClientOriginalExtension();
+            $request->profile_picture->storeAs('profilePictures', $fileName, 'public');
+            $validatedData['profile_picture'] = $fileName;
+ // Store in public/profilePictures
+    
+            // Save filename to the profile_customizations table
+            $profileCustomization = ProfileCustomization::updateOrCreate(
+                ['user_id' => $user->id], // Find or create a record for the user
+                ['profile_picture' => $fileName] // Update or insert the avatar filename
+            );
+        }
+    
+        return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
     }
     
 

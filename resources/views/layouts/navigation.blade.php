@@ -61,6 +61,10 @@
                         <x-slot name="content">
                             <div class="bg-maintheme  overflow-hidden">
                               <x-dropdown-link :href="route('profile.edit')" class="drop-text mt-0 pt-0 heading1 text-texttheme">
+                                {{ __('Settings') }}
+                              </x-dropdown-link>
+
+                              <x-dropdown-link :href="route('customize')" class="drop-text mt-2 heading1 text-texttheme">
                                 {{ __('Profile') }}
                               </x-dropdown-link>
               
