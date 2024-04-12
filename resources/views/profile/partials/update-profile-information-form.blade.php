@@ -32,6 +32,25 @@
         @endif
 
         <div class="flex items-center gap-4">
+            <!-- Profile picture upload -->
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="hidden" @change="handleProfilePictureChange">
+            <label for="profile_picture" class="cursor-pointer my-btn-2 bg-transparent hover:bg-gray-200 text-gray-800">
+                Upload Profile Picture
+            </label>
+
+            @if ($user->profile_picture)
+                <!-- Display existing profile picture -->
+                <img src="{{ asset($user->profile_picture) }}" alt="Profile Picture" class="w-10 h-10 rounded-full">
+            @endif
+
+            @if (session('status') === 'profile-updated')
+                <p class="text-sm text-gray-600">
+                    {{ __('Saved.') }}
+                </p>
+            @endif
+        </div>
+
+        <div class="flex items-center gap-4">
             <x-splade-submit :label="__('Save')" 
             class="profileButton my-btn-2 bg-transparent hover:bg-gray-200 text-gray-800"
             />
@@ -42,5 +61,7 @@
                 </p>
             @endif
         </div>
+
+       
     </x-splade-form>
 </section>
