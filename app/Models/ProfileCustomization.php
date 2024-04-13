@@ -11,8 +11,8 @@ class ProfileCustomization extends Model
 
     protected $fillable = [
         'user_id',
-        'avatar',
-        'summary',
+        'profile_picture',
+        'description',
     ];
 
     public function user()

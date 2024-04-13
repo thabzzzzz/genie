@@ -10,6 +10,7 @@ use ProtoneMedia\Splade\Facades\Toast;
 
 use App\Models\Wishlist;
 use App\Models\ProfileCustomization;
+use Illuminate\Support\Facades\File;
 
 class ClientController extends Controller
 {
@@ -222,22 +223,44 @@ class ClientController extends Controller
             'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validation rules for image
             'summary' => 'nullable|string|max:255', // Optional description validation
         ]);
+        
+        try {
+            if ($request->hasFile('avatar')) {
+              $file = $request->file('avatar');
+              $userId = $user->id;
+          
+              // Delete user's current profile image if it exists
+              if ($user->profileCustomization && File::exists(public_path('profilePictures/' . $user->profileCustomization->profile_picture))) {
+                File::delete(public_path('profilePictures/' . $user->profileCustomization->profile_picture));
+              }
+          
+              // Generate unique filename with user ID and current datetime
+              $fileName = $userId . '_' . time() . '_' . $file->getClientOriginalName();
+          
+              // Store the file in the public/profilePictures directory
+              $file->move(public_path('profilePictures'), $fileName);
+          
+              // Update validated data with the filename
+              $validatedData['profile_picture'] = $fileName;
+              $validatedData['description'] = $request->get('summary'); 
+          
+              // Find or create profile customization for the user and update/insert picture
+              $profileCustomization = ProfileCustomization::updateOrCreate(
+                ['user_id' => $userId],
+                ['profile_picture' => $fileName,'description' => $request->get('summary')],
+                
+              );
+          
+              // Ensure the model is saved
+              $profileCustomization->save();
+          
+              Toast::title('Profile updated!')->autoDismiss(5)->leftBottom();
+            }
+          } catch (Exception $e) {
+            Toast::title('Error updating profile')->autoDismiss(5)->leftBottom();
+          }
     
-        // Handle image upload
-        if ($request->hasFile('avatar')) {
-            $fileName = uniqid() . '.' . $request->profile_picture->getClientOriginalExtension();
-            $request->profile_picture->storeAs('profilePictures', $fileName, 'public');
-            $validatedData['profile_picture'] = $fileName;
- // Store in public/profilePictures
-    
-            // Save filename to the profile_customizations table
-            $profileCustomization = ProfileCustomization::updateOrCreate(
-                ['user_id' => $user->id], // Find or create a record for the user
-                ['profile_picture' => $fileName] // Update or insert the avatar filename
-            );
-        }
-    
-        return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
+        return redirect()->route('customize')->with('success', 'Profile updated successfully!');
     }
     
 

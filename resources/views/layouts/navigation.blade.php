@@ -46,6 +46,13 @@
 
                 <!-- Settings Dropdown -->
                 <div class="hidden sm:flex sm:items-center ml-14 mr-14   ">
+                    <div class="w-14 h-14 rounded-full overflow-hidden mr-2">
+                        @if (Auth::user()->profileCustomization)
+                            <img src="{{ asset('profilePictures/' . Auth::user()->profileCustomization->profile_picture) }}" alt="Profile Picture" class="w-full h-full object-cover">
+                        @else
+                            <img src="{{ asset('profilePictures/profile_picture.jpg') }}" alt="Default Profile Picture" class="w-full h-full object-cover">
+                        @endif
+                    </div>
                     <x-dropdown placement="bottom-end" >
                         <x-slot name="trigger">
                             <button class="flex items-center text-base profile-name ">
