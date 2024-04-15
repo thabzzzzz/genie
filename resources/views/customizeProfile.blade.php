@@ -18,18 +18,17 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mt-24">
                 <div class="p-4 sm:p-8 bg-maintheme shadow sm:rounded-none profilesection">
                     <div class="profileform" dusk="update-profile-information">
-                        <x-splade-form  action="{{ route('customizeupdate') }}">
-                    
-                            <x-splade-file name="avatar" :show-filename="false" filepond  label="Profile avatar"/>
-                            
-                         
-                            <img v-if="form.avatar" :src="form.$fileAsUrl('avatar')" style="max-width: 200px; max-height: 200px;"/>
+                        <x-splade-form action="{{ route('customizeupdate') }}">
+
+                            <x-splade-file name="avatar" :show-filename="false" filepond label="Profile avatar" class="formfield" />
+                          
+                            <img v-if="form.avatar" :src="form.$fileAsUrl('avatar')" style="max-width: 200px; max-height: 200px;" />
                             <br>
                             <br>
-                            <x-splade-textarea name="summary" autosize label="Description" class="bg-green-100"/>
-        
-                            <x-splade-submit label="Save"  class="profileButton my-btn-2 bg-transparent hover:bg-gray-200 text-gray-800 mt-10"  />
-                         </x-splade-form>
+                            <x-splade-textarea name="summary" autosize label="Description" class="formfield" />
+                          
+                            <x-splade-submit label="Save" class="profileButton my-btn-2 bg-transparent hover:bg-gray-200 text-gray-800 mt-10" />
+                          </x-splade-form>
                     </div>
                 </div>
             </div>

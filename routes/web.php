@@ -81,6 +81,8 @@ Route::middleware('splade')->group(function () {
         Route::get('/customize',[ClientController::class,'customize'])->name('customize');  
 
         Route::post('/customize/update', [ClientController::class, 'customizeupdate'])->name('customizeupdate');
+        
+        Route::get('/profileview',[ClientController::class,'profileview'])->name('profileview'); 
 
 
 

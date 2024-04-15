@@ -232,10 +232,7 @@ class ClientController extends Controller
               // Delete user's current profile image if it exists
               if ($user->profileCustomization && File::exists(public_path('profilePictures/' . $user->profileCustomization->profile_picture))) {
                 File::delete(public_path('profilePictures/' . $user->profileCustomization->profile_picture));
-                info('Previous profile picture deleted successfully.');
-            } else {
-                info('No previous profile picture found.');
-            }
+              }
           
               // Generate unique filename with user ID and current datetime
               $fileName = $userId . '_' . time() . '_' . $file->getClientOriginalName();
@@ -266,7 +263,10 @@ class ClientController extends Controller
         return redirect()->route('customize')->with('success', 'Profile updated successfully!');
     }
     
-
+    public function profileview()
+    {
+        return view('profileview'); 
+    }
     
     
 }

@@ -318,6 +318,24 @@ body {
   width: 50%;
 }
 
+.formfield input{
+  background-color: #F8F8FF !important;
+}
+
+.profile-picture-container {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%; /* This makes the container circular */
+  overflow: hidden; /* Ensure the profile picture stays within the circular container */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.profile-picture-container img {
+  width: 100%; /* Ensure the profile picture fills the circular container */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove any extra space below the image */
+}
+
 
 
 
