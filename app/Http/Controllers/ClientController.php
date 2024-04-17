@@ -222,52 +222,66 @@ class ClientController extends Controller
         $user = auth()->user(); // Assuming you have user authentication
     
         $validatedData = $request->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validation rules for image
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validation rules for image
             'summary' => 'nullable|string|max:255', // Optional description validation
         ]);
-        
-        try {
-            if ($request->hasFile('avatar')) {
-              $file = $request->file('avatar');
-              $userId = $user->id;
-          
-              // Delete user's current profile image if it exists
-              if ($user->profileCustomization && File::exists(public_path('profilePictures/' . $user->profileCustomization->profile_picture))) {
-                File::delete(public_path('profilePictures/' . $user->profileCustomization->profile_picture));
-              }
-          
-              // Generate unique filename with user ID and current datetime
-              $fileName = $userId . '_' . time() . '_' . $file->getClientOriginalName();
-          
-              // Store the file in the public/profilePictures directory
-              $file->move(public_path('profilePictures'), $fileName);
-          
-              // Update validated data with the filename
-              $validatedData['profile_picture'] = $fileName;
-              $validatedData['description'] = $request->get('summary'); 
-          
-              // Find or create profile customization for the user and update/insert picture
-              $profileCustomization = ProfileCustomization::updateOrCreate(
-                ['user_id' => $userId],
-                ['profile_picture' => $fileName,'description' => $request->get('summary')],
-                
-              );
-          
-              // Ensure the model is saved
-              $profileCustomization->save();
-          
-              Toast::title('Profile updated!')->autoDismiss(5)->leftBottom();
-            }
-          } catch (Exception $e) {
-            Toast::title('Error updating profile')->autoDismiss(5)->leftBottom();
-          }
     
-        return redirect()->route('customize')->with('success', 'Profile updated successfully!');
+        try {
+            // Check if avatar (image) is provided in the request
+            if ($request->hasFile('avatar')) {
+                $file = $request->file('avatar');
+                $userId = $user->id;
+    
+                // Delete user's current profile image if it exists
+                if ($user->profileCustomization && File::exists(public_path('profilePictures/' . $user->profileCustomization->profile_picture))) {
+                    File::delete(public_path('profilePictures/' . $user->profileCustomization->profile_picture));
+                }
+    
+                // Generate unique filename with user ID and current datetime
+                $fileName = $userId . '_' . time() . '_' . $file->getClientOriginalName();
+    
+                // Store the file in the public/profilePictures directory
+                $file->move(public_path('profilePictures'), $fileName);
+    
+                // Update validated data with the filename
+                $validatedData['profile_picture'] = $fileName;
+            }
+    
+            // Check if summary (description) is provided in the request
+            if ($request->filled('summary')) {
+                // Update the description in validated data
+                $validatedData['description'] = $request->input('summary');
+            }
+    
+            // Find or create profile customization for the user and update/insert picture and description
+            $profileCustomization = ProfileCustomization::updateOrCreate(
+                ['user_id' => $user->id],
+                $validatedData // Update or insert the validated data
+            );
+    
+            // Ensure the model is saved
+            $profileCustomization->save();
+    
+            Toast::title('Profile updated!')->autoDismiss(5)->leftBottom();
+        } catch (Exception $e) {
+            Toast::title('Error updating profile')->autoDismiss(5)->leftBottom();
+        }
+    
+        return redirect()->route('profileview')->with('success', 'Profile updated successfully!');
     }
     
     public function profileview()
     {
-        return view('profileview'); 
+        // Get the authenticated user
+    $user = auth()->user();
+
+    // Retrieve the profile customization for the user
+    $profileCustomization = $user->profileCustomization;
+
+    // If profile customization exists, get the description, otherwise set it to empty string
+    $description = $profileCustomization ? $profileCustomization->description : '';
+
+    return view('profileview', compact('description'));
     }
 
   

@@ -24,12 +24,12 @@
         @endif
     </div>
 
-    <div class="col-span-1 w-1/2">
-        <p>gg</p>
+    <div class="col-span-1 p-6">
+        <p>{{ $description }}</p>
     </div>
 </div>
 
-                    
+<Link href="{{ route('customize') }}"><button class="my-btn-2">Customize</button>  </Link>    
                 </div>
             </div>
 
