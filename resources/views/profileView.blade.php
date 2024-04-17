@@ -4,26 +4,32 @@
 
     <div class="pb-12 bg-maintheme">
         <div class="w-full mx-auto   ">
-            <h1 class="content-heading text-center heading1 mb-4 mt-10">profile page</h1>
+            <h1 class="content-heading text-center heading1 mb-4  mt-10">profile page</h1>
             <br>
            
        
 
 
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mt-24">
-                <div class="p-4 sm:p-8 bg-maintheme shadow sm:rounded-none profilesection">
-                    <div class="profileform" dusk="update-profile-information">
-                        <div class=""><h1>{{ Auth::user()->name }}</h1></div>
-                        <div class="profile-picture-container">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 ">
+                <div class="p-4 sm:p-8 bg-maintheme shadow sm:rounded-none profilesection ">
+ {{-- row1  --}}<div class="text-4xl text-center "><h1 >{{ Auth::user()->name }}</h1></div>
 
-                            @if (Auth::user()->profileCustomization)
-                            <img src="{{ asset('profilePictures/' . Auth::user()->profileCustomization->profile_picture) }}" alt="Profile Picture" class="w-full h-full object-cover">
-                        @else
-                            <img src="{{ asset('profilePictures/profile_picture.jpg') }}" alt="Default Profile Picture" class="w-full h-full object-cover">
-                        @endif
 
-                        </div>
-                    </div>
+    {{-- row2 --}}<div class=" grid grid-cols-2 gap-4" dusk="update-profile-information">
+    <div class="profile-picture-container ">
+        @if (Auth::user()->profileCustomization)
+            <img src="{{ asset('profilePictures/' . Auth::user()->profileCustomization->profile_picture) }}" alt="Profile Picture" class="w-full h-full object-cover">
+        @else
+            <img src="{{ asset('profilePictures/profile_picture.jpg') }}" alt="Default Profile Picture" class="w-full h-full object-cover">
+        @endif
+    </div>
+
+    <div class="col-span-1 w-1/2">
+        <p>gg</p>
+    </div>
+</div>
+
+                    
                 </div>
             </div>
 
