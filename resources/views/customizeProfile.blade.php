@@ -29,6 +29,8 @@
                           
                             <x-splade-submit label="Save" class="profileButton my-btn-2 bg-transparent hover:bg-gray-200 text-gray-800 mt-10" />
                           </x-splade-form>
+
+                          <Link href="{{ route('profileview') }}"><button class="my-btn-2 mt-2" >Back</button></Link>
                     </div>
                 </div>
             </div>

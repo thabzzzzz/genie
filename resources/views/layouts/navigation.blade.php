@@ -71,7 +71,7 @@
                                 {{ __('Settings') }}
                               </x-dropdown-link>
 
-                              <x-dropdown-link :href="route('customize')" class="drop-text mt-2 heading1 text-texttheme">
+                              <x-dropdown-link :href="route('profileview')" class="drop-text mt-2 heading1 text-texttheme">
                                 {{ __('Profile') }}
                               </x-dropdown-link>
               

@@ -12,16 +12,18 @@ use App\Models\Wishlist;
 use App\Models\ProfileCustomization;
 use Illuminate\Support\Facades\File;
 
+use ProtoneMedia\Splade\Facades\SEO;
+
 class ClientController extends Controller
 {
     public function home (){
         // Fetch wishlist items associated with the current user
         $wishlistGameIds = Wishlist::where('user_id', Auth::user()->id)->pluck('game_id');
   
-        // Debug to ensure you're getting the correct data
-      
-    
-        // Pass wishlist game IDs to the view
+        SEO::title('genie')
+            ->description('The one game tracker to rule them all!')
+            ->keywords('gaming, database, tracker');
+
         return view('home', ['wishlistGameIds' => $wishlistGameIds]);
       }
   
@@ -267,6 +269,8 @@ class ClientController extends Controller
     {
         return view('profileview'); 
     }
+
+  
     
     
 }

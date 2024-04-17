@@ -110,16 +110,16 @@ label,.btn{
 
 .my-btn-2{
     border-radius: 0px !important;
-    border:  1px solid #232B2B !important;
+    border:  1px solid black !important;
     transition-duration: 0.4s;
     background-color: var(--background);
     text-decoration: none !important;
-    color: #232B2B !important;
+    color: black !important;
     padding: 10px;
   }
   
   .my-btn-2:hover {
-    background-color: #232B2B !important;
+    background-color: black !important;
     color: white !important;
   }
 
