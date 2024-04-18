@@ -2,10 +2,10 @@
   <div>
     <h1 class="text-center gamename">{{ gameDetail.name }}</h1>
     <div class="flex">
-      <div class="w-1/2 border-r col1">
+      <div class="w-3/2 border-r col1">
         <img :src="gameDetail.background_image" :alt="gameDetail.name" class="gamedetailimg" />
       </div>
-      <div class="w-1/2 col2 flex-grow  min-w-0">
+      <div class="w-1/4 col2 flex-grow  min-w-0">
         <div class="details p-6">
           <p>Details /</p>
           <br>

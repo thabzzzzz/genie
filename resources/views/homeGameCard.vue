@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!wishlistGameIds || wishlistGameIds.length === 0">
-      <p>Loading...</p>
+      <p>No games found. Add games from the browse tab</p>
     </div>
     <div v-else>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
