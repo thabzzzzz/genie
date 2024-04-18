@@ -59,7 +59,7 @@ Route::middleware('splade')->group(function () {
         //my routes
         Route::get('/home',[ClientController::class,'home'])->name('home');
 
-        Route::get('/create',[ClientController::class,'create'])->name('create');
+       
         Route::post('/storeitem',[ClientController::class,'storeitem'])->name('storeitem');
 
         Route::get('/browse',[ClientController::class,'browse'])->name('browse');

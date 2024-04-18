@@ -116,6 +116,8 @@ label,.btn{
     text-decoration: none !important;
     color: black !important;
     padding: 10px;
+    font-family: opensans;
+    font-weight: bold;
   }
   
   .my-btn-2:hover {
@@ -323,8 +325,8 @@ body {
 }
 
 .profile-picture-container {
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%; /* This makes the container circular */
   overflow: hidden; /* Ensure the profile picture stays within the circular container */
   margin: 0 auto; /* Center the container horizontally */
@@ -335,6 +337,7 @@ body {
   height: auto; /* Maintain aspect ratio */
   display: block; /* Remove any extra space below the image */
 }
+
 
 
 

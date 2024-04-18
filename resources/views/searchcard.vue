@@ -1,10 +1,10 @@
 <template>
     <div>
       <div>
-        <h1>Filters:</h1>
-        <h1>Search:</h1>
-        <input type="text" v-model="searchTerm" placeholder="Search games..."  @keyup.enter="searchGames"  style="border: 1px solid black;"/>
-        <button @click="searchGames" class="my-btn-2">Search</button>
+       
+       
+        <input type="text" v-model="searchTerm"   @keyup.enter="searchGames"  style="border: 1px solid black;"/>
+        <button @click="searchGames" class="my-btn-2 ">Search</button>
       </div>
       <div v-if="isLoading">
         <p>Searching...</p>
