@@ -326,6 +326,13 @@ class ClientController extends Controller
         }
     }
     
-    
+    public function getAverageRating($gameId)
+    {
+        // Retrieve the average rating for the specified game from your database
+        $averageRating = UserReview::where('game_id', $gameId)->avg('rating');
+
+        // Return the average rating as a JSON response
+        return response()->json(['averageRating' => $averageRating]);
+    }
     
 }
