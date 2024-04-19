@@ -26,7 +26,7 @@
         </div>
         <hr class="dashed-line">
 
-        <div class="p-6">
+        <div class="p-6 pt-2">
           <p >Actions /</p>
           <br>
           <button class="my-btn-2" @click="test">
@@ -41,11 +41,11 @@
           
         
           Rate:
-         <!--  rating  here -->
+         
 
          <div class="rating-select">
       <label for="rating">Select Rating:</label>
-      <select id="rating" v-model="selectedRating">
+      <select id="rating" class="ml-2" v-model="selectedRating">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -53,16 +53,25 @@
         <option value="5">5</option>
       </select>
     </div>
-
+    <br>
+          
     <!-- Submit Button -->
-    <button class="my-btn-2" @click="submitRating">
+    <button class="my-btn-2 " @click="submitRating">
       Submit Rating
     </button>
 
           <br>
           <br>
 
-          <p>Genie rating: 4.5</p>
+          <p>Genie rating: 
+  <span class="average-rating">
+    {{ averageRating !== null ? averageRating : "This game hasn't been rated yet" }}
+  </span>
+</p>
+
+          
+
+
         </div>
       </div>
     </div>
@@ -116,13 +125,15 @@ export default {
   data() {
     return {
       descriptionMaxHeight: 'calc(1.2em * 10)', // Set the maximum height based on 10 lines
-      selectedRating: null,
-      gameImages: []
+      selectedRating: 1,
+      gameImages: [],
+      averageRating: null 
     };
   },
   created() {
     // Fetch images from API when component is created
     this.fetchGameImages();
+    this.fetchAverageRating();
   },
   computed: {
     filteredPlatforms() {
@@ -206,32 +217,47 @@ export default {
         });
     },
     submitRating() {
-      if (!this.selectedRating) {
-        // Handle case when no rating is selected
-        // For example, display an error message
-        const toast = useToast();
-        toast.error('Please select a rating');
-        return;
-      }
+  if (!this.selectedRating) {
+    // Handle case when no rating is selected
+    // For example, display an error message
+    const toast = useToast();
+    toast.error('Please select a rating');
+    return;
+  }
 
-      // Send the selected rating to the server-side endpoint
-      axios.post('/submitrating', {
-        gameId: this.gameDetail.id,
-        rating: this.selectedRating
-      })
-      .then(response => {
-        // Handle successful rating submission
-        console.log(response.data);
-        const toast = useToast();
-        toast.success('Rating submitted successfully');
-      })
-      .catch(error => {
-        // Handle errors
-        console.error('Error submitting rating:', error);
-        const toast = useToast();
-        toast.error('Failed to submit rating');
-      });
-    }
+  // Send the selected rating to the server-side endpoint
+  axios.post('/submitrating', {
+    gameId: this.gameDetail.id,
+    rating: this.selectedRating
+  })
+  .then(response => {
+    // Handle successful rating submission
+    console.log(response.data);
+    const toast = useToast();
+    toast.success('Rating submitted successfully');
+    
+    // Refetch the average rating
+    this.fetchAverageRating();
+  })
+  .catch(error => {
+    // Handle errors
+    console.error('Error submitting rating:', error);
+    const toast = useToast();
+    toast.error('Failed to submit rating');
+  });
+},
+
+
+   fetchAverageRating() {
+  axios.get(`/average-rating/${this.gameDetail.id}`)
+    .then(response => {
+      // Round the rating to one decimal before assigning
+      this.averageRating = parseFloat(response.data.averageRating).toFixed(1);
+    })
+    .catch(error => {
+      console.error('Error fetching average rating:', error);
+    });
+}
 
   }
 
