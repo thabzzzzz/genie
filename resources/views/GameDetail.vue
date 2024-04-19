@@ -63,12 +63,7 @@
           <br>
           <br>
 
-          <p>Genie rating: 
-  <span class="average-rating">
-    {{ averageRating !== null ? averageRating : "This game hasn't been rated yet" }}
-  </span>
-</p>
-
+          <p>Genie rating: <span style="font-family: 'opensans', sans-serif;">{{ averageRating }}</span></p>
           
 
 
@@ -248,11 +243,12 @@ export default {
 },
 
 
-   fetchAverageRating() {
+fetchAverageRating() {
   axios.get(`/average-rating/${this.gameDetail.id}`)
     .then(response => {
-      // Round the rating to one decimal before assigning
-      this.averageRating = parseFloat(response.data.averageRating).toFixed(1);
+      this.averageRating = response.data.averageRating !== null ?
+        parseFloat(response.data.averageRating).toFixed(1) :
+        'Game hasn\'t been rated yet';
     })
     .catch(error => {
       console.error('Error fetching average rating:', error);
