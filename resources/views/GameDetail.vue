@@ -41,7 +41,23 @@
           
         
           Rate:
-          <Rating :rating="userRating" @update:rating="updateRating" />
+         <!--  rating  here -->
+
+         <div class="rating-select">
+      <label for="rating">Select Rating:</label>
+      <select id="rating" v-model="selectedRating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
+    <button class="my-btn-2" @click="submitRating">
+      Submit Rating
+    </button>
 
           <br>
           <br>
@@ -75,7 +91,7 @@
 </template>
 
 <script>
-import Rating from "./Rating.vue";
+
 import axios from 'axios';
 import { useToast } from "vue-toastification";
 import 'vue3-carousel/dist/carousel.css'
@@ -85,7 +101,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 export default {
   components: {
-    Rating,
+   
     Carousel,
     Slide,
     Pagination,
@@ -100,7 +116,7 @@ export default {
   data() {
     return {
       descriptionMaxHeight: 'calc(1.2em * 10)', // Set the maximum height based on 10 lines
-      userRating: 0, // Initial user rating
+      selectedRating: null,
       gameImages: []
     };
   },
@@ -188,6 +204,33 @@ export default {
         .catch(error => {
           console.error('Error fetching game images:', error);
         });
+    },
+    submitRating() {
+      if (!this.selectedRating) {
+        // Handle case when no rating is selected
+        // For example, display an error message
+        const toast = useToast();
+        toast.error('Please select a rating');
+        return;
+      }
+
+      // Send the selected rating to the server-side endpoint
+      axios.post('/submitrating', {
+        gameId: this.gameDetail.id,
+        rating: this.selectedRating
+      })
+      .then(response => {
+        // Handle successful rating submission
+        console.log(response.data);
+        const toast = useToast();
+        toast.success('Rating submitted successfully');
+      })
+      .catch(error => {
+        // Handle errors
+        console.error('Error submitting rating:', error);
+        const toast = useToast();
+        toast.error('Failed to submit rating');
+      });
     }
 
   }

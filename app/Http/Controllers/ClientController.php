@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Items;
+use App\Models\UserReview;
 use ProtoneMedia\Splade\Facades\Toast;
 
 use App\Models\Wishlist;
@@ -284,7 +285,47 @@ class ClientController extends Controller
     return view('profileview', compact('description'));
     }
 
-  
+    public function submitRating(Request $request)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'gameId' => 'required|integer', // Assuming gameId is the ID of the game being rated
+            'rating' => 'required|integer|min:1|max:5', // Assuming rating is an integer between 1 and 5
+        ]);
+    
+        // Extract rating data from the request
+        $gameId = $request->input('gameId');
+        $rating = $request->input('rating');
+    
+        // You may want to associate the rating with the authenticated user
+        $userId = auth()->id(); // Assuming the user is authenticated
+    
+        // Check if a user review for the specified game already exists
+        $userReview = UserReview::where('user_id', $userId)
+                                 ->where('game_id', $gameId)
+                                 ->first();
+    
+        if ($userReview) {
+            // If a user review exists, update its rating
+            $userReview->rating = $rating;
+            $userReview->save();
+    
+            return response()->json(['message' => 'Rating updated successfully'], 200);
+        } else {
+            // If no user review exists, create a new one
+            $userReview = new UserReview();
+            $userReview->user_id = $userId;
+            $userReview->game_id = $gameId;
+            $userReview->rating = $rating;
+            $userReview->save();
+    
+            // Check if the rating was updated or added
+            $message = $userReview->wasRecentlyCreated ? 'Rating submitted successfully' : 'Rating updated successfully';
+    
+            return response()->json(['message' => $message], 200);
+        }
+    }
+    
     
     
 }
