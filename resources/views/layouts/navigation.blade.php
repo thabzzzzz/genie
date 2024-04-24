@@ -5,7 +5,7 @@
             <div class="flex justify-between h-24">
                 <div class="flex">
                     <!-- Logo -->
-                    <div class="flex items-center home-navgroup hidden  ">
+                    <div class="flex items-center home-navgroup hidden md:flex  ">
                         <Link href="{{ route('home') }}" class="flex items-center logolink">
                             <x-application-logo class="w-20 h-14 fill-current text-gray-500" />
                             <h1 class="pr-14 pl-10 text-4xl logo-text">genie</h1>
@@ -15,29 +15,20 @@
                     
 
                     <!-- Navigation Links -->
-                    <div class=" sm:-my-px  sm:flex">
-
-
+                    <div class="flex justify-content: space-between">
                         <Link href="{{ route('home') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
-                            {{ __('home') }}
-                         </Link>
-                         
-
-                         <Link href="{{ route('browse') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
-                            {{ __('browse') }}
-                         </Link>
-
-                        
-                     
-                         <Link href="{{ route('search') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
-                            {{ __('search') }}
-                         </Link>
-
-                        
-                    
-        
-            
-                    </div>
+                          {{ __('home') }}
+                        </Link>
+                      
+                        <Link href="{{ route('browse') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
+                          {{ __('browse') }}
+                        </Link>
+                      
+                        <Link href="{{ route('search') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
+                          {{ __('search') }}
+                        </Link>
+                      </div>
+                      
                     
 
                 </div>

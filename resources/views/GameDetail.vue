@@ -322,7 +322,7 @@ fetchAverageRating() {
     border-bottom: solid black 1px;
   }
 
-  @media (max-width: 768px) { /* Adjust breakpoint as needed */
+  @media (max-width: 888px) { /* Adjust breakpoint as needed */
   .game-detail-container {
     flex-direction: row; /* Change to row for horizontal layout on small screens */
   }
