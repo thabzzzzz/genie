@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1 class="text-center gamename">{{ gameDetail.name }}</h1>
-    <div class="flex">
+    <div class="flex gamedetailrow1">
       <div class="w-3/2 border-r col1">
         <img :src="gameDetail.background_image" :alt="gameDetail.name" class="gamedetailimg" />
       </div>
-      <div class="w-1/4 col2 flex-grow  min-w-0">
+      <div class="w-1/4 col2 flex-grow  min-w-0 description-col">
         <div class="details p-6">
           <p>Details /</p>
           <br>
@@ -271,9 +271,10 @@ fetchAverageRating() {
   border-left: none;
 }
 .desc{
-  width: 460px;
+  width: 100%; 
+  max-width: 460px; 
   overflow: hidden;
-  line-height: 1.2em; /* Adjust according to your font size */
+  line-height: 1.2em; 
   display: -webkit-box;
   -webkit-line-clamp: 10; /* Limit to 10 lines */
   -webkit-box-orient: vertical;
@@ -321,6 +322,31 @@ fetchAverageRating() {
     border-bottom: solid black 1px;
   }
 
+  @media (max-width: 768px) { /* Adjust breakpoint as needed */
+  .game-detail-container {
+    flex-direction: row; /* Change to row for horizontal layout on small screens */
+  }
+  .gamedetailimg {
+    width: 100%; /* Set poster image to 100% width on small screens */
+  }
+
+  .description-col{
+    padding-right: 10px;
+  }
+
+
+
+  /* Ensure the images inside the carousel fit the height */
+  .carousel img {
+    height: 300px;
+    width: auto;
+  }
+}
+
+.gamedetailrow1 {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically by default */
+}
   
 
 </style>
