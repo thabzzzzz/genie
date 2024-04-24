@@ -380,6 +380,35 @@ body {
   }
 }
 
+.carousel__icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */  width: 40px; /* Set the width of the button */
+  height: 40px; /* Set the height of the button */
+  border-radius: 50%; /* Make the button circular */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10; /* Ensure the buttons appear above other elements */
+}
+
+/* Carousel previous button */
+.carousel-button-prev {
+  left: 10px; /* Adjust the positioning as needed */
+}
+
+/* Carousel next button */
+.carousel-button-next {
+  right: 10px; /* Adjust the positioning as needed */
+}
+
+.carousel__pagination-button{
+  border-radius: 50% !important;
+}
+
+
 
 
 
