@@ -1,98 +1,78 @@
 <template>
   <div>
     <h1 class="text-center gamename">{{ gameDetail.name }}</h1>
-    <div class="flex gamedetailrow1">
-      <div class="w-3/2 border-r col1">
+    <div class="game-detail-container">
+      <!-- Column 1: Image -->
+      <div class="col1">
         <img :src="gameDetail.background_image" :alt="gameDetail.name" class="gamedetailimg" />
       </div>
-      <div class="w-1/4 col2 flex-grow  min-w-0 description-col">
+      <!-- Column 2: Details -->
+      <div class="col2">
         <div class="details p-6">
           <p>Details /</p>
-          <br>
           <p>{{ gameDetail.name }}</p>
-          <br>
-          <div class="desc " :style="{ maxHeight: descriptionMaxHeight }"> 
+          <div class="desc" :style="{ maxHeight: descriptionMaxHeight }"> 
             <div v-html="gameDetail.description"></div> 
           </div>
           <br>
           <div class="platforms">
-            <h3>Platforms:</h3>
+            <h3 >Platforms:</h3>
+            <br>
             <ul class="platform-icons-container">
               <li v-for="platform in filteredPlatforms" :key="platform.platform.id">
                 <img :src="getPlatformIconUrl(platform.platform.slug)" :alt="getPlatformName(platform.platform.slug)" class="platform-icon" :title="getPlatformName(platform.platform.slug)" />
               </li>
             </ul>
           </div>
-        </div>
-        <hr class="dashed-line">
-
-        <div class="p-6 pt-2">
-          <p >Actions /</p>
-          <br>
-          <button class="my-btn-2" @click="test">
-            <span class="btn-content">
-              <img src="/site-images/generalicons/bookmark-plus-fill.svg" alt="" class="mr-2"> 
-              Add to Collection
-            </span>
-          </button>
-          <br>
-          <br>
-        
-          
-        
-          Rate:
-         
-
-         <div class="rating-select">
-      <label for="rating">Select Rating:</label>
-      <select id="rating" class="ml-2" v-model="selectedRating">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-    </div>
-    <br>
-          
-    <!-- Submit Button -->
-    <button class="my-btn-2 " @click="submitRating">
-      Submit Rating
-    </button>
-
-          <br>
-          <br>
-
-          <p>Genie rating: <span style="font-family: 'opensans', sans-serif;">{{ averageRating }}</span></p>
-          
-
-
+          <hr class="dashed-line">
+          <div class=" pt-2">
+            <p>Actions /</p>
+            <button class="my-btn-2" @click="test">
+              <span class="btn-content">
+                <img src="/site-images/generalicons/bookmark-plus-fill.svg" alt="" class="mr-2"> 
+                Add to Collection
+              </span>
+            </button>
+            <br><br>
+            Rate:
+            <div class="rating-select">
+              <label for="rating">Select Rating:</label>
+              <select id="rating" class="ml-2" v-model="selectedRating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <br>
+            <button class="my-btn-2" @click="submitRating">
+              Submit Rating
+            </button>
+            <br><br>
+            <p>Genie rating: <span style="font-family: 'opensans', sans-serif;">{{ averageRating }}</span></p>
+          </div>
         </div>
       </div>
     </div>
-    <div>
-
-      <div class="second-section">
-        <h1 class="text-center gamename">Screenshots</h1>
-      </div>
-     
+    <div class="second-section">
+      <h1 class="text-center gamename">Screenshots</h1>
       <carousel :items-to-show="1.5">
-      <!-- Loop through images from API response and generate slides -->
-      <slide v-for="(image, index) in gameImages" :key="index">
-        <!-- Use image URLs as src attribute -->
-        <img :src="image.image" :alt="'Screenshot ' + (index + 1)" />
-      </slide>
-
-      <!-- Navigation and Pagination components -->
-      <template #addons>
-        <navigation />
-        <pagination />
-      </template>
-    </carousel>
+        <!-- Loop through images from API response and generate slides -->
+        <slide v-for="(image, index) in gameImages" :key="index">
+          <!-- Use image URLs as src attribute -->
+          <img :src="image.image" :alt="'Screenshot ' + (index + 1)" />
+        </slide>
+        <!-- Navigation and Pagination components -->
+        <template #addons>
+          <navigation />
+          <pagination />
+        </template>
+      </carousel>
     </div>
-    
   </div>
 </template>
+
 
 <script>
 
@@ -322,31 +302,28 @@ fetchAverageRating() {
     border-bottom: solid black 1px;
   }
 
-  @media (max-width: 888px) { /* Adjust breakpoint as needed */
   .game-detail-container {
-    flex-direction: row; /* Change to row for horizontal layout on small screens */
-  }
-  .gamedetailimg {
-    width: 100%; /* Set poster image to 100% width on small screens */
-  }
-
-  .description-col{
-    padding-right: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "col1" "col2";
   }
 
-
-
-  /* Ensure the images inside the carousel fit the height */
-  .carousel img {
-    height: 300px;
-    width: auto;
+  @media (min-width: 768px) {
+    .game-detail-container {
+      grid-template-columns: 2fr 1fr; /* Adjust column widths as desired */
+      grid-template-areas: "col1 col2";
+    }
   }
-}
 
-.gamedetailrow1 {
-  display: flex;
-  flex-direction: column; /* Stack elements vertically by default */
-}
+  .col1 {
+    grid-area: col1;
+  }
+
+  .col2 {
+    grid-area: col2;
+  }
+
+
   
 
 </style>
