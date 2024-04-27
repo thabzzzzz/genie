@@ -58,12 +58,12 @@
     <div class="second-section">
       <h1 class="text-center gamename">Screenshots</h1>
       <carousel :items-to-show="1.5">
-        <!-- Loop through images from API response and generate slides -->
+        <!-- lop through images from API response and generate slides -->
         <slide v-for="(image, index) in gameImages" :key="index">
-          <!-- Use image URLs as src attribute -->
+        
           <img :src="image.image" :alt="'Screenshot ' + (index + 1)" />
         </slide>
-        <!-- Navigation and Pagination components -->
+      
         <template #addons>
           <navigation />
           <pagination />
@@ -99,14 +99,18 @@ export default {
   },
   data() {
     return {
-      descriptionMaxHeight: 'calc(1.2em * 10)', // Set the maximum height based on 10 lines
+      // for game description paragraph
+      descriptionMaxHeight: 'calc(1.2em * 10)', 
+      // initial rating is 1 by default
       selectedRating: 1,
+      // used for the screenshots carousel
       gameImages: [],
+      // initially set to null incase the game has no rating from the site database
       averageRating: null 
     };
   },
   created() {
-    // Fetch images from API when component is created
+    
     this.fetchGameImages();
     this.fetchAverageRating();
   },
@@ -115,7 +119,9 @@ export default {
       return this.gameDetail.platforms.filter(platform => platform.platform.slug !== "macos" && platform.platform.slug !== "linux");
     }
   },
-  methods: {
+  methods: 
+  // fetch platforms from api and associate them with their icons
+  {
     getPlatformIconUrl(slug) {
       const genericPlatformIcons = {
         "android": "mobile.svg",
@@ -157,65 +163,69 @@ export default {
         return slug;
       }
     },
+
+    // take the current rating from the rating dropdown and set it as the new rating
     updateRating(newRating) {
       this.userRating = newRating;
     },  
 
+    // add game to table using its id, display a toast if successful or failed 
     test() {
       const toast = useToast();
       
-      // Send a POST request to your controller endpoint
+      
       axios.post('/test', {
-      gameId: this.gameDetail.id, // Assuming you have gameDetail.id accessible
+      gameId: this.gameDetail.id, 
     })
       .then(response => {
-        // Handle successful addition to wishlist (e.g., display a message)
+       
         console.log(response.data);
         const toastMessage = response.data;
         toast(toastMessage);
            })
       .catch(error => {
-        // Handle errors
+        
         console.error('Error:', error);
       });
     },
   
-
+    // fetch the screenshots from api to be used in the screenshots carousel
     fetchGameImages() {
       axios.get(`https://api.rawg.io/api/games/${this.gameDetail.id}/screenshots?key=36e199df12d14562ad36f3befadf81d5`)
         .then(response => {
-          // Extract image URLs from API response
+         
           this.gameImages = response.data.results;
         })
         .catch(error => {
           console.error('Error fetching game images:', error);
         });
     },
+
+    // logic for rating submission
     submitRating() {
   if (!this.selectedRating) {
-    // Handle case when no rating is selected
-    // For example, display an error message
+ 
     const toast = useToast();
     toast.error('Please select a rating');
     return;
   }
 
-  // Send the selected rating to the server-side endpoint
+  
   axios.post('/submitrating', {
     gameId: this.gameDetail.id,
     rating: this.selectedRating
   })
   .then(response => {
-    // Handle successful rating submission
+    
     console.log(response.data);
     const toast = useToast();
     toast.success('Rating submitted successfully');
     
-    // Refetch the average rating
+   
     this.fetchAverageRating();
   })
   .catch(error => {
-    // Handle errors
+
     console.error('Error submitting rating:', error);
     const toast = useToast();
     toast.error('Failed to submit rating');
@@ -223,6 +233,7 @@ export default {
 },
 
 
+// fetch the average rating from the database for the specific game via its id
 fetchAverageRating() {
   axios.get(`/average-rating/${this.gameDetail.id}`)
     .then(response => {
@@ -256,7 +267,7 @@ fetchAverageRating() {
   overflow: hidden;
   line-height: 1.2em; 
   display: -webkit-box;
-  -webkit-line-clamp: 10; /* Limit to 10 lines */
+  -webkit-line-clamp: 10; 
   -webkit-box-orient: vertical;
 }
 .platform-icons-container {
@@ -279,7 +290,7 @@ fetchAverageRating() {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* Add other button styling as needed */
+
 }
 
 .my-btn-2 .btn-content {
@@ -290,11 +301,11 @@ fetchAverageRating() {
 .dashed-line {
   border: 0;
   border-top: 1px dashed black;
-  margin: 20px 0; /* Adjust margin as needed */
+  margin: 20px 0;
 }
 
 .rating {
-    display: inline-flex; /* Set the Rating component to display inline */
+    display: inline-flex; 
   }
 
   .second-section{
@@ -310,7 +321,7 @@ fetchAverageRating() {
 
   @media (min-width: 768px) {
     .game-detail-container {
-      grid-template-columns: 2fr 1fr; /* Adjust column widths as desired */
+      grid-template-columns: 2fr 1fr; 
       grid-template-areas: "col1 col2";
     }
   }

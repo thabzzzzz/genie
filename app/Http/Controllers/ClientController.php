@@ -18,7 +18,7 @@ use ProtoneMedia\Splade\Facades\SEO;
 class ClientController extends Controller
 {
     public function home (){
-        // Fetch wishlist items associated with the current user
+        // fetch wishlist items associated with the current user
         $wishlistGameIds = Wishlist::where('user_id', Auth::user()->id)->pluck('game_id');
   
         SEO::title('genie')
@@ -33,10 +33,10 @@ class ClientController extends Controller
         return view('create'); 
     }
 
-    public function storeitem(Request $request){
-        
 
-       
+    // store for after creating a custom game
+    public function storeitem(Request $request){
+   
     $request->validate([
         'iname' => 'required|string|max:255',
         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
@@ -72,13 +72,12 @@ class ClientController extends Controller
              
         }
     }
-
-    
-
-    // Handle if no image file was found in the request
+    // else for if no image file was found in the request
     return redirect()->back()->with('error', 'No image found to upload.');
     }
     
+
+    // home page, displays games in cards component based on their id, and fetches the info from the api
     public function browse()
     {
         $apiKey = '36e199df12d14562ad36f3befadf81d5'; 
@@ -97,10 +96,14 @@ class ClientController extends Controller
         return view('browse', ['games' => $games]);
     }
 
+
+    // editing the custom game info
     public function edit (Items $item){
         return view('edit',['item'=>$item]);
     }
 
+
+    // uploading the custom game edit info
     public function update(Items $item, Request $request)
     {
         $data = $request->validate([
@@ -127,10 +130,14 @@ class ClientController extends Controller
     }
     
 
+    // delete a game from the users collection
     public function destroy(Items $item){
         $item->delete();
         return redirect()->back()->with('message', 'Item deleted');
     }
+
+
+    // the view when a user clicks a game card and loads the detailed game info, fetches the info from the api call
     public function gamedetail($id)
     {
         $apiKey = '36e199df12d14562ad36f3befadf81d5'; 
@@ -279,7 +286,7 @@ class ClientController extends Controller
     // Retrieve the profile customization for the user
     $profileCustomization = $user->profileCustomization;
 
-    // If profile customization exists, get the description, otherwise set it to empty string
+    // if profile customization exists, get the description, otherwise set it to empty string
     $description = $profileCustomization ? $profileCustomization->description : '';
 
     return view('profileview', compact('description'));

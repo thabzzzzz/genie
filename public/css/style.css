@@ -130,9 +130,9 @@ label,.btn{
     font-size: 30px;
     color: var(--secondcolor);
     font-family: opensans;
-    border-bottom: 2px solid transparent; /* Initially transparent border bottom */
-    transition: border-color 0.9s; /* Smooth transition for border color change */
-    position: relative; /* Needed for absolute positioning of pseudo-element */
+    border-bottom: 2px solid transparent; 
+    transition: border-color 0.9s; 
+    position: relative; 
   }
   
 
@@ -163,6 +163,7 @@ Link:hover:after { transform: scaleX(1); }
   left: 0;
 }
 
+/* game card styling */
 .card {
   background-color: var(--background);
   border: 1px solid #232B2B;
@@ -217,7 +218,7 @@ Link:hover:after { transform: scaleX(1); }
 }
 
 .card {
-  position: relative; /* Make the card container a positioned parent for absolute positioning */
+  position: relative; 
 }
 
 .card-buttons {
@@ -225,34 +226,34 @@ Link:hover:after { transform: scaleX(1); }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: none; /* Initially hide the buttons */
+  display: none; /* initially hide the buttons */
 }
 
 .card:hover .card-buttons {
-  display: flex; /* Show the buttons when card is hovered */
+  display: flex; 
 }
 
 .card-buttons img {
-  width: 24px; /* Adjust the width of the button icons */
-  height: 24px; /* Adjust the height of the button icons */
+  width: 24px; 
+  height: 24px; 
 }
 
 .card .card-img-top {
-  transition: filter 0.1s ease-in-out; /* Apply transition to the filter property */
+  transition: filter 0.1s ease-in-out; /*  transition to the filter property */
 }
 
-/* Bolden the game name */
+/* bolden the game name */
 .card .card-title {
-  transition: font-weight 0.1s ease-out; /* Apply transition to the font-weight property */
+  transition: font-weight 0.1s ease-out; 
 }
 
-/* Hover effects */
+/* hover effects */
 .card:hover .card-img-top {
-  filter: blur(2px); /* Apply blur on hover */
+  filter: blur(2px); 
 }
 
 .card:hover .card-title {
-  font-weight: bold; /* Bolden the game name on hover */
+  font-weight: bold; 
 }
 .prodcard-body{
   background-color: var(--background);
@@ -277,7 +278,7 @@ Link:hover:after { transform: scaleX(1); }
  }
 
  .custom-label  {
-  font-family:opensans; /* Replace 'YourFontName' with the desired font name */
+  font-family:opensans;
   background-color: #F8F8FF;
 }
 
@@ -286,6 +287,8 @@ Link:hover:after { transform: scaleX(1); }
   background-color: #F8F8FF !important;
 }
 
+
+/* login + notfound page  */
 html,
 body {
     height: 100%;
@@ -294,10 +297,10 @@ body {
 }
 
 .min-h-screen {
-    min-height: 100vh; /* Set the minimum height to 100% of the viewport height */
+    min-height: 100vh; 
 }
 .border {
-  border-width: 1px; /* Adjust border width as needed */
+  border-width: 1px; 
 }
 
 .mylogo{
@@ -312,6 +315,8 @@ body {
   font-size: 50px;
 }
 
+
+/* profile customization */
 .customizeprofile{
   border-top: solid black 1px;
 }
@@ -327,15 +332,15 @@ body {
 .profile-picture-container {
   width: 300px;
   height: 300px;
-  border-radius: 50%; /* This makes the container circular */
-  overflow: hidden; /* Ensure the profile picture stays within the circular container */
-  margin: 0 auto; /* Center the container horizontally */
+  border-radius: 50%; 
+  overflow: hidden; /* ensure the profile picture stays within the circular container */
+  margin: 0 auto; 
 }
 
 .profile-picture-container img {
-  width: 100%; /* Ensure the profile picture fills the circular container */
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Remove any extra space below the image */
+  width: 100%; 
+  height: auto; 
+  display: block; 
 }
 
 .social-icon{
@@ -349,20 +354,20 @@ body {
 }
 
 .list-inline {
-  list-style-type: none; /* Remove bullets */
+  list-style-type: none; 
   padding: 0;
   margin: 0;
 }
 
 .list-inline-item {
-  display: inline-block; /* Display list items horizontally */
-  margin-right: 10px; /* Add some spacing between items */
+  display: inline-block; 
+  margin-right: 10px; 
 }
 
 .footer-basic {
   display: flex;
-  justify-content: center; /* Horizontally center the content */
-  align-items: center; /* Vertically center the content */
+  justify-content: center; 
+  align-items: center; 
 }
 
 .searchpage{
@@ -387,24 +392,24 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */  width: 40px; /* Set the width of the button */
-  height: 40px; /* Set the height of the button */
-  border-radius: 50%; /* Make the button circular */
+  background-color: rgba(255, 255, 255, 0.7);   width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  z-index: 10; /* Ensure the buttons appear above other elements */
+  z-index: 10; 
 }
 
-/* Carousel previous button */
+
 .carousel-button-prev {
-  left: 10px; /* Adjust the positioning as needed */
+  left: 10px; 
 }
 
-/* Carousel next button */
+
 .carousel-button-next {
-  right: 10px; /* Adjust the positioning as needed */
+  right: 10px; 
 }
 
 .carousel__pagination-button{
