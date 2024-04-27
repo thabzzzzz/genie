@@ -155,44 +155,46 @@ class ClientController extends Controller
         return view('gamedetail', ['gameDetail' => $gameDetail]);
     }
 
-
+    // logic for adding a game to the users collection
     public function test(Request $request)
     {
         $gameId = $request->input('gameId');
     
-        // Check if the game already exists in the user's wishlist
+        //  if the game already exists in the user's wishlist
         $wishlistEntry = Wishlist::where('user_id', Auth::user()->id)
                                     ->where('game_id', $gameId)
                                     ->first();
     
-        // If the game already exists in the wishlist, return corresponding message
+        // if the game already exists in the wishlist, return corresponding message
         if ($wishlistEntry) {
             return response()->json('This game is already in your collection!');
         }
     
-        // If the game does not exist in the user's wishlist, add it
+        // if the game does not exist in the user's wishlist, add it
         try {
             $wishlistEntry = Wishlist::create([
                 'user_id' => Auth::user()->id,
                 'game_id' => $gameId,
             ]);
         } catch (\Exception $e) {
-            // If there are any errors during insertion, return a generic error message
+            // if there are any errors during insertion, return a generic error message
             return response()->json(['Something went wrong. Please try again.']);
         }
     
-        // If the game is successfully added to the wishlist, return success message
+        // if the game is successfully added to the wishlist, return success message
         if ($wishlistEntry) {
             return response()->json('Game added to collection!');
         } else {
-            // If insertion fails for some reason, return a generic error message
+            // if insertion fails for some reason, return a generic error message
             return response()->json('Something went wrong. Please try again.');
         }
     }
 
+
+    // delete method 
     public function delete($gameId) {
         try {
-            // Find the game in the wishlist by both the user ID and the game ID
+            // iind the game in the wishlist by both the user ID and the game ID
             $game = Wishlist::where('game_id', $gameId)
                             ->where('user_id', Auth::user()->id)
                             ->first();
@@ -210,24 +212,29 @@ class ClientController extends Controller
         }
     }
 
+    // not found page
     public function notFound()
     {
         return view('notFound'); 
     }
     
+    // search page, contains the search component to fetch game search info from api
     public function search()
     {
         return view('search'); 
     }
 
+    // user profile customize page
     public function customize()
     {
         return view('customizeProfile'); 
     }
 
+
+    // handling the data for the profile customization
     public function customizeupdate(Request $request)
     {
-        $user = auth()->user(); // Assuming you have user authentication
+        $user = auth()->user();
     
         $validatedData = $request->validate([
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validation rules for image
@@ -240,7 +247,7 @@ class ClientController extends Controller
                 $file = $request->file('avatar');
                 $userId = $user->id;
     
-                // Delete user's current profile image if it exists
+                // delete user's current profile image if it exists
                 if ($user->profileCustomization && File::exists(public_path('profilePictures/' . $user->profileCustomization->profile_picture))) {
                     File::delete(public_path('profilePictures/' . $user->profileCustomization->profile_picture));
                 }
@@ -257,17 +264,17 @@ class ClientController extends Controller
     
             // Check if summary (description) is provided in the request
             if ($request->filled('summary')) {
-                // Update the description in validated data
+                // update the description in validated data
                 $validatedData['description'] = $request->input('summary');
             }
     
-            // Find or create profile customization for the user and update/insert picture and description
+            // find or create profile customization for the user and update/insert picture and description
             $profileCustomization = ProfileCustomization::updateOrCreate(
                 ['user_id' => $user->id],
                 $validatedData // Update or insert the validated data
             );
     
-            // Ensure the model is saved
+            
             $profileCustomization->save();
     
             Toast::title('Profile updated!')->autoDismiss(5)->leftBottom();
@@ -280,10 +287,10 @@ class ClientController extends Controller
     
     public function profileview()
     {
-        // Get the authenticated user
+        
     $user = auth()->user();
 
-    // Retrieve the profile customization for the user
+    // get the profile customization for the user
     $profileCustomization = $user->profileCustomization;
 
     // if profile customization exists, get the description, otherwise set it to empty string
@@ -292,20 +299,22 @@ class ClientController extends Controller
     return view('profileview', compact('description'));
     }
 
+
+    // submit rating to database
     public function submitRating(Request $request)
     {
         // Validate the incoming request data
         $request->validate([
-            'gameId' => 'required|integer', // Assuming gameId is the ID of the game being rated
-            'rating' => 'required|integer|min:1|max:5', // Assuming rating is an integer between 1 and 5
+            'gameId' => 'required|integer', 
+            'rating' => 'required|integer|min:1|max:5', 
         ]);
     
-        // Extract rating data from the request
+        
         $gameId = $request->input('gameId');
         $rating = $request->input('rating');
     
-        // You may want to associate the rating with the authenticated user
-        $userId = auth()->id(); // Assuming the user is authenticated
+        
+        $userId = auth()->id(); 
     
         // Check if a user review for the specified game already exists
         $userReview = UserReview::where('user_id', $userId)
@@ -319,7 +328,7 @@ class ClientController extends Controller
     
             return response()->json(['message' => 'Rating updated successfully'], 200);
         } else {
-            // If no user review exists, create a new one
+            // if no user review exists, create a new one
             $userReview = new UserReview();
             $userReview->user_id = $userId;
             $userReview->game_id = $gameId;
@@ -335,7 +344,7 @@ class ClientController extends Controller
     
     public function getAverageRating($gameId)
     {
-        // Retrieve the average rating for the specified game from your database
+        // get the average rating for the specified game forom  database
         $averageRating = UserReview::where('game_id', $gameId)->avg('rating');
 
         // Return the average rating as a JSON response
