@@ -263,7 +263,7 @@ fetchAverageRating() {
 }
 .desc{
   width: 100%; 
-  max-width: 460px; 
+  max-width: 660px; 
   overflow: hidden;
   line-height: 1.2em; 
   display: -webkit-box;
