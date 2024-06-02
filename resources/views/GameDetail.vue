@@ -58,7 +58,7 @@
     <div class="second-section">
       <h1 class="text-center gamename">Screenshots</h1>
       <carousel :items-to-show="1.5">
-        <!-- lop through images from API response and generate slides -->
+        <!-- loop through images from API response and generate slides -->
         <slide v-for="(image, index) in gameImages" :key="index">
         
           <img :src="image.image" :alt="'Screenshot ' + (index + 1)" />
@@ -394,6 +394,7 @@ fetchReviews() {
   .col2 {
     grid-area: col2;
   }
+
 
 
   

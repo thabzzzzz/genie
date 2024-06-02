@@ -8,7 +8,7 @@ import GameDetail from '../views/GameDetail.vue';
 import homeGameCard from '../views/homeGameCard.vue';
 import searchcard from '../views/searchcard.vue';
 import Toast from "vue-toastification";
-// Import the CSS or use your own!
+
 import "vue-toastification/dist/index.css";
 
 
