@@ -416,7 +416,9 @@ body {
   border-radius: 50% !important;
 }
 
-
+#freeform{
+  background-color: var(--background);
+}
 
 
 

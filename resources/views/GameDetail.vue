@@ -70,6 +70,12 @@
         </template>
       </carousel>
     </div>
+    <div class="second-section">
+      <h1 class="text-center gamename">Reviews</h1>
+      <textarea id="freeform" name="freeform" rows="4" cols="50">
+       Write your review here...
+      </textarea>
+    </div>
   </div>
 </template>
 
