@@ -249,6 +249,7 @@ export default {
     
    
     this.fetchAverageRating();
+    this.fetchReviews(); 
   })
   .catch(error => {
 
