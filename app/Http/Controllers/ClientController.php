@@ -351,4 +351,20 @@ class ClientController extends Controller
         return response()->json(['averageRating' => $averageRating]);
     }
     
+    public function submitReview(Request $request)
+    {
+        $validated = $request->validate([
+            'gameId' => 'required|integer',
+            'review' => 'required|string',
+        ]);
+
+        $review = new UserReview();
+        $review->user_id = auth()->id(); 
+        $review->game_id = $validated['gameId'];
+        $review->review = $validated['review'];
+       
+        $review->save();
+
+        return response()->json(['message' => 'Review submitted '], 200);
+    }
 }

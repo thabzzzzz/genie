@@ -87,6 +87,8 @@ Route::middleware('splade')->group(function () {
         Route::post('/submitrating', [ClientController::class, 'submitRating'])->name('submitRating');
         Route::get('/average-rating/{gameId}', [ClientController::class, 'getAverageRating'])->name('average-rating');
 
+        Route::post('/submitreview', [ClientController::class, 'submitreview'])->name('submitreview');
+
     });
    
     require __DIR__.'/auth.php';

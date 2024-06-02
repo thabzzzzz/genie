@@ -70,11 +70,17 @@
         </template>
       </carousel>
     </div>
-    <div class="second-section">
+    <div class="second-section reviewssecion" >
       <h1 class="text-center gamename">Reviews</h1>
-      <textarea id="freeform" name="freeform" rows="4" cols="50">
-       Write your review here...
-      </textarea>
+      <form @submit.prevent="submitReview">
+        <textarea id="freeform" name="freeform" rows="4" cols="100" v-model="reviewText" placeholder=" Write your review here..."></textarea>
+        <br>
+        <button type="submit" class="my-btn-2">
+          Submit Review
+        </button>
+      </form>
+      
+      
     </div>
   </div>
 </template>
@@ -112,7 +118,8 @@ export default {
       // used for the screenshots carousel
       gameImages: [],
       // initially set to null incase the game has no rating from the site database
-      averageRating: null 
+      averageRating: null ,
+      reviewText: ''
     };
   },
   created() {
@@ -250,6 +257,28 @@ fetchAverageRating() {
     .catch(error => {
       console.error('Error fetching average rating:', error);
     });
+},
+submitReview(){
+  const toast = useToast();
+      if (this.reviewText.trim() === '') {
+        toast.error('Please write a review');
+        return;
+      }
+
+      axios
+        .post('/submitreview', {
+          gameId: this.gameDetail.id,
+          review: this.reviewText,
+        })
+        .then((response) => {
+          console.log(response.data);
+          toast.success('Review submitted successfully');
+          this.reviewText = ''; 
+        })
+        .catch((error) => {
+          console.error('Error submitting review:', error);
+          toast.error('Failed to submit review');
+        });
 }
 
   }
