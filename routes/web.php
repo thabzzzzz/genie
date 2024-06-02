@@ -88,6 +88,7 @@ Route::middleware('splade')->group(function () {
         Route::get('/average-rating/{gameId}', [ClientController::class, 'getAverageRating'])->name('average-rating');
 
         Route::post('/submitreview', [ClientController::class, 'submitreview'])->name('submitreview');
+        Route::get('/game/{gameId}/reviews', [ClientController::class, 'getReviews']);
 
     });
    

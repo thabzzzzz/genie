@@ -80,7 +80,18 @@
         </button>
       </form>
       
-      
+      <br>
+      <!-- reviews from db here -->
+
+      <div v-if="reviews.length">
+        <div v-for="review in reviews" :key="review.id" class="review-item">
+          <h3>{{ review.user.name }} (Rating: {{ review.rating }})</h3>
+          <p>{{ review.review }}</p>
+        </div>
+      </div>
+      <div v-else>
+        <p>No reviews yet. Be the first to review!</p>
+      </div>
     </div>
   </div>
 </template>
@@ -119,13 +130,15 @@ export default {
       gameImages: [],
       // initially set to null incase the game has no rating from the site database
       averageRating: null ,
-      reviewText: ''
+      reviewText: '',
+      reviews: [],
     };
   },
   created() {
     
     this.fetchGameImages();
     this.fetchAverageRating();
+    this.fetchReviews();
   },
   computed: {
     filteredPlatforms() {
@@ -274,12 +287,24 @@ submitReview(){
           console.log(response.data);
           toast.success('Review submitted successfully');
           this.reviewText = ''; 
+          this.fetchReviews(); 
         })
         .catch((error) => {
           console.error('Error submitting review:', error);
           toast.error('Failed to submit review');
         });
-}
+},
+fetchReviews() {
+      axios
+        .get(`/game/${this.gameDetail.id}/reviews`)
+        .then((response) => {
+          this.reviews = response.data;
+          
+        })
+        .catch((error) => {
+          console.error('Error fetching reviews:', error);
+        });
+    },
 
   }
 

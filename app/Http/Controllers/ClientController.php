@@ -367,4 +367,11 @@ class ClientController extends Controller
 
         return response()->json(['message' => 'Review submitted '], 200);
     }
+
+    public function getReviews($gameId)
+    {
+        $reviews = UserReview::where('game_id', $gameId)->with('user')->get();
+
+        return response()->json($reviews);
+    }
 }
