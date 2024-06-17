@@ -351,22 +351,50 @@ class ClientController extends Controller
         return response()->json(['averageRating' => $averageRating]);
     }
     
+
+
+
     public function submitReview(Request $request)
     {
         $validated = $request->validate([
             'gameId' => 'required|integer',
+            'rating' => 'required|integer|min:1|max:5',
             'review' => 'required|string',
         ]);
-
-        $review = new UserReview();
-        $review->user_id = auth()->id(); 
-        $review->game_id = $validated['gameId'];
-        $review->review = $validated['review'];
-       
-        $review->save();
-
-        return response()->json(['message' => 'Review submitted '], 200);
+    
+        $userId = auth()->id();
+        $gameId = $validated['gameId'];
+        $rating = $validated['rating'];
+        $reviewText = $validated['review'];
+    
+        // check if a user review for the specified game already exists
+        $userReview = UserReview::where('user_id', $userId)
+                                 ->where('game_id', $gameId)
+                                 ->first();
+    
+        if ($userReview) {
+            // update the existing review
+            $userReview->rating = $rating;
+            $userReview->review = $reviewText;
+            $userReview->save();
+            $message = 'Review updated successfully';
+        } else {
+            // create  new review
+            $userReview = new UserReview();
+            $userReview->user_id = $userId;
+            $userReview->game_id = $gameId;
+            $userReview->rating = $rating;
+            $userReview->review = $reviewText;
+            $userReview->save();
+            $message = 'Review submitted successfully';
+        }
+    
+        return response()->json(['message' => $message], 200);
     }
+    
+
+
+
 
     public function getReviews($gameId)
     {

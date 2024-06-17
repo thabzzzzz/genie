@@ -11,12 +11,12 @@
         <div class="details p-6">
           <p>Details /</p>
           <p>{{ gameDetail.name }}</p>
-          <div class="desc" :style="{ maxHeight: descriptionMaxHeight }"> 
-            <div v-html="gameDetail.description"></div> 
+          <div class="desc" :style="{ maxHeight: descriptionMaxHeight }">
+            <div v-html="gameDetail.description"></div>
           </div>
           <br>
           <div class="platforms">
-            <h3 >Platforms:</h3>
+            <h3>Platforms:</h3>
             <br>
             <ul class="platform-icons-container">
               <li v-for="platform in filteredPlatforms" :key="platform.platform.id">
@@ -25,19 +25,15 @@
             </ul>
           </div>
           <hr class="dashed-line">
-          <div class=" pt-2">
+          <div class="pt-2">
             <p>Actions /</p>
             <button class="my-btn-2" @click="test">
               <span class="btn-content">
-                <img src="/site-images/generalicons/bookmark-plus-fill.svg" alt="" class="mr-2"> 
+                <img src="/site-images/generalicons/bookmark-plus-fill.svg" alt="" class="mr-2">
                 Add to Collection
               </span>
             </button>
             <br><br>
-           
-           
-            <br><br>
-            
           </div>
         </div>
       </div>
@@ -47,39 +43,32 @@
       <carousel :items-to-show="1.5">
         <!-- loop through images from API response and generate slides -->
         <slide v-for="(image, index) in gameImages" :key="index">
-        
           <img :src="image.image" :alt="'Screenshot ' + (index + 1)" />
         </slide>
-      
         <template #addons>
           <navigation />
           <pagination />
         </template>
       </carousel>
     </div>
-    <div class="second-section reviewssecion" >
+    <div class="second-section reviewssecion">
       <h1 class="text-center gamename">Reviews</h1>
 
-      <p>Genie rating: <span style="font-family: 'opensans', sans-serif;">{{ averageRating }} (Based on {{ reviews.length }} reviews)</span></p>
-
-      <div class="rating-select">
-              <label for="rating">Select Rating:</label>
-              <select id="rating" class="ml-2" v-model="selectedRating">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </div>
-            <br>
-            <button class="my-btn-2" @click="submitRating">
-              Submit Rating
-            </button>
-
-
+      <p>Genie rating: <span style="font-family: 'opensans', sans-serif;">{{ averageRating }}/5 (Based on {{ reviews.length }} reviews)</span></p>
+<br><br>
       <form @submit.prevent="submitReview">
-        <textarea id="freeform" name="freeform" rows="4" cols="100" v-model="reviewText" placeholder=" Write your review here..."></textarea>
+        <div class="rating-select">
+          <label for="rating">Select Rating:</label>
+          <select id="rating" class="ml-2" v-model="selectedRating" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        
+        <textarea id="freeform" name="freeform" rows="4" cols="100" v-model="reviewText" placeholder="Write your review here..." required></textarea>
         <br>
         <button type="submit" class="my-btn-2">
           Submit Review
@@ -88,11 +77,11 @@
       
       <br>
       <!-- reviews from db here -->
-
       <div v-if="reviews.length">
         <div v-for="review in reviews" :key="review.id" class="review-item">
-          <h3>{{ review.user.name }} (Rating: {{ review.rating }})</h3>
+          <h3><strong>{{ review.user.name }} ({{ review.rating }}</strong>)</h3>
           <p>{{ review.review }}</p>
+          <br>
         </div>
       </div>
       <div v-else>
@@ -102,19 +91,14 @@
   </div>
 </template>
 
-
 <script>
-
 import axios from 'axios';
 import { useToast } from "vue-toastification";
-import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-
-
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
 export default {
   components: {
-   
     Carousel,
     Slide,
     Pagination,
@@ -123,45 +107,40 @@ export default {
   props: {
     gameDetail: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      // for game description paragraph
-      descriptionMaxHeight: 'calc(1.2em * 10)', 
-      // initial rating is 1 by default
+      descriptionMaxHeight: 'calc(1.2em * 10)',
       selectedRating: 1,
-      // used for the screenshots carousel
       gameImages: [],
-      // initially set to null incase the game has no rating from the site database
-      averageRating: null ,
+      averageRating: null,
       reviewText: '',
       reviews: [],
     };
   },
   created() {
-    
     this.fetchGameImages();
     this.fetchAverageRating();
     this.fetchReviews();
   },
   computed: {
     filteredPlatforms() {
-      return this.gameDetail.platforms.filter(platform => platform.platform.slug !== "macos" && platform.platform.slug !== "linux");
-    }
+      return this.gameDetail.platforms.filter(
+        (platform) => platform.platform.slug !== "macos" && platform.platform.slug !== "linux"
+      );
+    },
   },
-  methods: 
-  // fetch platforms from api and associate them with their icons
-  {
+  methods: {
     getPlatformIconUrl(slug) {
       const genericPlatformIcons = {
-        "android": "mobile.svg",
-        "ios": "mobile.svg",
-        "playstation": "playstation.svg",
-        "xbox": "xbox.svg",
-        "pc": "windows.svg",
-        "ubuntu": "windows.svg",
+        android: "mobile.svg",
+        ios: "mobile.svg",
+        playstation: "playstation.svg",
+        xbox: "xbox.svg",
+        pc: "windows.svg",
+        ubuntu: "windows.svg",
         "nintendo-switch": "nintendo-switch.svg",
         "ps-vita": "vita.svg",
       };
@@ -180,106 +159,42 @@ export default {
     },
     getPlatformName(slug) {
       const platformNames = {
-        "android": "Mobile",
-        "ios": "Mobile",
-        "playstation": "Playstation",
-        "xbox": "Xbox",
-        "pc": "PC",
-        "ubuntu": "Ubuntu",
-        "nintendo-switch":"Switch",
-        "ps-vita":"Vita"
+        android: "Mobile",
+        ios: "Mobile",
+        playstation: "Playstation",
+        xbox: "Xbox",
+        pc: "PC",
+        ubuntu: "Ubuntu",
+        "nintendo-switch": "Switch",
+        "ps-vita": "Vita",
       };
-      if (slug in platformNames) {
-        return platformNames[slug];
-      } else {
-        return slug;
-      }
+      return platformNames[slug] || slug;
     },
-
-    // take the current rating from the rating dropdown and set it as the new rating
-    updateRating(newRating) {
-      this.userRating = newRating;
-    },  
-
-    // add game to table using its id, display a toast if successful or failed 
     test() {
       const toast = useToast();
-      
-      
       axios.post('/test', {
-      gameId: this.gameDetail.id, 
-    })
-      .then(response => {
-       
-        console.log(response.data);
-        const toastMessage = response.data;
-        toast(toastMessage);
-           })
-      .catch(error => {
-        
-        console.error('Error:', error);
-      });
+        gameId: this.gameDetail.id,
+      })
+        .then(response => {
+          console.log(response.data);
+          const toastMessage = response.data;
+          toast(toastMessage);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     },
-  
-    // fetch the screenshots from api to be used in the screenshots carousel
     fetchGameImages() {
       axios.get(`https://api.rawg.io/api/games/${this.gameDetail.id}/screenshots?key=36e199df12d14562ad36f3befadf81d5`)
         .then(response => {
-         
           this.gameImages = response.data.results;
         })
         .catch(error => {
           console.error('Error fetching game images:', error);
         });
     },
-
-    // logic for rating submission
-    submitRating() {
-  if (!this.selectedRating) {
- 
-    const toast = useToast();
-    toast.error('Please select a rating');
-    return;
-  }
-
-  
-  axios.post('/submitrating', {
-    gameId: this.gameDetail.id,
-    rating: this.selectedRating
-  })
-  .then(response => {
-    
-    console.log(response.data);
-    const toast = useToast();
-    toast.success('Rating submitted successfully');
-    
-   
-    this.fetchAverageRating();
-    this.fetchReviews(); 
-  })
-  .catch(error => {
-
-    console.error('Error submitting rating:', error);
-    const toast = useToast();
-    toast.error('Failed to submit rating');
-  });
-},
-
-
-// fetch the average rating from the database for the specific game via its id
-fetchAverageRating() {
-  axios.get(`/average-rating/${this.gameDetail.id}`)
-    .then(response => {
-      this.averageRating = response.data.averageRating !== null ?
-        parseFloat(response.data.averageRating).toFixed(1) :
-        'Game hasn\'t been rated yet';
-    })
-    .catch(error => {
-      console.error('Error fetching average rating:', error);
-    });
-},
-submitReview(){
-  const toast = useToast();
+    submitReview() {
+      const toast = useToast();
       if (this.reviewText.trim() === '') {
         toast.error('Please write a review');
         return;
@@ -288,33 +203,44 @@ submitReview(){
       axios
         .post('/submitreview', {
           gameId: this.gameDetail.id,
+          rating: this.selectedRating,
           review: this.reviewText,
         })
         .then((response) => {
           console.log(response.data);
           toast.success('Review submitted successfully');
-          this.reviewText = ''; 
-          this.fetchReviews(); 
+          this.reviewText = '';
+          this.selectedRating = 1;
+          this.fetchAverageRating();
+          this.fetchReviews();
         })
         .catch((error) => {
           console.error('Error submitting review:', error);
           toast.error('Failed to submit review');
         });
-},
-fetchReviews() {
+    },
+    fetchAverageRating() {
+      axios.get(`/average-rating/${this.gameDetail.id}`)
+        .then(response => {
+          this.averageRating = response.data.averageRating !== null ?
+            parseFloat(response.data.averageRating).toFixed(1) :
+            'Game hasn\'t been rated yet';
+        })
+        .catch(error => {
+          console.error('Error fetching average rating:', error);
+        });
+    },
+    fetchReviews() {
       axios
         .get(`/game/${this.gameDetail.id}/reviews`)
         .then((response) => {
           this.reviews = response.data;
-          
         })
         .catch((error) => {
           console.error('Error fetching reviews:', error);
         });
     },
-
-  }
-
+  },
 };
 </script>
 
