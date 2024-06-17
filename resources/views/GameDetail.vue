@@ -34,23 +34,10 @@
               </span>
             </button>
             <br><br>
-            Rate:
-            <div class="rating-select">
-              <label for="rating">Select Rating:</label>
-              <select id="rating" class="ml-2" v-model="selectedRating">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </div>
-            <br>
-            <button class="my-btn-2" @click="submitRating">
-              Submit Rating
-            </button>
+           
+           
             <br><br>
-            <p>Genie rating: <span style="font-family: 'opensans', sans-serif;">{{ averageRating }}</span></p>
+            
           </div>
         </div>
       </div>
@@ -72,6 +59,25 @@
     </div>
     <div class="second-section reviewssecion" >
       <h1 class="text-center gamename">Reviews</h1>
+
+      <p>Genie rating: <span style="font-family: 'opensans', sans-serif;">{{ averageRating }} (Based on {{ reviews.length }} reviews)</span></p>
+
+      <div class="rating-select">
+              <label for="rating">Select Rating:</label>
+              <select id="rating" class="ml-2" v-model="selectedRating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <br>
+            <button class="my-btn-2" @click="submitRating">
+              Submit Rating
+            </button>
+
+
       <form @submit.prevent="submitReview">
         <textarea id="freeform" name="freeform" rows="4" cols="100" v-model="reviewText" placeholder=" Write your review here..."></textarea>
         <br>
