@@ -85,7 +85,7 @@
         </div>
       </div>
       <div v-else>
-        <p>No reviews yet. Be the first to review!</p>
+        <p>No reviews yet. Be the first to review this game!</p>
       </div>
     </div>
   </div>
@@ -224,7 +224,7 @@ export default {
         .then(response => {
           this.averageRating = response.data.averageRating !== null ?
             parseFloat(response.data.averageRating).toFixed(1) :
-            'Game hasn\'t been rated yet';
+            '0';
         })
         .catch(error => {
           console.error('Error fetching average rating:', error);
