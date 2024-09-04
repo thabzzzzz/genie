@@ -52,7 +52,12 @@
         return game.background_image || 'placeholder_image_url.jpg';
       },
       async searchGames() {
-        if (!this.searchTerm) return; // Handle empty search term gracefully
+        if (!this.searchTerm) return;
+
+  const storedSearchTerm = localStorage.getItem('searchTerm');
+  if (storedSearchTerm) {
+    this.searchTerm = storedSearchTerm; // Restore the search term
+  }
   
         const apiKey = '36e199df12d14562ad36f3befadf81d5'; // Replace with your actual RAWG API key
         const baseUrl = 'https://api.rawg.io/api/games';
@@ -71,6 +76,16 @@
           this.isLoading = false;
         }
       },
+      viewGameDetails(gameId) {
+  const scrollPosition = window.scrollY;
+  localStorage.setItem('scrollPosition', scrollPosition);
+  console.log('Setting scrollPosition:', scrollPosition); // Log scroll position
+
+  history.pushState({
+    searchTerm: this.searchTerm,
+  }, '', `/gamedetail/${gameId}`);
+  window.location.href = `/gamedetail/${gameId}`;
+},
     },
     computed: {
       filteredGames() {
@@ -82,6 +97,22 @@
         );
       },
     },
+    created() {
+  const storedSearchTerm = localStorage.getItem('searchTerm');
+  const storedScrollPosition = localStorage.getItem('scrollPosition');
+
+  if (storedSearchTerm) {
+    this.searchTerm = storedSearchTerm;
+    console.log('Restoring searchTerm:', storedSearchTerm); // Log restored search term
+    this.searchGames();
+  }
+
+  if (storedScrollPosition) {
+    window.scrollTo(0, storedScrollPosition);
+    console.log('Restoring scrollPosition:', storedScrollPosition); // Log restored scroll position
+  }
+}
+
   };
   </script>
   
