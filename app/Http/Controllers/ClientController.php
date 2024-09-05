@@ -227,10 +227,48 @@ class ClientController extends Controller
     // user profile customize page
     public function customize()
     {
-        // Assuming you have a relation 'games' for the user's game collection
-        $games = auth()->user()->games->pluck('name', 'id')->toArray(); 
+        // Get the user's wishlist game IDs
+        $wishlistGameIds = auth()->user()->wishlist->pluck('game_id')->toArray();
+        
+        // Assuming you have a service or method to fetch games from the API
+        $games = $this->fetchGamesFromApi($wishlistGameIds);
+    
         return view('customizeProfile', compact('games'));
     }
+
+
+    private function fetchGamesFromApi($gameIds)
+{
+    $games = []; // Initialize an empty array to store the games
+
+    // Loop through the game IDs and make API requests to fetch each game
+    foreach ($gameIds as $gameId) {
+        // Assuming you're using a method to send API requests
+        $apiResponse = $this->sendApiRequest($gameId);
+
+        // If the API response is successful, add the game to the games array
+        if ($apiResponse && isset($apiResponse['name'])) {
+            $games[$gameId] = $apiResponse['name']; // Adjust based on the response structure
+        }
+    }
+
+    return $games;
+}
+
+// Example function to send API requests
+private function sendApiRequest($gameId)
+{
+    // Replace this with your actual API request logic
+    $apiUrl = "https://api.rawg.io/api/games/{$gameId}?key=YOUR_API_KEY";
+    
+    try {
+        $response = Http::get($apiUrl);
+        return $response->json();
+    } catch (\Exception $e) {
+        // Handle API errors or log them
+        return null;
+    }
+}
 
 
     // handling the data for the profile customization
