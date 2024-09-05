@@ -259,7 +259,7 @@ class ClientController extends Controller
 private function sendApiRequest($gameId)
 {
     // Replace this with your actual API request logic
-    $apiUrl = "https://api.rawg.io/api/games/{$gameId}?key=YOUR_API_KEY";
+    $apiUrl = "https://api.rawg.io/api/games/{$gameId}?key=36e199df12d14562ad36f3befadf81d5";
     
     try {
         $response = Http::get($apiUrl);
@@ -279,7 +279,7 @@ private function sendApiRequest($gameId)
         $validatedData = $request->validate([
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'summary' => 'nullable|string|max:255',
-            'showcase_game_id' => 'nullable|integer|exists:wishlist,game_id', // Validate the game ID
+            'showcase_game_id' => 'nullable|integer|exists:wishlists,game_id', // Validate the game ID
         ]);
     
         try {
