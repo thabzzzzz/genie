@@ -90,6 +90,11 @@ Route::middleware('splade')->group(function () {
         Route::post('/submitreview', [ClientController::class, 'submitreview'])->name('submitreview');
         Route::get('/game/{gameId}/reviews', [ClientController::class, 'getReviews']);
 
+        //profile customization
+        Route::post('/update-showcase', [ClientController::class, 'updateShowcase'])->name('update-showcase');
+        Route::get('/showcase-game', [ClientController::class, 'getShowcaseGame'])->name('showcase-game');
+
+
     });
    
     require __DIR__.'/auth.php';

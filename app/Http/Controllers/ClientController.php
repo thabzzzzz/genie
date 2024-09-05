@@ -227,7 +227,9 @@ class ClientController extends Controller
     // user profile customize page
     public function customize()
     {
-        return view('customizeProfile'); 
+        // Assuming you have a relation 'games' for the user's game collection
+        $games = auth()->user()->games->pluck('name', 'id')->toArray(); 
+        return view('customizeProfile', compact('games'));
     }
 
 
@@ -237,44 +239,35 @@ class ClientController extends Controller
         $user = auth()->user();
     
         $validatedData = $request->validate([
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validation rules for image
-            'summary' => 'nullable|string|max:255', // Optional description validation
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'summary' => 'nullable|string|max:255',
+            'showcase_game_id' => 'nullable|integer|exists:wishlist,game_id', // Validate the game ID
         ]);
     
         try {
-            // Check if avatar (image) is provided in the request
             if ($request->hasFile('avatar')) {
                 $file = $request->file('avatar');
                 $userId = $user->id;
     
-                // delete user's current profile image if it exists
                 if ($user->profileCustomization && File::exists(public_path('profilePictures/' . $user->profileCustomization->profile_picture))) {
                     File::delete(public_path('profilePictures/' . $user->profileCustomization->profile_picture));
                 }
     
-                // Generate unique filename with user ID and current datetime
                 $fileName = $userId . '_' . time() . '_' . $file->getClientOriginalName();
-    
-                // Store the file in the public/profilePictures directory
                 $file->move(public_path('profilePictures'), $fileName);
-    
-                // Update validated data with the filename
                 $validatedData['profile_picture'] = $fileName;
             }
     
-            // Check if summary (description) is provided in the request
             if ($request->filled('summary')) {
-                // update the description in validated data
                 $validatedData['description'] = $request->input('summary');
             }
     
-            // find or create profile customization for the user and update/insert picture and description
             $profileCustomization = ProfileCustomization::updateOrCreate(
                 ['user_id' => $user->id],
-                $validatedData // Update or insert the validated data
+                $validatedData
             );
     
-            
+            $profileCustomization->showcase_game_id = $request->input('showcase_game_id');
             $profileCustomization->save();
     
             Toast::title('Profile updated!')->autoDismiss(5)->leftBottom();
@@ -284,6 +277,8 @@ class ClientController extends Controller
     
         return redirect()->route('profileview')->with('success', 'Profile updated successfully!');
     }
+    
+    
     
     public function profileview()
     {
@@ -318,8 +313,8 @@ class ClientController extends Controller
     
         // Check if a user review for the specified game already exists
         $userReview = UserReview::where('user_id', $userId)
-                                 ->where('game_id', $gameId)
-                                 ->first();
+                                ->where('game_id', $gameId)
+                                ->first();
     
         if ($userReview) {
             // If a user review exists, update its rating
@@ -337,7 +332,6 @@ class ClientController extends Controller
     
             // Check if the rating was updated or added
             $message = $userReview->wasRecentlyCreated ? 'Rating submitted successfully' : 'Rating updated successfully';
-    
             return response()->json(['message' => $message], 200);
         }
     }
@@ -402,4 +396,24 @@ class ClientController extends Controller
 
         return response()->json($reviews);
     }
+
+    public function updateShowcase(Request $request)
+{
+    $request->validate([
+        'showcase_game_id' => 'required|integer',
+    ]);
+
+    $user = auth()->user();
+    $user->showcase_game_id = $request->input('showcase_game_id');
+    $user->save();
+
+    return redirect()->route('profile.edit')->with('status', 'Showcase game updated!');
+}
+
+public function getShowcaseGame()
+{
+    $user = auth()->user();
+    return response()->json(['game_id' => $user->showcase_game_id]);
+}
+
 }

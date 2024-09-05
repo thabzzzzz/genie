@@ -13,6 +13,7 @@ class ProfileCustomization extends Model
         'user_id',
         'profile_picture',
         'description',
+        'showcase_game_id',
     ];
 
     public function user()
