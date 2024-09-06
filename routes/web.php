@@ -94,7 +94,8 @@ Route::middleware('splade')->group(function () {
         Route::post('/update-showcase', [ClientController::class, 'updateShowcase'])->name('update-showcase');
         Route::get('/showcase-game', [ClientController::class, 'getShowcaseGame'])->name('showcase-game');
 
-
+        Route::get('/favourite-game/{gameId}', [ClientController::class, 'getFavouriteGame']);
+Route::post('/save-favourite-game', [ClientController::class, 'saveFavouriteGame']);
     });
    
     require __DIR__.'/auth.php';

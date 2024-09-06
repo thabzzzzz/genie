@@ -31,9 +31,7 @@
 
         {{-- fav game box --}}
       
-        <favouriteGame :showcase-game-id="{{ $showcaseGameId }}"></favouriteGame>
-
-</div>
+        <favouriteGame :showcase-game-id="{{ $showcaseGameId }}" image-url="{{ asset('site-images/images/favGame.jpeg') }}"></favouriteGame>    </div>
 
     
 </div>
