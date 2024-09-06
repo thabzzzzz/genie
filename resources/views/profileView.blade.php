@@ -26,7 +26,16 @@
 
     <div class="col-span-1 p-6">
         <p>{{ $description }}</p>
-    </div>
+        <b>Favourite game</b>
+       
+
+        {{-- fav game box --}}
+      
+        <favouriteGame :showcase-game-id="{{ $showcaseGameId }}"></favouriteGame>
+
+</div>
+
+    
 </div>
 
 <Link href="{{ route('customize') }}"><button class="my-btn-2">Customize</button>  </Link>    

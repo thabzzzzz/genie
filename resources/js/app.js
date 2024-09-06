@@ -8,6 +8,7 @@ import GameDetail from '../views/GameDetail.vue';
 import homeGameCard from '../views/homeGameCard.vue';
 import searchcard from '../views/searchcard.vue';
 import Toast from "vue-toastification";
+import favouriteGame from "../views/favouriteGame.vue";
 
 import "vue-toastification/dist/index.css";
 
@@ -32,6 +33,7 @@ createApp({
 .component('GameDetail', GameDetail) 
 .component('homeGameCard', homeGameCard)
 .component('searchcard', searchcard)
+.component('favouriteGame', favouriteGame)
 .use(Toast, options)
 
 .mount(el);

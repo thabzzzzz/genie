@@ -4,7 +4,7 @@
 
     <div class="pb-12 bg-maintheme mb-20">
         <div class="w-full mx-auto">
-            <h1 class="content-heading text-center heading1 mb-4 mt-10">Customize your profile</h1>
+            <h1 class="content-heading text-center heading1 mb-4 mt-10">Customize your profile </h1>
             <br>
 
             <div class="customizeprofile"></div>
@@ -22,16 +22,20 @@
                             <!-- Description -->
                             <x-splade-textarea name="summary" autosize label="Description" class="formfield" />
 
+                         
+
                             <!-- Game Showcase Dropdown -->
                             <x-splade-select name="showcase_game_id" label="Showcase a Game" :options="$games" placeholder="Select a game" />
 
                             <!-- Submit Button -->
                             <x-splade-submit label="Save" class="profileButton my-btn-2 bg-transparent hover:bg-gray-200 text-gray-800 mt-10" />
                         </x-splade-form>
+                        
 
                         <Link href="{{ route('profileview') }}">
                             <button class="my-btn-2 mt-2">Back</button>
                         </Link>
+                        
                     </div>
                 </div>
             </div>

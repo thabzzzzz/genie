@@ -328,10 +328,11 @@ private function sendApiRequest($gameId)
 
     // if profile customization exists, get the description, otherwise set it to empty string
     $description = $profileCustomization ? $profileCustomization->description : '';
+    $showcaseGameId = $profileCustomization ? $profileCustomization->showcase_game_id : null;
 
-    return view('profileview', compact('description'));
+    // Pass both 'description' and 'showcase_game_id' to the view
+    return view('profileview', compact('description', 'showcaseGameId'));
     }
-
 
     // submit rating to database
     public function submitRating(Request $request)
