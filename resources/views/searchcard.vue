@@ -19,9 +19,14 @@
           <div class="col" v-for="game in filteredGames" :key="game.id">
             <div class="card product-card">
               <div class="relative">
-                <a :href="`/gamedetail/${game.id}`">
-                  <img :src="getCoverImageUrl(game)" class="card-img-top" :alt="game.name">
-                </a>
+                <img 
+  :src="getCoverImageUrl(game)" 
+  class="card-img-top" 
+  :alt="game.name" 
+  @click="viewGameDetails(game.id)"
+  style="cursor: pointer;"
+>
+
                 <div class="prodcard-body py-3">
                   <p class="card-title">{{ game.name }}</p>
                   <p class="card-title">{{ game.website }} </p>
@@ -81,10 +86,8 @@
   localStorage.setItem('scrollPosition', scrollPosition);
   console.log('Setting scrollPosition:', scrollPosition); // Log scroll position
 
-  history.pushState({
-    searchTerm: this.searchTerm,
-  }, '', `/gamedetail/${gameId}`);
-  window.location.href = `/gamedetail/${gameId}`;
+  // Open game details in a new tab
+  window.open(`/gamedetail/${gameId}`, '_blank');
 },
     },
     computed: {
