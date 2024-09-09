@@ -29,8 +29,7 @@
                             <x-splade-submit label="Save" class="profileButton my-btn-2 bg-transparent hover:bg-gray-200 text-gray-800 mt-10" />
                         </x-splade-form>
 
-                        <!-- Debugging output -->
-                        <pre>{{ json_encode(request()->all(), JSON_PRETTY_PRINT) }}</pre>
+                        
 
                         <Link href="{{ route('profileview') }}">
                             <button class="my-btn-2 mt-2">Back</button>
