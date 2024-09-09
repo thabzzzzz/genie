@@ -34,47 +34,7 @@ class ClientController extends Controller
     }
 
 
-    // store for after creating a custom game
-    public function storeitem(Request $request){
-   
-    $request->validate([
-        'iname' => 'required|string|max:255',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
-    ]);
-
-    $name = $request->input('iname');
-
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-
-
-
-
-     
-        $imageName = time() . '_' . $image->getClientOriginalName();
-
-        
-        $image->move(public_path('uploads'), $imageName);
-
-      
-        $item = new Items;
-        $item->iname=request('iname');
-        $item->client = Auth::user()->name ;
-      
-        $item->price = request('price');
-        
-        $item->itemsite = request('itemsite');
-        $item->description = request('description');
-
-        $item->itemimage =$imageName;
-        if ($item->save()) {
-            Toast::title('Item added!')->autoDismiss(5)->rightBottom();
-             
-        }
-    }
-    // else for if no image file was found in the request
-    return redirect()->back()->with('error', 'No image found to upload.');
-    }
+ 
     
 
     // home page, displays games in cards component based on their id, and fetches the info from the api
@@ -103,31 +63,8 @@ class ClientController extends Controller
     }
 
 
-    // uploading the custom game edit info
-    public function update(Items $item, Request $request)
-    {
-        $data = $request->validate([
-            'iname' => '',
-            'price' => 'numeric',
-            'itemsite' => '',
-            'description' => '',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
     
-        if ($request->hasFile('image')) {
-            
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('uploads'), $imageName);
-    
-            
-            $data['itemimage'] = $imageName;
-        }
-    
-        $item->update($data);
-    
-        return redirect()->back()->with('message', 'Item updated');
-    }
+  
     
 
     // delete a game from the users collection
@@ -279,42 +216,70 @@ private function sendApiRequest($gameId)
         $validatedData = $request->validate([
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'summary' => 'nullable|string|max:255',
-            'showcase_game_id' => 'nullable|integer|exists:wishlists,game_id', // Validate the game ID
+            'showcase_game_id' => 'nullable|integer|exists:wishlists,game_id',
         ]);
     
-        try {
-            if ($request->hasFile('avatar')) {
-                $file = $request->file('avatar');
-                $userId = $user->id;
+        // Get existing profile customization if it exists
+        $profileCustomization = $user->profileCustomization;
     
-                if ($user->profileCustomization && File::exists(public_path('profilePictures/' . $user->profileCustomization->profile_picture))) {
-                    File::delete(public_path('profilePictures/' . $user->profileCustomization->profile_picture));
-                }
+        // Check if avatar is being updated
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $userId = $user->id;
     
-                $fileName = $userId . '_' . time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('profilePictures'), $fileName);
-                $validatedData['profile_picture'] = $fileName;
+            // Delete the old profile picture if it exists
+            if ($profileCustomization && File::exists(public_path('profilePictures/' . $profileCustomization->profile_picture))) {
+                File::delete(public_path('profilePictures/' . $profileCustomization->profile_picture));
             }
     
-            if ($request->filled('summary')) {
-                $validatedData['description'] = $request->input('summary');
+            // Upload new profile picture
+            $fileName = $userId . '_' . time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('profilePictures'), $fileName);
+            $validatedData['profile_picture'] = $fileName;
+        } else {
+            // Keep existing profile picture if no new avatar is uploaded
+            if ($profileCustomization) {
+                $validatedData['profile_picture'] = $profileCustomization->profile_picture;
             }
-    
-            $profileCustomization = ProfileCustomization::updateOrCreate(
-                ['user_id' => $user->id],
-                $validatedData
-            );
-    
-            $profileCustomization->showcase_game_id = $request->input('showcase_game_id');
-            $profileCustomization->save();
-    
-            Toast::title('Profile updated!')->autoDismiss(5)->leftBottom();
-        } catch (Exception $e) {
-            Toast::title('Error updating profile')->autoDismiss(5)->leftBottom();
         }
+    
+        // Check if description is being updated
+        if ($request->filled('summary')) {
+            $validatedData['description'] = $request->input('summary');
+        } else {
+            // Keep existing description if none is provided
+            if ($profileCustomization) {
+                $validatedData['description'] = $profileCustomization->description;
+            }
+        }
+    
+        // Check if showcase_game_id is being updated
+        if ($request->filled('showcase_game_id')) {
+            $validatedData['showcase_game_id'] = $request->input('showcase_game_id');
+        } else {
+            // Keep existing showcase_game_id if none is provided
+            if ($profileCustomization) {
+                $validatedData['showcase_game_id'] = $profileCustomization->showcase_game_id;
+            }
+        }
+    
+        // Update or create the profile customization
+        $profileCustomization = ProfileCustomization::updateOrCreate(
+            ['user_id' => $user->id],
+            $validatedData
+        );
+    
+        Toast::title('Profile updated!')->autoDismiss(5)->leftBottom();
     
         return redirect()->route('profileview')->with('success', 'Profile updated successfully!');
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -454,5 +419,24 @@ public function getShowcaseGame()
     $user = auth()->user();
     return response()->json(['game_id' => $user->showcase_game_id]);
 }
+public function getFavouriteGame($gameId)
+{
+    $user = auth()->user();
+    return response()->json([
+        'favourite_game' => $user->favourite_game,
+        'favgame_image' => $user->favgame_image,
+    ]);
+}
+
+public function saveFavouriteGame(Request $request)
+{
+    $user = auth()->user();
+    $user->favourite_game = $request->input('name');
+    $user->favgame_image = $request->input('imageUrl');
+    $user->save();
+
+    return response()->json(['message' => 'Favourite game updated!']);
+}
+
 
 }

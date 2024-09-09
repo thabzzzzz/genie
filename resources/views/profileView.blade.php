@@ -25,13 +25,14 @@
     </div>
 
     <div class="col-span-1 p-6">
-        <p>{{ $description }}</p>
-        <b>Favourite game</b>
+        <div class="text-2xl mt-7"><h1 >about:</h1></div>        <p>{{ $description }}</p>
+
+ {{-- row1  --}}<div class="text-2xl mt-7"><h1 >favourite game:</h1></div>
        
 
         {{-- fav game box --}}
       
-        <favouriteGame :showcase-game-id="{{ $showcaseGameId }}" image-url="{{ asset('site-images/images/favGame.jpeg') }}"></favouriteGame>    </div>
+        <favouriteGame :showcase-game-id="{{ $showcaseGameId }}" image-url="{{ asset('site-images/images/favGame.jpg') }}"></favouriteGame>    </div>
 
     
 </div>

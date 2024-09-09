@@ -1,6 +1,9 @@
 <template>
     <div class="favouriteGameBox">
         <div v-if="showcaseGameId">
+
+            <a :href="`/gamedetail/${showcaseGameId}`">
+
             <div class="grid grid-cols-2 gap-4">
                 <div class="bg-gray-200 p-4">
                     <h4>{{ favouriteGameName }}</h4>
@@ -9,6 +12,8 @@
                     <img :src="gameImageUrl" alt="Favourite Game" v-if="gameImageUrl" class="fav-game-img" />
                 </div>
             </div>
+            </a>
+
         </div>
         <p v-else>No game selected</p>
     </div>
