@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/var/www/html
     ports:
-      - "8000:80"  # This is correct for Apache serving the Laravel app
+      - "8000:80"  
     environment:
       - DB_HOST=db
       - DB_PORT=3306
@@ -30,7 +30,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     ports:
-      - "3307:3306"  # Adjust this if you need MySQL to run on a different port locally
+      - "3307:3306"  
 
 volumes:
   dbdata:
