@@ -11,6 +11,8 @@ use ProtoneMedia\Splade\Facades\Toast;
 
 use App\Models\Wishlist;
 use App\Models\ProfileCustomization;
+use App\Models\Friend;
+use App\Models\FriendRequest;
 use Illuminate\Support\Facades\File;
 
 use ProtoneMedia\Splade\Facades\SEO;
@@ -437,6 +439,55 @@ public function saveFavouriteGame(Request $request)
 
     return response()->json(['message' => 'Favourite game updated!']);
 }
+
+
+    // Send a friend request
+    public function sendRequest(Request $request)
+    {
+        $request->validate([
+            'receiver_id' => 'required|exists:users,id'
+        ]);
+
+        $friendRequest = FriendRequest::create([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $request->receiver_id,
+            'status' => 'pending'
+        ]);
+
+        return response()->json(['message' => 'Friend request sent!'], 200);
+    }
+
+    // Accept a friend request
+    public function acceptRequest($id)
+    {
+        $friendRequest = FriendRequest::where('receiver_id', auth()->id())->where('id', $id)->firstOrFail();
+
+        // Add both users as friends
+        Friend::create(['user_id' => $friendRequest->sender_id, 'friend_id' => $friendRequest->receiver_id]);
+        Friend::create(['user_id' => $friendRequest->receiver_id, 'friend_id' => $friendRequest->sender_id]);
+
+        // Delete the friend request after accepting
+        $friendRequest->delete();
+
+        return response()->json(['message' => 'Friend request accepted!'], 200);
+    }
+
+    // Reject a friend request
+    public function rejectRequest($id)
+    {
+        $friendRequest = FriendRequest::where('receiver_id', auth()->id())->where('id', $id)->firstOrFail();
+        $friendRequest->update(['status' => 'rejected']);
+
+        return response()->json(['message' => 'Friend request rejected!'], 200);
+    }
+
+    // List pending friend requests
+    public function pendingRequests()
+    {
+        $requests = FriendRequest::where('receiver_id', auth()->id())->where('status', 'pending')->get();
+        return response()->json($requests, 200);
+    }
+
 
 
 }

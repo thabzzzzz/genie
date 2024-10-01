@@ -96,6 +96,14 @@ Route::middleware('splade')->group(function () {
 
         Route::get('/favourite-game/{gameId}', [ClientController::class, 'getFavouriteGame']);
 Route::post('/save-favourite-game', [ClientController::class, 'saveFavouriteGame']);
+
+//freind functions
+Route::post('/friend-request', [ClientController::class, 'sendRequest']);
+Route::post('/friend-request/{id}/accept', [ClientController::class, 'acceptRequest']);
+Route::post('/friend-request/{id}/reject', [ClientController::class, 'rejectRequest']);
+Route::get('/friend-requests/pending', [ClientController::class, 'pendingRequests']);
+
+
     });
    
     require __DIR__.'/auth.php';
