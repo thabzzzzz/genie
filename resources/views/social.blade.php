@@ -77,7 +77,7 @@
 
 <div id="fb">
     <div id="fb-top">
-        <p><b>Pending Requests</b></p>
+        <p><b>Sent Requests</b></p>
     </div>
 
     @foreach ($pendingRequests as $pendingRequest)
@@ -101,7 +101,7 @@
                 <form action="{{ route('friend.cancel', $pendingRequest->id) }}" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" id="cancel">Cancel Request</button>
+                    <button type="submit" id="delete">Cancel Request</button>
                 </form>
             </div>
         </div>
