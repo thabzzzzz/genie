@@ -52,6 +52,9 @@ Route::middleware('splade')->group(function () {
             return redirect('/home');
         })->name('dashboard');
 
+        Route::get('/social', [ClientController::class, 'social'])->name('social');
+
+
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -98,10 +101,19 @@ Route::middleware('splade')->group(function () {
 Route::post('/save-favourite-game', [ClientController::class, 'saveFavouriteGame']);
 
 //freind functions
+
+// Send a friend request
 Route::post('/friend-request', [ClientController::class, 'sendRequest']);
+
+// Accept a friend request
 Route::post('/friend-request/{id}/accept', [ClientController::class, 'acceptRequest']);
+
+// Reject a friend request
 Route::post('/friend-request/{id}/reject', [ClientController::class, 'rejectRequest']);
+
+// Get pending friend requests
 Route::get('/friend-requests/pending', [ClientController::class, 'pendingRequests']);
+
 
 
     });

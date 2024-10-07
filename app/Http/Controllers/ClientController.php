@@ -13,6 +13,8 @@ use App\Models\Wishlist;
 use App\Models\ProfileCustomization;
 use App\Models\Friend;
 use App\Models\FriendRequest;
+use App\Models\User;
+
 use Illuminate\Support\Facades\File;
 
 use ProtoneMedia\Splade\Facades\SEO;
@@ -34,6 +36,23 @@ class ClientController extends Controller
     public function create(){
         return view('create'); 
     }
+
+    public function social()
+    {
+        $user = auth()->user();
+    
+        // Get current friends without the status check
+        $friends = $user->friends()->get();
+    
+        // Get pending friend requests (received by the user)
+        $friendRequests = FriendRequest::where('receiver_id', $user->id)
+                                       ->where('status', 'pending')
+                                       ->with('sender')
+                                       ->get();
+    
+        return view('social', compact('friends', 'friendRequests'));
+    }
+    
 
 
  
@@ -444,48 +463,63 @@ public function saveFavouriteGame(Request $request)
     // Send a friend request
     public function sendRequest(Request $request)
     {
-        $request->validate([
-            'receiver_id' => 'required|exists:users,id'
-        ]);
-
-        $friendRequest = FriendRequest::create([
-            'sender_id' => auth()->id(),
-            'receiver_id' => $request->receiver_id,
-            'status' => 'pending'
-        ]);
-
-        return response()->json(['message' => 'Friend request sent!'], 200);
+        $receiverId = $request->input('receiver_id');
+    
+        // Check if a friend request already exists or users are already friends
+        $existingRequest = FriendRequest::where('sender_id', auth()->id())
+                                        ->where('receiver_id', $receiverId)
+                                        ->first();
+    
+        if (!$existingRequest) {
+            FriendRequest::create([
+                'sender_id' => auth()->id(),
+                'receiver_id' => $receiverId,
+                'status' => 'pending'
+            ]);
+        }
+    
+        return back()->with('status', 'Friend request sent!');
     }
+    
 
-    // Accept a friend request
     public function acceptRequest($id)
     {
-        $friendRequest = FriendRequest::where('receiver_id', auth()->id())->where('id', $id)->firstOrFail();
-
-        // Add both users as friends
-        Friend::create(['user_id' => $friendRequest->sender_id, 'friend_id' => $friendRequest->receiver_id]);
-        Friend::create(['user_id' => $friendRequest->receiver_id, 'friend_id' => $friendRequest->sender_id]);
-
-        // Delete the friend request after accepting
-        $friendRequest->delete();
-
-        return response()->json(['message' => 'Friend request accepted!'], 200);
+        $friendRequest = FriendRequest::findOrFail($id);
+    
+        if ($friendRequest->receiver_id == auth()->id()) {
+            // Add users to each other's friends lists
+            auth()->user()->friends()->attach($friendRequest->sender_id);
+            $friendRequest->sender->friends()->attach(auth()->id());
+    
+            // Delete the friend request after accepting
+            $friendRequest->delete();
+        }
+    
+        return back()->with('status', 'Friend request accepted!');
     }
+    
 
-    // Reject a friend request
     public function rejectRequest($id)
     {
-        $friendRequest = FriendRequest::where('receiver_id', auth()->id())->where('id', $id)->firstOrFail();
-        $friendRequest->update(['status' => 'rejected']);
-
-        return response()->json(['message' => 'Friend request rejected!'], 200);
+        $friendRequest = FriendRequest::findOrFail($id);
+    
+        if ($friendRequest->receiver_id == auth()->id()) {
+            // Simply delete the request
+            $friendRequest->delete();
+        }
+    
+        return back()->with('status', 'Friend request rejected.');
     }
+    
 
-    // List pending friend requests
     public function pendingRequests()
     {
-        $requests = FriendRequest::where('receiver_id', auth()->id())->where('status', 'pending')->get();
-        return response()->json($requests, 200);
+        $pendingRequests = FriendRequest::where('receiver_id', auth()->id())
+                                        ->where('status', 'pending')
+                                        ->with('sender')
+                                        ->get();
+    
+        return view('pending-requests', compact('pendingRequests'));
     }
 
 

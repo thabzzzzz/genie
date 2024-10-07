@@ -60,8 +60,24 @@ public function sentFriendRequests()
         return $this->hasMany(FriendRequest::class, 'receiver_id');
     }
 
+    public function friendsOfMine()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
+                    ->wherePivot('status', 'accepted');
+    }
+    
+    public function friendOf()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
+                    ->wherePivot('status', 'accepted');
+    }
+    
     public function friends()
     {
         return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id');
     }
+    
+    
+
+    
 }
