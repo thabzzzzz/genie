@@ -519,7 +519,20 @@ body {
   opacity: 0.9;
 }
  
+.friend-item {
+  display: flex;
+  align-items: center; /* Vertically align image and text */
+  gap: 10px; /* Add some space between the image and name */
+}
 
+.friend-img {
+  border-radius: 50%; /* Optional: To make the image round */
+}
+
+.friend-name {
+  margin: 0; /* Remove default margin */
+  font-size: 1rem; /* Adjust the font size */
+}
 
 
 

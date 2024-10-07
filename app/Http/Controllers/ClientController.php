@@ -39,19 +39,23 @@ class ClientController extends Controller
 
     public function social()
     {
-        $user = auth()->user();
-
-        // Get current friends with their profile customizations
-        $friends = $user->friends()->with('profileCustomization')->get();
+        // Fetch current friends of the authenticated user
+        $friends = Auth::user()->friends()->with('profileCustomization')->get();
+        
+        // Fetch incoming friend requests (where the user is the receiver)
+        $friendRequests = FriendRequest::where('receiver_id', Auth::id())
+            ->with('sender.profileCustomization') // Load the sender's profile image
+            ->get();
     
-        // Get pending friend requests (received by the user)
-        $friendRequests = FriendRequest::where('receiver_id', $user->id)
-                                       ->where('status', 'pending')
-                                       ->with('sender') // Ensure we load the sender's details
-                                       ->get();
-    
-        return view('social', compact('friends', 'friendRequests'));
+        // Fetch pending friend requests (where the user is the sender)
+        $pendingRequests = FriendRequest::where('sender_id', Auth::id())
+            ->where('status', 'pending') // Assuming 'status' column is used to track pending requests
+            ->with('receiver.profileCustomization') // Load the receiver's profile image
+            ->get();
+        
+        return view('social', compact('friends', 'friendRequests', 'pendingRequests'));
     }
+    
     
 
 
@@ -511,16 +515,30 @@ public function saveFavouriteGame(Request $request)
         return back()->with('status', 'Friend request rejected.');
     }
     
-
     public function pendingRequests()
     {
-        $pendingRequests = FriendRequest::where('receiver_id', auth()->id())
-                                        ->where('status', 'pending')
-                                        ->with('sender')
-                                        ->get();
+        $pendingRequests = FriendRequest::where('sender_id', Auth::id())
+            ->where('status', 'pending')
+            ->with('receiver.profileCustomization')
+            ->get();
     
-        return view('pending-requests', compact('pendingRequests'));
+        dd($pendingRequests); // Debug to check if the query is returning data
+    
+        return view('social.pending-requests', compact('pendingRequests'));
     }
+    
+
+    public function cancelRequest($id)
+{
+    // Find the friend request by ID and delete it if the user is the sender
+    $friendRequest = FriendRequest::where('id', $id)
+        ->where('sender_id', Auth::id())
+        ->firstOrFail();
+
+    $friendRequest->delete();
+
+    return redirect()->back()->with('status', 'Friend request canceled.');
+}
 
 
 

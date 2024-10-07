@@ -110,7 +110,10 @@ Route::post('/friend-request/{id}/accept', [ClientController::class, 'acceptRequ
 // Reject a friend request
 Route::post('/friend-request/{id}/reject', [ClientController::class, 'rejectRequest'])->name('friend.reject');
 // Get pending friend requests
-Route::get('/friend-requests/pending', [ClientController::class, 'pendingRequests']);
+Route::get('/pending-requests', [ClientController::class, 'pendingRequests'])->name('pending.requests');
+
+Route::delete('/friend-request/{id}/cancel', [ClientController::class, 'cancelRequest'])->name('friend.cancel');
+
 
 
 
