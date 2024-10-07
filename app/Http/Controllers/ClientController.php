@@ -40,14 +40,14 @@ class ClientController extends Controller
     public function social()
     {
         $user = auth()->user();
-    
-        // Get current friends without the status check
-        $friends = $user->friends()->get();
+
+        // Get current friends with their profile customizations
+        $friends = $user->friends()->with('profileCustomization')->get();
     
         // Get pending friend requests (received by the user)
         $friendRequests = FriendRequest::where('receiver_id', $user->id)
                                        ->where('status', 'pending')
-                                       ->with('sender')
+                                       ->with('sender') // Ensure we load the sender's details
                                        ->get();
     
         return view('social', compact('friends', 'friendRequests'));

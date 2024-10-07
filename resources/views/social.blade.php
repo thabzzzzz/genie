@@ -2,41 +2,68 @@
     <div class="py-12 bg-maintheme">
         <div class="w-full mx-auto">
             <h1 class="content-heading text-center heading1 mb-5">Social</h1>
+            
+            <!-- Current Friends Section -->
+          
 
-            <!-- Display Current Friends -->
-            <h2>Friends</h2>
-            @if ($friends->isEmpty())
-                <p>You don't have any friends yet.</p>
-            @else
-                <ul>
-                    @foreach ($friends as $friend)
-                        <li>{{ $friend->name }}</li>
-                    @endforeach
-                </ul>
-            @endif
+            <!-- Incoming Friend Requests Section -->
+            <div class="friend-requests">
 
-            <!-- Display Pending Friend Requests -->
-            <h2>Friend Requests</h2>
-            @if ($friendRequests->isEmpty())
-                <p>No pending friend requests.</p>
-            @else
-                <ul>
-                    @foreach ($friendRequests as $request)
-                        <li>
-                            {{ $request->sender->name }}
-                            <form action="{{ route('friend.accept', $request->id) }}" method="POST">
+                <div id="fb">
+                    <div id="fb-top">
+                        <p><b>Current Friends</b></p>
+                    </div>
+
+
+                   <ul>
+    @foreach ($friends as $friend)
+        <li>
+            @php
+                // Fetch the profile customization for the friend
+                $profileCustomization = $friend->profileCustomization;
+
+                // Use the profile picture or a default image if not found
+                $profileImage = $profileCustomization 
+                    ? asset('profilePictures/' . $profileCustomization->profile_picture) 
+                    : asset('profilePictures/profile_picture.jpg'); // Default image
+            @endphp
+            <img src="{{ $profileImage }}" height="50" width="50" alt="Image of {{ $friend->name }}">
+            <p>{{ $friend->name }}</p>
+        </li>
+    @endforeach
+</ul>
+                    
+                    
+                </div>
+                
+
+                <h2>Friend Requests</h2>
+                <div id="fb">
+                    <div id="fb-top">
+                        <p><b>Friend Requests</b> <span>Find Friends &bull; Settings</span></p>
+                    </div>
+                    @foreach ($friendRequests as $friendRequest)
+                    <div class="friend-request-item">
+                        <img src="https://s13.postimg.org/xgla0jo4n/image.jpg" height="100" width="100" alt="Image of {{ $friendRequest->sender->name }}">
+                        <p id="info"><b>{{ $friendRequest->sender->name }}</b><br> <span>14 mutual friends</span></p>
+                        <div id="button-block">
+                            <form action="{{ route('friend.accept', $friendRequest->id) }}" method="POST" style="display: inline;">
                                 @csrf
-                                <button type="submit">Accept</button>
+                                <button type="submit" id="confirm">Confirm</button>
                             </form>
-                            <form action="{{ route('friend.reject', $request->id) }}" method="POST">
+                            <form action="{{ route('friend.reject', $friendRequest->id) }}" method="POST" style="display: inline;">
                                 @csrf
-                                <button type="submit">Reject</button>
+                                <button type="submit" id="delete">Delete Request</button>
                             </form>
-                        </li>
+                        </div>
+                    </div>
                     @endforeach
-                </ul>
-            @endif
 
+                    @if ($friendRequests->isEmpty())
+                        <p>No friend requests at the moment.</p>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>

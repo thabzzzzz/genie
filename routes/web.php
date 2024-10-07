@@ -106,11 +106,9 @@ Route::post('/save-favourite-game', [ClientController::class, 'saveFavouriteGame
 Route::post('/friend-request', [ClientController::class, 'sendRequest']);
 
 // Accept a friend request
-Route::post('/friend-request/{id}/accept', [ClientController::class, 'acceptRequest']);
-
+Route::post('/friend-request/{id}/accept', [ClientController::class, 'acceptRequest'])->name('friend.accept');
 // Reject a friend request
-Route::post('/friend-request/{id}/reject', [ClientController::class, 'rejectRequest']);
-
+Route::post('/friend-request/{id}/reject', [ClientController::class, 'rejectRequest'])->name('friend.reject');
 // Get pending friend requests
 Route::get('/friend-requests/pending', [ClientController::class, 'pendingRequests']);
 

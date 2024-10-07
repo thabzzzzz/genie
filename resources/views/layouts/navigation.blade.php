@@ -27,6 +27,10 @@
                         <Link href="{{ route('search') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
                           {{ __('search') }}
                         </Link>
+
+                        <Link href="{{ route('social') }}" class="heading1 navlink border-b-2 px-5 pt-7 text-texttheme relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-texttheme after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left " id="home-link">
+                            {{ __('social') }}
+                          </Link>
                       </div>
                       
                     
