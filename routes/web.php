@@ -119,6 +119,11 @@ Route::get('/pending-requests', [ClientController::class, 'pendingRequests'])->n
 
 Route::delete('/friend-request/{id}/cancel', [ClientController::class, 'cancelRequest'])->name('friend.cancel');
 
+//send request
+Route::post('/invite/{userId}', [ClientController::class, 'sendInvite'])->name('invite.send');
+
+Route::get('/allUsers',[ClientController::class,'allUsers'])->name('allUsers');
+
 
 
 

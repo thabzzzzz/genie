@@ -1,15 +1,18 @@
-{{-- otherProfile.blade.php --}}
 <x-app-layout>
-    <x-slot name="header">
-    </x-slot>
+    
+        <div class="flex justify-between items-center"> <!-- Centered items vertically -->
+            <h1 class="text-xl">{{ $user->name }}'s Profile</h1>
+            <form action="{{ route('invite.send', $user->id) }}" method="POST"> <!-- Correct route for sending invite -->
+                @csrf
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Invite</button>
+            </form>
+        </div>
+    
 
     <div class="pb-12 bg-maintheme mb-32">
         <div class="w-full mx-auto">
-            <h1 class="content-heading text-center heading1 mb-4 mt-10">{{ $user->name }}'s Profile</h1>
-
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-maintheme shadow sm:rounded-none profilesection">
-
                     {{-- Profile Picture --}}
                     <div class="profile-picture-container">
                         @if ($profileCustomization)
@@ -34,4 +37,13 @@
             </div>
         </div>
     </div>
+
+    {{-- Toast Notifications --}}
+    @if (session('toast'))
+        <div class="toast-container fixed bottom-4 right-4 z-50">
+            <div class="toast bg-{{ session('toast.type') }} text-white p-3 rounded-md mb-2">
+                {{ session('toast.message') }}
+            </div>
+        </div>
+    @endif
 </x-app-layout>

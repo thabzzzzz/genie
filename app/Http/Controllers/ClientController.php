@@ -556,8 +556,50 @@ public function show($userId)
     return view('otherProfile', compact('user', 'description', 'showcaseGameId', 'profileCustomization'));
 }
 
+public function sendInvite($userId)
+{
+    $currentUserId = Auth::id();
 
+    // Check if the user is trying to invite themselves
+    if ($currentUserId == $userId) {
+        return redirect()->back()->with('toast', [
+            'type' => 'yellow',
+            'message' => 'You cannot invite yourself.'
+        ]);
+    }
 
+    // Check if they are already friends
+    if (FriendRequest::where(function ($query) use ($currentUserId, $userId) {
+        $query->where('sender_id', $currentUserId)
+              ->where('receiver_id', $userId);
+    })->orWhere(function ($query) use ($currentUserId, $userId) {
+        $query->where('sender_id', $userId)
+              ->where('receiver_id', $currentUserId);
+    })->exists()) {
+        return redirect()->back()->with('toast', [
+            'type' => 'yellow',
+            'message' => 'Already friends or invite pending.'
+        ]);
+    }
+
+    // Create a new friend request
+    $friendRequest = new FriendRequest();
+    $friendRequest->sender_id = $currentUserId;
+    $friendRequest->receiver_id = $userId;
+    $friendRequest->status = 'pending'; // Assuming you have a status field
+    $friendRequest->save();
+
+    return redirect()->back()->with('toast', [
+        'type' => 'green',
+        'message' => 'Invitation sent successfully!'
+    ]);
+}
+
+public function AllUsers()
+{
+    $users = User::all(); // Fetch all users
+    return view('allusers', compact('users')); // Pass users to the view
+}
 
 
 
