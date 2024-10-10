@@ -508,7 +508,6 @@ public function saveFavouriteGame(Request $request)
         $friendRequest = FriendRequest::findOrFail($id);
     
         if ($friendRequest->receiver_id == auth()->id()) {
-            // Simply delete the request
             $friendRequest->delete();
         }
     
@@ -522,7 +521,7 @@ public function saveFavouriteGame(Request $request)
             ->with('receiver.profileCustomization')
             ->get();
     
-        dd($pendingRequests); // Debug to check if the query is returning data
+      
     
         return view('social.pending-requests', compact('pendingRequests'));
     }
@@ -530,7 +529,6 @@ public function saveFavouriteGame(Request $request)
 
     public function cancelRequest($id)
 {
-    // Find the friend request by ID and delete it if the user is the sender
     $friendRequest = FriendRequest::where('id', $id)
         ->where('sender_id', Auth::id())
         ->firstOrFail();
@@ -542,17 +540,13 @@ public function saveFavouriteGame(Request $request)
 
 public function show($userId)
 {
-    // Retrieve the user by their ID (other user's profile)
     $user = User::findOrFail($userId);
 
-    // Get the profile customization for the other user
     $profileCustomization = $user->profileCustomization;
 
-    // If profile customization exists, get the description; otherwise, set it to empty string
     $description = $profileCustomization ? $profileCustomization->description : '';
     $showcaseGameId = $profileCustomization ? $profileCustomization->showcase_game_id : null;
 
-    // Pass the other user's details to the view
     return view('otherProfile', compact('user', 'description', 'showcaseGameId', 'profileCustomization'));
 }
 
@@ -560,7 +554,6 @@ public function sendInvite($userId)
 {
     $currentUserId = Auth::id();
 
-    // Check if the user is trying to invite themselves
     if ($currentUserId == $userId) {
         return redirect()->back()->with('toast', [
             'type' => 'yellow',
@@ -568,7 +561,6 @@ public function sendInvite($userId)
         ]);
     }
 
-    // Check if they are already friends
     if (FriendRequest::where(function ($query) use ($currentUserId, $userId) {
         $query->where('sender_id', $currentUserId)
               ->where('receiver_id', $userId);
@@ -586,7 +578,7 @@ public function sendInvite($userId)
     $friendRequest = new FriendRequest();
     $friendRequest->sender_id = $currentUserId;
     $friendRequest->receiver_id = $userId;
-    $friendRequest->status = 'pending'; // Assuming you have a status field
+    $friendRequest->status = 'pending'; 
     $friendRequest->save();
 
     return redirect()->back()->with('toast', [
@@ -597,8 +589,8 @@ public function sendInvite($userId)
 
 public function AllUsers()
 {
-    $users = User::all(); // Fetch all users
-    return view('allusers', compact('users')); // Pass users to the view
+    $users = User::all(); 
+    return view('allusers', compact('users')); 
 }
 
 
