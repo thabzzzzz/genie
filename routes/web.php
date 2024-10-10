@@ -61,6 +61,11 @@ Route::middleware('splade')->group(function () {
 
         //my routes
         Route::get('/home',[ClientController::class,'home'])->name('home');
+        Route::get('/otherProfile',[ClientController::class,'otherProfile'])->name('otherProfile');
+        Route::get('/user/{id}', [ClientController::class, 'show'])->name('user.show');
+        Route::get('/profile/{userId}', [ProfileController::class, 'show'])->name('otherProfile');
+
+
 
        
         Route::post('/storeitem',[ClientController::class,'storeitem'])->name('storeitem');

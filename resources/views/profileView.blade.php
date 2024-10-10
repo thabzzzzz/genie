@@ -39,9 +39,7 @@
 
 <Link href="{{ route('customize') }}"><button class="my-btn-2">Customize</button>  </Link>  
 
-<h1>social</h1>
 
-<h2>friend invites:</h2>
 
 
                 </div>

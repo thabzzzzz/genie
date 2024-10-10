@@ -13,31 +13,27 @@
                     <div id="fb-top">
                         <p><b>Current Friends</b></p>
                     </div>
-
-
+                
                     <ul>
                         @foreach ($friends as $friend)
                             <li style="list-style: none;">
                                 <div class="friend-item">
                                     @php
-                                        // Fetch the profile customization for the friend
                                         $profileCustomization = $friend->profileCustomization;
-                    
-                                        // Use the profile picture or a default image if not found
                                         $profileImage = $profileCustomization 
                                             ? asset('profilePictures/' . $profileCustomization->profile_picture) 
-                                            : asset('profilePictures/profile_picture.jpg'); // Default image
+                                            : asset('profilePictures/profile_picture.jpg');
                                     @endphp
                                     <img src="{{ $profileImage }}" height="50" width="50" alt="Image of {{ $friend->name }}" class="friend-img">
-                                    <p class="friend-name">{{ $friend->name }}</p>
+                                    <!-- Make the name a link to the friend's profile -->
+                                    <a href="{{ route('user.show', $friend->id) }}" class="friend-name">{{ $friend->name }}</a>
                                 </div>
                             </li>
                         @endforeach
                     </ul>
-                    
-                    
-                    
                 </div>
+                
+                
                 
 
 <div id="fb">

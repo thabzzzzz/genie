@@ -540,6 +540,26 @@ public function saveFavouriteGame(Request $request)
     return redirect()->back()->with('status', 'Friend request canceled.');
 }
 
+public function show($userId)
+{
+    // Retrieve the user by their ID (other user's profile)
+    $user = User::findOrFail($userId);
+
+    // Get the profile customization for the other user
+    $profileCustomization = $user->profileCustomization;
+
+    // If profile customization exists, get the description; otherwise, set it to empty string
+    $description = $profileCustomization ? $profileCustomization->description : '';
+    $showcaseGameId = $profileCustomization ? $profileCustomization->showcase_game_id : null;
+
+    // Pass the other user's details to the view
+    return view('otherProfile', compact('user', 'description', 'showcaseGameId', 'profileCustomization'));
+}
+
+
+
+
+
 
 
 }
