@@ -554,13 +554,16 @@ public function sendInvite($userId)
 {
     $currentUserId = Auth::id();
 
+    // Prevent sending an invite to oneself
     if ($currentUserId == $userId) {
+        Toast::title('You cannot invite yourself.')->autoDismiss(5)->warning();
         return redirect()->back()->with('toast', [
             'type' => 'yellow',
             'message' => 'You cannot invite yourself.'
         ]);
     }
 
+    // Check if they are already friends or a friend request is pending
     if (FriendRequest::where(function ($query) use ($currentUserId, $userId) {
         $query->where('sender_id', $currentUserId)
               ->where('receiver_id', $userId);
@@ -568,6 +571,7 @@ public function sendInvite($userId)
         $query->where('sender_id', $userId)
               ->where('receiver_id', $currentUserId);
     })->exists()) {
+        Toast::title('Already friends or invite pending.')->autoDismiss(5)->warning();
         return redirect()->back()->with('toast', [
             'type' => 'yellow',
             'message' => 'Already friends or invite pending.'
@@ -581,11 +585,15 @@ public function sendInvite($userId)
     $friendRequest->status = 'pending'; 
     $friendRequest->save();
 
+    // Show success toast
+    Toast::title('Invitation sent successfully!')->autoDismiss(5)->success();
+    
     return redirect()->back()->with('toast', [
         'type' => 'green',
         'message' => 'Invitation sent successfully!'
     ]);
 }
+
 
 public function AllUsers()
 {
