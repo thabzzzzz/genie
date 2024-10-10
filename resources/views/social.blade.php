@@ -56,11 +56,11 @@
             <div id="button-block">
                 <form action="{{ route('friend.accept', $friendRequest->id) }}" method="POST" style="display: inline;">
                     @csrf
-                    <button type="submit" id="confirm">Confirm</button>
+                    <button type="submit" class="my-btn-2">Confirm</button>
                 </form>
                 <form action="{{ route('friend.reject', $friendRequest->id) }}" method="POST" style="display: inline;">
                     @csrf
-                    <button type="submit" id="delete">Reject</button>
+                    <button type="submit" class="my-btn-2" style="background-color: #dc3545; color: white;">Reject</button>
                 </form>
             </div>
         </div>
@@ -97,7 +97,7 @@
                 <form action="{{ route('friend.cancel', $pendingRequest->id) }}" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" id="delete">Cancel Request</button>
+                    <button type="submit" class="my-btn-2" style="background-color: #dc3545; color: white;">Cancel Request</button>
                 </form>
             </div>
         </div>

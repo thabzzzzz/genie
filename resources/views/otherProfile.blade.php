@@ -1,12 +1,12 @@
 <x-app-layout>
     
-        <div class="flex justify-between items-center"> <!-- Centered items vertically -->
-            <h1 class="text-xl">{{ $user->name }}'s Profile</h1>
-            <form action="{{ route('invite.send', $user->id) }}" method="POST"> <!-- Correct route for sending invite -->
-                @csrf
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Invite</button>
-            </form>
-        </div>
+    <div class="flex justify-center items-center space-x-4"> <!-- Adjusted to center the items -->
+        <h1 class="text-xl">{{ $user->name }}'s Profile</h1>
+        <form action="{{ route('invite.send', $user->id) }}" method="POST"> <!-- Correct route for sending invite -->
+            @csrf
+            <button type="submit" class="my-btn-2">Invite</button>
+        </form>
+    </div>
     
 
     <div class="pb-12 bg-maintheme mb-32">
