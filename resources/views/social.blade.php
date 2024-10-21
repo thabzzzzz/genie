@@ -43,7 +43,6 @@
     @foreach ($friendRequests as $friendRequest)
         <div class="friend-request-item">
             @php
-                // Fetch the profile customization for the sender
                 $profileCustomization = $friendRequest->sender->profileCustomization;
 
                 // Use the profile picture or a default image if not found
